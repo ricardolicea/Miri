@@ -5,12 +5,12 @@ import codecs
 import os
 import sys
 
-
+#Tokens 
 tokens = [ 'ID', 'ASSGN', 'COMMA', 'DOT', 
     'COLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
-    'SUM', 'MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER'
+    'SUM', 'MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
 ]
-
+#Palabras reservadas
 reservadas = {
     'program':'PROGRAM',
     'end': 'END',
@@ -40,7 +40,8 @@ reservadas = {
      
 tokens = tokens + list(reservadas.values())
 
-t_ignore = '\t'
+#Tokens definidos
+t_SPACE = r'\D'
 t_ASSGN = r'='
 t_COMMA = r','
 t_DOT = r'\.'
@@ -62,8 +63,12 @@ t_EQ = r'=='
 t_NOTEQ = r'!='
 t_GRTREQ = r'>='
 t_LESSEQ = r'<='
+t_AND = r'&&'
+t_OR = r'\|\|'
 
-#Funcion para definir la gramatica regular de un ID
+
+
+#Funcion para definir la expresion regular de un ID
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     if t.value.upper() in reservadas: 
@@ -71,24 +76,38 @@ def t_ID(t):
         t.type = t.value
     return t
 
+#Funcion para definir la expresion regular de un salto de linea
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-    return t
+    
 
-def t_NUMBER(t):
-    r'\d+'
+#Funcion para definir la expresion regular de un numero INT
+def t_INT(t):
+    r'-[0-9]+'
     t.value = int(t.value)
     return t
+#Funcion para definir la expresion regular de un numero FLOAT
+def t_FLOAT(t):
+    r'-?[0-9]+\.[0-9]+'
+    t.value = float(t.value)
+    return t
+#Funcion para definir la expresion regular de un BOOL
+def t_BOOL(t):
+    r'false|true'
+    return t
+
 #Funcion para definir la expresion regular de un comentario
 def t_COMMENT(t):
     r'\#.*'
     pass
-
+#Funcion para definir la expresion regular de un error. Saca a pantalla
+#el mensaje de un carater ilegal(no aceptado por el lenguaje)
 def t_error(t):
     print "caracter ilegal '%s'" % t.value[0]
     t.lexer.skip(1)
 
+#Funcion para buscar los archivos de prueba. Su proposito es para debugging
 def buscarFicheros(directorio):
     ficheros = []
     numArchivo = ''
