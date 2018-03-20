@@ -130,7 +130,7 @@ def buscarFicheros(directorio):
     print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
     return files[int(numArchivo)-1]
 
-directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+directorio = 'C:\Users\rlicea\Documents\compiladores\Miri\Analysis\test\'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
 fp = codecs.open(test,"r","utf-8")
