@@ -19,5 +19,9 @@ precedence = (
 )
 
 def p_program(p):
-    ''' ''' 
+    '''program = PROGRAM ID ; declare funct main END ; ''' 
+    print("program")
     p[0] = 
+
+def p_declare(p):
+    ''' declare = DECLARE type ID  '''
