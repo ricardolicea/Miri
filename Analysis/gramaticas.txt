@@ -1,0 +1,54 @@
+PROGRAM ::= tokProgram tokID tokSemicolon PROGRAM2  CUERPO tokEnd tokSemicolon
+PROGRAM2 ::= DECLARE PROGRAM3 | empty
+PROGRAM3 ::= FUNCT PROGRAM3 | empty
+
+DECLARE ::= tokDeclare TYPE tokID DECLARE2 DECLARE3 tokSemicolon
+DECLARE2 ::= ARRAY | empty
+DECLARE3 ::= tokComma DECLARE3 | empty
+
+ARRAY ::= tokLeftbrack EXP tokRightbrack ARRAY | empty
+
+TYPE ::= tokType TYPE2
+TYPE2 ::= tokInt | tokFloat | tokString | tokBool | tokVoid
+
+CUERPO ::= tokMain tokLeftpar tokRightpar tokLeftKey EST tokRightkey
+
+EST ::= CONDITIONAL | CYCLE | READ | WRITE | ASSIGNMENT | FUNCT
+
+ASSIGNMENT ::= tokId tokAssgn tokID tokSemicolon
+
+CONDITIONAL ::= tokIf tokLeftPar CONDITIONAL2 tokRightpar tokleftkey EST tokRightkey tokElse tokleftkey EST tokRightkey
+CONDITIONAL2 ::= EXP CONDITIONAL2 |empty
+
+CYCLES ::= WHILE | FOR | DO-WHILE
+
+WHILE ::= tokWhile tokleftPar WHILE2 tokRightPar tokLeftKey EST tokRightKey
+WHILE2 ::= EXP WHILE2 | empty
+
+DO-WHILE ::= tokDo tokLeftkey EST tokRightkey tokWhile tokLeftPar DO-WHILE2 tokRightPar
+DO-WHILE2 ::= EXP DO-WHILE2 | empty
+
+FOR ::= tokFor tokLeftPar FOR2  tokSemicolon FOR3 tokSemicolon tokID ARITHMETICOP ARITHMETICOP tokRightpar tokleftKey EST tokRightkey
+FOR2 ::= tokID tokAssgn tokID FOR2 | empty
+FOR3 ::= EXP FOR3 | empty
+
+EXP ::= tokId ARRAY EXP2 tokSemicolon
+EXP2 ::= tokLess | tokGrtr | tokLessthan | tokGrtrthan | tokEq | tokNotEq | tokAnd | tokOr |ARITHMETICEXP | empty
+
+OUTPUT::= tokWrite tokLeftpar OUTPUT2 GEOMETRICFIG tokQuote EXP tokQuote tokRightpar tokSemicolon
+OUTPUT2 ::= tokId OUTPUT2 | empty
+
+INPUT::= tokRead tokLeftPar  INPUT2 tokRightPar tokSemicolon
+INPUT2::= tokId  ARRAY tokComma INPUT2 | empty
+
+FUNCT::= tokFunct TYPE tokId tokLeftPar FUNCT2 tokRightPar tokLeftKey EST tokRightKey
+FUNCT2::= TYPE tokID FUNCT3 FUNCT2 | empty
+FUTNCT3::= tokComma | empty
+
+ARITHMETICEXP::= tokSum | tokMinus | tokMultpl | tokDivide | tokAssgn | empty
+
+GEOMETRICFIG::= ARCH | CIRCLE | SQUARE | empty
+
+ARCH::= tokArch tokLeftPar EXP tokComma EXP tokComm EXP tokComma EXP tokComma EXP tokRightPar tokSemicolon
+CIRCLE::= tokCircle tokLEftPar EXP tokComma EXP tokComma EXP tokComma EXP tokRightPar tokSemicolon
+SQUARE::= tokCircle tokLEftPar EXP tokComma EXP tokComma EXP tokComma EXP tokComma EXP tokComma EXP tokRightPar tokSemicolon
