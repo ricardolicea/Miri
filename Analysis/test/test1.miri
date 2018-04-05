@@ -1,3 +1,1 @@
 program patito;
-int iVar = 1;
-float f = 2.0;
