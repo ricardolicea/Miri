@@ -6,34 +6,34 @@ import re
 from lexer import tokens
 from sys import stdin
 
-precedence = (
-    ('right', 'ASSGN'),
-    ('left', 'AND'),
-    ('left', 'OR'),
-    ('left', 'NOTEQ'),
-    ('left', 'EQ'),
-    ('left', 'GRTR', 'GRTREQ', 'LESS', 'LESSEQ'),
-    ('left', 'SUM', 'MINUS'),
-    ('left', 'MULTP', 'DIVIDE'),
-    ('left', 'LEFTPAR', 'RIGHTPAR')
+#precedence = (
+#    ('right', 'ASSGN'),
+#    ('left', 'AND'),
+#    ('left', 'OR'),
+#    ('left', 'NOTEQ'),
+#    ('left', 'EQ'),
+#    ('left', 'GRTR', 'GRTREQ', 'LESS', 'LESSEQ'),
+#    ('left', 'SUM', 'MINUS'),
+#    ('left', 'MULTP', 'DIVIDE'),
+#    ('left', 'LEFTPAR', 'RIGHTPAR')
 
-)
+#)
 
 def p_program(p):
     '''program : PROGRAM ID SEMICOLON program2 cuerpo END SEMICOLON''' 
-    print("program")
+    print "program"
 
 def p_program2(p):
     '''program2 : declare program3'''
-    print("program2")
+    print "program2"
 
 def p_program2Empty(p):
     '''program2 : empty'''
-    print("program2 empty)")
+    print "program2 empty"
 
 def p_program3(p):
     '''program3 : funct program3'''
-    print("program3")
+    print "program3" 
 
 def p_program3Empty(p):
     '''program3 : empty'''
@@ -92,11 +92,11 @@ def p_type2Void(p):
     print("type2VOID")
 
 def p_cuerpo(p):
-    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY cuerpo2 est RIGHTKEY'''
+    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY cuerpo2 RIGHTKEY'''
     print("cuerpo")
 
 def p_cuerpo2(p):
-    '''cuerpo2 : cuerpo'''
+    '''cuerpo2 : est'''
     print("cuerpo2")
 
 def p_cuerpo2Empty(p):
@@ -301,7 +301,10 @@ def buscarFicheros(directorio):
     
     print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
     return files[int(numArchivo)-1]
-directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+#directorio de la mac
+#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+#directorio de la compu del trabajo
+directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
 fp = codecs.open(test,"r","utf-8")

@@ -6,13 +6,6 @@ import os
 import sys
 
 
-
-
-#Tokens 
-tokens = [ 'PROGRAM', 'ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
-    'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
-    'SUM', 'MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
-]
 reservadas = {
     'program' : 'PROGRAM',
     'end' : 'END',
@@ -40,11 +33,22 @@ reservadas = {
     'void' : 'VOID'
 }
 
+
+#Tokens 
+tokens = [ 'PROGRAM','END', 'DECLARE','MAIN','IF','ELSE','WHILE','FOR','DO','WRITE','READ','FUNCTION', 'ID',
+    'ASSGN','TYPE', 'COMMA', 'DOT', 'CYCLE', 'ARCH','CIRCLIE','SQUARE','AND','OR','RETURN','PAINT','BOOL',
+    'FLOAT','INT','STRING','VOID', 'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 
+    'LEFTKEY', 'RIGHTKEY', 'QUOTE','SUM','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ',
+    'LESSEQ', 'NUMBER', 'newline', 'SPACE'
+]
+
+tokens = tokens+list(reservadas.values())
      
-tokens = tokens + reservadas.values()
+
 
 #Tokens definidos
 #t_SPACE = r'\D'
+t_ignore = ' \t'
 t_ASSGN = r'='
 t_COMMA = r','
 t_DOT = r'\.'
@@ -54,8 +58,8 @@ t_LEFTBRACK = r'\['
 t_RIGHTBRACK = r'\]'
 t_LEFTPAR = r'\('
 t_RIGHTPAR = r'\)'
-t_LEFTKEY = r'\{'
-t_RIGHTKEY = r'\}'
+t_LEFTKEY = r'{'
+t_RIGHTKEY = r'}'
 t_QUOTE = r'"'
 t_SUM = r'\+'
 t_MINUS = r'\-'
@@ -75,9 +79,7 @@ t_OR = r'\|\|'
 #Funcion para definir la expresion regular de un ID
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    #if t.value.upper() in reservadas: 
-     #   t.value = t.value.upper()
-      #  t.type = t.value
+    t.type = reservadas.get(t.value,'ID')
     return t
 
 #Funcion para definir la expresion regular de un salto de linea
