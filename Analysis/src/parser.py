@@ -20,265 +20,238 @@ from sys import stdin
 #)
 
 def p_program(p):
-<<<<<<< HEAD
     '''program : PROGRAM ID  SEMICOLON program2 cuerpo END SEMICOLON''' 
-    p[0] = program(p[4], p[5], "program")
-    #print("program")
+    #p[0] = program(p[4], p[5], "program")
+    print("program")
 
 def p_program2(p):
     '''program2 : declare program3'''
-    p[0] = program2(p[1],p[2], "program2")
-    #print("program2")
+    #p[0] = program2(p[1],p[2], "program2")
+    print("program2")
 
 def p_program2Empty(p):
     '''program2 : empty'''
-    p[0] = null()
-    #print("program2 empty)")
+    #p[0] = null()
+    print("program2 empty)")
 
 def p_program3(p):
     '''program3 : funct program3'''
-    p[0] = program3(p[1], p[2], "program3")
-    #print("program3")
-=======
-    '''program : PROGRAM ID SEMICOLON program2 cuerpo END SEMICOLON''' 
-    print "program"
-
-def p_program2(p):
-    '''program2 : declare program3'''
-    print "program2"
-
-def p_program2Empty(p):
-    '''program2 : empty'''
-    print "program2 empty"
-
-def p_program3(p):
-    '''program3 : funct program3'''
-    print "program3" 
->>>>>>> babe6c19f439195c89234016fb93339865a3aa20
+    #p[0] = program3(p[1], p[2], "program3")
+    print("program3")
 
 def p_program3Empty(p):
     '''program3 : empty'''
-    p[0] = null()
-    #print("program3 empty")
+    #p[0] = null()
+    print("program3 empty")
 
 def p_declare(p):
     '''declare : DECLARE declareRecursivo '''
-    p[0] = declare(p[2], "declare")
-    #print("declare")
+    #p[0] = declare(p[2], "declare")
+    print("declare")
 
 def p_declareRecursivo(p):
     '''declareRecursivo : type ID declare2 declare3 SEMICOLON declareRecursivo'''
-    p[0] = declareRecursivo(p[1], p[3], p[4], p[6], "declareRecursivo")
-    #print "declareRecursivo"
+    #p[0] = declareRecursivo(p[1], p[3], p[4], p[6], "declareRecursivo")
+    print "declareRecursivo"
 
 def p_declareResursivoEmpty(p):
     '''declareRecursivo : empty'''
-    p[0] = null()
-    #print "declare Recursivo Empty"
+    #p[0] = null()
+    print "declare Recursivo Empty"
 
 def p_declareEmpty(p):
     '''declare : empty'''
-    p[0] = null()
-    #print "declareEmpty"
+    #p[0] = null()
+    print "declareEmpty"
 
 def p_declare2(p):
     '''declare2 : array'''
-    p[0] = declare2(p[1])
-    #print("declare2")
+    #p[0] = declare2(p[1])
+    print("declare2")
 
 def p_declar2Empty(p):
     '''declare2 : empty'''
-    p[0] = null()
-    #print("declare2 Empty")
+    #p[0] = null()
+    print("declare2 Empty")
 
 def p_declare3(p):
     '''declare3 : COMMA  ID declare3 '''
-    p[0] = declare3(p[3], "declare3")
-    #print("declare3")
+    #p[0] = declare3(p[3], "declare3")
+    print("declare3")
 
 def p_declare3Empty(p):
     '''declare3 : empty'''
-    p[0] = null()
-    #print("declare3 Empty")
+    #p[0] = null()
+    print("declare3 Empty")
 
 def p_array(p):
     '''array : LEFTBRACK exp RIGHTBRACK array'''
-    p[0] = array(p[2], p[4], "array")
-    #print("array")
+    #p[0] = array(p[2], p[4], "array")
+    print("array")
 
 def p_arrayEmpty(p):
     '''array : empty'''
-    p[0] = null()
-    #print("array Empty")
+    #p[0] = null()
+    print("array Empty")
 
 def p_type(p):
     '''type : type2'''
-    p[0] = typeClass(p[1], "typeClass")
-    #print("type")
+    #p[0] = typeClass(p[1], "typeClass")
+    print("type")
 
 def p_type2(p):
     '''type2 : INT'''
-    p[0] = type2(Int(p[1]), "type2")
-    #print("type2INT")
+    #p[0] = type2(Int(p[1]), "type2")
+    print("type2INT")
 
 def p_type2Float(p):
     '''type2 : FLOAT'''
-    p[0] = type2Float(Float(p[1]),"type2Float")
-    #print("type2FLOAT")
+    #p[0] = type2Float(Float(p[1]),"type2Float")
+    print("type2FLOAT")
 
 def p_type2String(p):
     '''type2 : STRING'''
-    p[0] = type2String(String(p[1]), "type2String")
-    #print("type2STRING")
+    #p[0] = type2String(String(p[1]), "type2String")
+    print("type2STRING")
 
 def p_type2Bool(p):
     '''type2 : BOOL'''
-    p[0] = type2Bool(Bool(p[1]), "type2Bool")
-    #print("type2BOOL")
+    #p[0] = type2Bool(Bool(p[1]), "type2Bool")
+    print("type2BOOL")
 
 def p_type2Void(p):
     '''type2 : VOID'''
-    p[0] = type2Void(Void(p[1]), "type2Void")
-    #print("type2VOID")
+    #p[0] = type2Void(Void(p[1]), "type2Void")
+    print("type2VOID")
 
 def p_cuerpo(p):
-<<<<<<< HEAD
     '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY cuerpo2 est RIGHTKEY'''
-    p[0] = cuerpo(p[5], p[6], "cuerpo")
-    #print("cuerpo")
-
-def p_cuerpo2(p):
-    '''cuerpo2 : cuerpo'''
-    p[0] = cuerpo2(p[1], "cuerpo2")
-    #print("cuerpo2")
-=======
-    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY cuerpo2 RIGHTKEY'''
+    #p[0] = cuerpo(p[5], p[6], "cuerpo")
     print("cuerpo")
 
 def p_cuerpo2(p):
-    '''cuerpo2 : est'''
+    '''cuerpo2 : cuerpo'''
+    #p[0] = cuerpo2(p[1], "cuerpo2")
     print("cuerpo2")
->>>>>>> babe6c19f439195c89234016fb93339865a3aa20
 
 def p_cuerpo2Empty(p):
     '''cuerpo2 : empty'''
-    p[0] = null()
-    #print("cuerpo2 empty")
+    #p[0] = null()
+    print("cuerpo2 empty")
 
 def p_est(p):
     '''est : conditional'''
-    p[0] = est(p[1], "est")
-    #print("estCONDITIONAL")
+    #p[0] = est(p[1], "est")
+    print("estCONDITIONAL")
 
 def p_estCycle(p):
     '''est : cycles'''
-    p[0] = estCycle(p[1], "estCycle")
-    #print("estCYLE")
+    #p[0] = estCycle(p[1], "estCycle")
+    print("estCYLE")
 
 def p_estRead(p):
     '''est : input'''
-    p[0] = estRead(p[1], "estRead")
-    #print("estREAD")
+    #p[0] = estRead(p[1], "estRead")
+    print("estREAD")
 
 def p_estWrite(p):
     '''est : output'''
-    p[0] = estWrite(p[1], "estWrite")
-    #print("estWRITE")
+    #p[0] = estWrite(p[1], "estWrite")
+    print("estWRITE")
 
 def p_estAassignment(p):
     '''est : assignment'''
-    p[0] = estAassignment(p[1], "estAssignment")
-    #print("estASSIGNMENT")
+    #p[0] = estAassignment(p[1], "estAssignment")
+    print("estASSIGNMENT")
 
 def p_estFunct(p):
     '''est : funct'''
-    p[0] = estFunct(p[1], "estFunct")
-    #print("estFUNCT")
+    #p[0] = estFunct(p[1], "estFunct")
+    print("estFUNCT")
 def p_estEmpty(p):
     '''est : empty'''
-    p[0] = null()
-    #print "estEmpty"
+    #p[0] = null()
+    print "estEmpty"
 
 def p_assignment(p):
     '''assignment : ID ASSGN ID SEMICOLON'''
-    p[0] = assignment(Id(p[1]), Assign(p[2]), Id(p[3]), "assignment")
-    #print("assignment")
+    #p[0] = assignment(Id(p[1]), Assign(p[2]), Id(p[3]), "assignment")
+    print("assignment")
 
 def p_conditional(p):
     '''conditional : IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY'''
-    p[0] = conditional(p[3], p[6], p[9], "conditional")
-    #print("conditional")
+    #p[0] = conditional(p[3], p[6], p[9], "conditional")
+    print("conditional")
 
 def p_conditional2(p):
     '''conditional2 : exp conditional2'''
-    p[0] = conditional2(p[1], [p2], "conditional2")
-    #print("conditional2")
+    #p[0] = conditional2(p[1], [p2], "conditional2")
+    print("conditional2")
 
 def p_conditional2Empty(p):
     '''conditional2 : empty'''
-    p[0] = null()
-    #print("conditional Empty")
+    #p[0] = null()
+    print("conditional Empty")
 
 def p_cycles(p):
     '''cycles : while'''
-    p[0] = cycles(p[1], "cycles")
-    #print("cyclesWhile")
+    #p[0] = cycles(p[1], "cycles")
+    print("cyclesWhile")
 
 def p_cyclesFor(p):
     '''cycles : for'''
-    p[0] = cyclesFor(p[1], "cyclesFor")
-    #print("cyclesFor")
+    #p[0] = cyclesFor(p[1], "cyclesFor")
+    print("cyclesFor")
 
 def p_cyclesDoWhile(p):
     '''cycles : do-while'''
-    p[0] = cyclesDoWhile(p[1], "cyclesDoWhile")
-    #print("cyclesDoWhile")
+    #p[0] = cyclesDoWhile(p[1], "cyclesDoWhile")
+    print("cyclesDoWhile")
 
 def p_doWhile(p):
     '''do-while : DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR'''
-    p[0] = doWhile(p[3], p[7], "do-while")
-
+    #p[0] = doWhile(p[3], p[7], "do-while")
 def p_whileClass(p):
     '''while : WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY'''
-    p[0] = whileClass(p[3], p[7], "while")
-    #print("while")
+    #p[0] = whileClass(p[3], p[7], "while")
+    print("while")
 
 def p_while2(p):
     '''while2 : exp while2'''
-    p[0] = while2(p[1], p[2], "while2")
-    #print("while2")
+    #p[0] = while2(p[1], p[2], "while2")
+    print("while2")
 
 def p_while2Empty(p):
     '''while2 : empty'''
-    p[0] = null()
-    #print("while2Empty")
+    #p[0] = null()
+    print("while2Empty")
 
 def p_forClass(p):
     '''for : FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY'''
-    p[0] = forClass(p[3], p[5], p[7], p[8], p[11], "for")
-    #print("for")
+    #p[0] = forClass(p[3], p[5], p[7], p[8], p[11], "for")
+    print("for")
 
 def p_arithmeticOpPlus(p):
     '''arithmeticOp : SUM'''
-    p[0] = arithmeticOp(Sum(p[1), "arithmeticOp")
-    #print("arithmeticOpPlus")
+    #p[0] = arithmeticOp(Sum(p[1), "arithmeticOp")
+    print("arithmeticOpPlus")
 
 def p_arithmeticOpMinus(p):
     '''arithmeticOp : MINUS'''
-    p[0] = arithmeticOpMinus(Minus(p[1]), "arithmeticOperatoriMinus")
-    #print("ArithmeticOpMinus")
+    #p[0] = arithmeticOpMinus(Minus(p[1]), "arithmeticOperatoriMinus")
+    print("ArithmeticOpMinus")
 
     #FALTA AGREGAR LAS DE MULTP Y DIIVDE
 
 def p_for2(p):
     '''for2 : ID ASSGN ID for2'''
-    p[0] = for2(Id(p[1]), Assign(p[2]), Id(p[3]), p[4], "for2")
-    #print("for2")
+    #p[0] = for2(Id(p[1]), Assign(p[2]), Id(p[3]), p[4], "for2")
+    print("for2")
 
 def p_for2empty(p):
     '''for2 : empty'''
-    p[0] = null()
-   # print("for2EMPTY")
+    #p[0] = null()
+   #print("for2EMPTY")
 
 def p_for3(p):
     '''for3 : exp for3'''
@@ -394,7 +367,9 @@ def buscarFicheros(directorio):
 #directorio de la mac
 #directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
-directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
+#directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
+#directorio de miguel
+directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
 fp = codecs.open(test,"r","utf-8")
