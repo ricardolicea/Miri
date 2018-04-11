@@ -6,13 +6,16 @@ import os
 import sys
 
 
+<<<<<<< HEAD
 
 
 #Tokens 
-tokens = [ 'PROGRAM', 'ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
+tokens = ('END','DECLARE','INT','FLOAT','STRING','BOOL','VOID','MAIN','IF','ELSE','DO','WHILE','FOR','WRITE','READ','FUNCTION', 'PROGRAM','ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
     'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
-    'SUM', 'MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
-]
+    'SUM', 'OR','AND', 'LEFTBRACK','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
+)
+=======
+>>>>>>> babe6c19f439195c89234016fb93339865a3aa20
 reservadas = {
     'program' : 'PROGRAM',
     'end' : 'END',
@@ -40,11 +43,27 @@ reservadas = {
     'void' : 'VOID'
 }
 
+
+#Tokens 
+tokens = [ 'PROGRAM','END', 'DECLARE','MAIN','IF','ELSE','WHILE','FOR','DO','WRITE','READ','FUNCTION', 'ID',
+    'ASSGN','TYPE', 'COMMA', 'DOT', 'CYCLE', 'ARCH','CIRCLIE','SQUARE','AND','OR','RETURN','PAINT','BOOL',
+    'FLOAT','INT','STRING','VOID', 'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 
+    'LEFTKEY', 'RIGHTKEY', 'QUOTE','SUM','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ',
+    'LESSEQ', 'NUMBER', 'newline', 'SPACE'
+]
+
+tokens = tokens+list(reservadas.values())
      
-tokens = tokens + reservadas.values()
+<<<<<<< HEAD
+#tokens = tokens + list(reservadas.values())
+=======
+
+>>>>>>> babe6c19f439195c89234016fb93339865a3aa20
 
 #Tokens definidos
+t_ignore = ' \t'
 #t_SPACE = r'\D'
+t_ignore = ' \t'
 t_ASSGN = r'='
 t_COMMA = r','
 t_DOT = r'\.'
@@ -54,8 +73,8 @@ t_LEFTBRACK = r'\['
 t_RIGHTBRACK = r'\]'
 t_LEFTPAR = r'\('
 t_RIGHTPAR = r'\)'
-t_LEFTKEY = r'\{'
-t_RIGHTKEY = r'\}'
+t_LEFTKEY = r'{'
+t_RIGHTKEY = r'}'
 t_QUOTE = r'"'
 t_SUM = r'\+'
 t_MINUS = r'\-'
@@ -75,9 +94,7 @@ t_OR = r'\|\|'
 #Funcion para definir la expresion regular de un ID
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    #if t.value.upper() in reservadas: 
-     #   t.value = t.value.upper()
-      #  t.type = t.value
+    t.type = reservadas.get(t.value,'ID')
     return t
 
 #Funcion para definir la expresion regular de un salto de linea
@@ -114,21 +131,21 @@ def t_error(t):
 #    respuesta = False
 #    contador = 1
 
-#    for base, dirs, files in os.walk(directorio):
-#        ficheros.append(files)
-#    for file in files: 
-#        print str(contador) + ". " + file
-#        contador = contador + 1
+ #   for base, dirs, files in os.walk(directorio):
+ #       ficheros.append(files)
+ #   for file in files: 
+ #       print str(contador) + ". " + file
+ #       contador = contador + 1
 
-#    while respuesta == False:
-#        numArchivo = raw_input('\nNumero de test: ')
-#        for file in files:
-#            if file == files[int(numArchivo)-1]:
-#                respuesta = True
-#                break
+ #  while respuesta == False:
+  #      numArchivo = raw_input('\nNumero de test: ')
+  #      for file in files:
+   #         if file == files[int(numArchivo)-1]:
+    #            respuesta = True
+     #           break
     
-#    print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
-#    return files[int(numArchivo)-1]
+    #print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
+    #return files[int(numArchivo)-1]
 
 #directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #archivo  = buscarFicheros(directorio)
@@ -137,10 +154,10 @@ def t_error(t):
 #cadena  = fp.read()
 #fp.close()
 analizador = lex.lex()
-#    analizador.input(cadena)
+#analizador.input(cadena)
 
 
 #while True:
-#    tok = analizador.token()
-#    if not tok : break
-#    print(tok)
+ #   tok = analizador.token()
+  #  if not tok : break
+   # print(tok)
