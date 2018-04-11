@@ -1,5 +1,5 @@
 txt = ""
-iCont = 0;
+iCont = 0
 def incrementarContador():
     global iCont
     iCont += 1
