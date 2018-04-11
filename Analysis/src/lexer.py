@@ -6,6 +6,7 @@ import os
 import sys
 
 
+<<<<<<< HEAD
 
 
 #Tokens 
@@ -13,6 +14,8 @@ tokens = ('END','DECLARE','INT','FLOAT','STRING','BOOL','VOID','MAIN','IF','ELSE
     'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
     'SUM', 'OR','AND', 'LEFTBRACK','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
 )
+=======
+>>>>>>> babe6c19f439195c89234016fb93339865a3aa20
 reservadas = {
     'program' : 'PROGRAM',
     'end' : 'END',
@@ -40,12 +43,27 @@ reservadas = {
     'void' : 'VOID'
 }
 
+
+#Tokens 
+tokens = [ 'PROGRAM','END', 'DECLARE','MAIN','IF','ELSE','WHILE','FOR','DO','WRITE','READ','FUNCTION', 'ID',
+    'ASSGN','TYPE', 'COMMA', 'DOT', 'CYCLE', 'ARCH','CIRCLIE','SQUARE','AND','OR','RETURN','PAINT','BOOL',
+    'FLOAT','INT','STRING','VOID', 'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 
+    'LEFTKEY', 'RIGHTKEY', 'QUOTE','SUM','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ',
+    'LESSEQ', 'NUMBER', 'newline', 'SPACE'
+]
+
+tokens = tokens+list(reservadas.values())
      
+<<<<<<< HEAD
 #tokens = tokens + list(reservadas.values())
+=======
+
+>>>>>>> babe6c19f439195c89234016fb93339865a3aa20
 
 #Tokens definidos
 t_ignore = ' \t'
 #t_SPACE = r'\D'
+t_ignore = ' \t'
 t_ASSGN = r'='
 t_COMMA = r','
 t_DOT = r'\.'
@@ -55,8 +73,8 @@ t_LEFTBRACK = r'\['
 t_RIGHTBRACK = r'\]'
 t_LEFTPAR = r'\('
 t_RIGHTPAR = r'\)'
-t_LEFTKEY = r'\{'
-t_RIGHTKEY = r'\}'
+t_LEFTKEY = r'{'
+t_RIGHTKEY = r'}'
 t_QUOTE = r'"'
 t_SUM = r'\+'
 t_MINUS = r'\-'

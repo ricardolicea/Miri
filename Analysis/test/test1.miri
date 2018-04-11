@@ -1,4 +1,5 @@
 program patito;
+<<<<<<< HEAD
 
 declare 
 int iA, iB, iC[2];
@@ -8,3 +9,5 @@ main(){
 
 }
 end;
+=======
+>>>>>>> babe6c19f439195c89234016fb93339865a3aa20
