@@ -1,1 +1,10 @@
 program patito;
+
+declare 
+int iA, iB, iC[2];
+float fA;
+
+main(){
+
+}
+end;

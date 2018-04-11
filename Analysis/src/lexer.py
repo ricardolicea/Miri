@@ -9,10 +9,10 @@ import sys
 
 
 #Tokens 
-tokens = [ 'PROGRAM', 'ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
+tokens = ('END','DECLARE','INT','FLOAT','STRING','BOOL','VOID','MAIN','IF','ELSE','DO','WHILE','FOR','WRITE','READ','FUNCTION', 'PROGRAM','ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
     'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
-    'SUM', 'MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
-]
+    'SUM', 'OR','AND', 'LEFTBRACK','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
+)
 reservadas = {
     'program' : 'PROGRAM',
     'end' : 'END',
@@ -41,9 +41,10 @@ reservadas = {
 }
 
      
-tokens = tokens + reservadas.values()
+#tokens = tokens + list(reservadas.values())
 
 #Tokens definidos
+t_ignore = ' \t'
 #t_SPACE = r'\D'
 t_ASSGN = r'='
 t_COMMA = r','
@@ -75,9 +76,7 @@ t_OR = r'\|\|'
 #Funcion para definir la expresion regular de un ID
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    #if t.value.upper() in reservadas: 
-     #   t.value = t.value.upper()
-      #  t.type = t.value
+    t.type = reservadas.get(t.value,'ID')
     return t
 
 #Funcion para definir la expresion regular de un salto de linea
@@ -114,21 +113,21 @@ def t_error(t):
 #    respuesta = False
 #    contador = 1
 
-#    for base, dirs, files in os.walk(directorio):
-#        ficheros.append(files)
-#    for file in files: 
-#        print str(contador) + ". " + file
-#        contador = contador + 1
+ #   for base, dirs, files in os.walk(directorio):
+ #       ficheros.append(files)
+ #   for file in files: 
+ #       print str(contador) + ". " + file
+ #       contador = contador + 1
 
-#    while respuesta == False:
-#        numArchivo = raw_input('\nNumero de test: ')
-#        for file in files:
-#            if file == files[int(numArchivo)-1]:
-#                respuesta = True
-#                break
+ #  while respuesta == False:
+  #      numArchivo = raw_input('\nNumero de test: ')
+  #      for file in files:
+   #         if file == files[int(numArchivo)-1]:
+    #            respuesta = True
+     #           break
     
-#    print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
-#    return files[int(numArchivo)-1]
+    #print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
+    #return files[int(numArchivo)-1]
 
 #directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #archivo  = buscarFicheros(directorio)
@@ -137,10 +136,10 @@ def t_error(t):
 #cadena  = fp.read()
 #fp.close()
 analizador = lex.lex()
-#    analizador.input(cadena)
+#analizador.input(cadena)
 
 
 #while True:
-#    tok = analizador.token()
-#    if not tok : break
-#    print(tok)
+ #   tok = analizador.token()
+  #  if not tok : break
+   # print(tok)
