@@ -1,10 +1,17 @@
 program patito;
 
-declare 
-int iA, iB, iC[2];
+declare
+int iA, iB;
 float fA;
 
+funct void suma(){
+
+}
+
 main(){
+    declare
+    int iX, iY;
+    float fZ;
 
 }
 end;
