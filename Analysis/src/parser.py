@@ -32,7 +32,7 @@ def p_program2(p):
 
 def p_program2Empty(p):
     '''program2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("program2 empty)")
 
 def p_program3(p):
@@ -42,7 +42,7 @@ def p_program3(p):
 
 def p_program3Empty(p):
     '''program3 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("program3 empty")
 
 def p_declare(p):
@@ -57,12 +57,12 @@ def p_declareRecursivo(p):
 
 def p_declareResursivoEmpty(p):
     '''declareRecursivo : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print "declare Recursivo Empty"
 
 def p_declareEmpty(p):
     '''declare : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print "declareEmpty"
 
 def p_declare2(p):
@@ -72,7 +72,7 @@ def p_declare2(p):
 
 def p_declar2Empty(p):
     '''declare2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("declare2 Empty")
 
 def p_declare3(p):
@@ -82,7 +82,7 @@ def p_declare3(p):
 
 def p_declare3Empty(p):
     '''declare3 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("declare3 Empty")
 
 def p_array(p):
@@ -92,7 +92,7 @@ def p_array(p):
 
 def p_arrayEmpty(p):
     '''array : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("array Empty")
 
 def p_type(p):
@@ -137,7 +137,7 @@ def p_cuerpo2(p):
 
 def p_cuerpo2Empty(p):
     '''cuerpo2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("cuerpo2 empty")
 
 def p_est(p):
@@ -171,7 +171,7 @@ def p_estFunct(p):
     #print("estFUNCT")
 def p_estEmpty(p):
     '''est : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print "estEmpty"
 
 def p_assignment(p):
@@ -191,7 +191,7 @@ def p_conditional2(p):
 
 def p_conditional2Empty(p):
     '''conditional2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("conditional Empty")
 
 def p_cycles(p):
@@ -225,7 +225,7 @@ def p_while2(p):
 
 def p_while2Empty(p):
     '''while2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("while2Empty")
 
 def p_forClass(p):
@@ -252,7 +252,7 @@ def p_for2(p):
 
 def p_for2empty(p):
     '''for2 : empty'''
-    p[0] = null()
+    p[0] = Null()
    #print("for2EMPTY")
 
 def p_for3(p):
@@ -262,7 +262,7 @@ def p_for3(p):
 
 def p_for3empty(p):
     '''for3 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("empty")
 
 def p_exp(p):
@@ -313,12 +313,12 @@ def p_arithmeticExp(p):
 
 def p_arithmeticExpEmpty(p):
     '''arithmeticExp : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("Arithmetic Exp Empty")
 
 def p_exp2Empty(p):
     '''exp2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("exp2Empty")
 
 def p_output(p): 
@@ -333,7 +333,7 @@ def p_output2(p):
 
 def p_output2Empty(p):
     '''output2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("exp2Empty")
 
 def p_input(p):
@@ -353,7 +353,7 @@ def p_funct2(p):
 
 def p_funct2Empty(p):
     '''funct2 : empty'''
-    p[0] = null()
+    p[0] = Null()
     #print("funct2Empty")
 
 def p_empty(p):
@@ -386,6 +386,7 @@ def buscarFicheros(directorio):
     
     print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
     return files[int(numArchivo)-1]
+
 def traducir(result):
 	graphFile = open('graphviztrhee.vz','w')
 	graphFile.write(result.traducir())
@@ -403,10 +404,11 @@ fp = codecs.open(test,"r","utf-8")
 cadena  = fp.read()
 fp.close()
 
-parser = yacc.yacc()
-result = parser.parse(cadena)
+yacc.yacc()
+result = yacc.parse(cadena)
 
 #result.imprimir(" ")
+print result.traducir()
 traducir(result)
 
-print result
+#print result

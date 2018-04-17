@@ -1,11 +1,14 @@
-txt = ""
+txt = " "
 iCont = 0
 def incrementarContador():
     global iCont
     iCont += 1
     return "%d" %iCont
 
-class null():
+class Nodo():
+    pass
+    
+class Null():
     def __init__(self):
         self.type = 'void'
 
@@ -19,8 +22,7 @@ class null():
 
         return id
     
-class Nodo():
-    pass
+
 
 class program(Nodo):
     def __init__(self,son1, son2, name):
