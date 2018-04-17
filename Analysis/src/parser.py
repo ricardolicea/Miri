@@ -7,18 +7,31 @@ from lexer import tokens
 from sys import stdin
 from semantico import *
 
-#precedence = (
-#    ('right', 'ASSGN'),
-#    ('left', 'AND'),
-#    ('left', 'OR'),
-#    ('left', 'NOTEQ'),
-#    ('left', 'EQ'),
-#    ('left', 'GRTR', 'GRTREQ', 'LESS', 'LESSEQ'),
-#    ('left', 'SUM', 'MINUS'),
-#    ('left', 'MULTP', 'DIVIDE'),
-#    ('left', 'LEFTPAR', 'RIGHTPAR')
 
-#)
+# precedence = (
+#     ('right','DO'),
+#     ('right','FOR'),
+#     ('right','WHILE'),
+#     ('right','ID'),
+#     ('right','WRITE'),
+#     ('right','READ'),
+#     ('right','IF'),
+#     ('right','MAIN'),
+#     ('left','COMMA'),
+#     ('right','FUNCTION'),
+#     ('right', 'ASSGN'),
+#     ('left', 'AND'),
+#     ('left', 'OR'),
+#     ('left', 'NOTEQ'),
+#     ('left', 'EQ'),
+#     ('left', 'GRTR', 'GRTREQ', 'LESS', 'LESSEQ'),
+#     ('left', 'SUM', 'MINUS'),
+#     ('left', 'MULTP', 'DIVIDE'),
+#     ('left', 'LEFTPAR', 'RIGHTPAR')
+
+# )
+
+
 dirProc = {}
 nombrePrograma = ""
 nombreModulo = ""
@@ -26,6 +39,7 @@ varsGlobalesDir = {}
 auxVarsDir = {}
 varsList = {}
 tipo = ""
+
 
 def p_program(p):
     '''program : PROGRAM createDirProc ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
@@ -49,6 +63,12 @@ def p_program2(p):
     '''program2 : declare program3'''
     print("program2")
 
+
+# def p_program2Empty(p):
+#     '''program2 : empty'''
+#     #p[0] = null()
+#     print("program2 empty)")
+
 def p_declare(p):
     '''declare : DECLARE declareRecursivo '''
     print("declare")
@@ -65,9 +85,8 @@ def p_declare3(p):
     '''declare3 : COMMA  ID altaVarGlobal declare3 '''
     print("declare3")
 
-def p_program2Empty(p):
-    '''program2 : empty'''
-    print("program2 empty)")
+
+
 
 def p_program3(p):
     '''program3 : funct program3'''
@@ -137,9 +156,12 @@ def p_declareEmpty(p):
     print "declareEmpty"
 
 
-def p_declar2Empty(p):
-    '''declare2 : empty'''
-    print("declare2 Empty")
+
+# def p_declar2Empty(p):
+#     '''declare2 : empty'''
+#     #p[0] = null()
+#     print("declare2 Empty")
+
 
 
 def p_declare3Empty(p):
@@ -393,9 +415,9 @@ def p_arithmeticExpEmpty(p):
     '''arithmeticExp : empty'''
     print("Arithmetic Exp Empty")
 
-def p_exp2Empty(p):
-    '''exp2 : empty'''
-    print("exp2Empty")
+# def p_exp2Empty(p):
+#     '''exp2 : empty'''
+#     print("exp2Empty")
 
 def p_output(p): 
     '''output : WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON'''
@@ -451,7 +473,7 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
 directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
@@ -468,6 +490,7 @@ result = yacc.parse(cadena)
 
 #rent result.traducir()
 #traducir(result)
+
 
 print result
 print dirProc
