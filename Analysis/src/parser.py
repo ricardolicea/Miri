@@ -6,18 +6,28 @@ import re
 from lexer import tokens
 from sys import stdin
 
-#precedence = (
-#    ('right', 'ASSGN'),
-#    ('left', 'AND'),
-#    ('left', 'OR'),
-#    ('left', 'NOTEQ'),
-#    ('left', 'EQ'),
-#    ('left', 'GRTR', 'GRTREQ', 'LESS', 'LESSEQ'),
-#    ('left', 'SUM', 'MINUS'),
-#    ('left', 'MULTP', 'DIVIDE'),
-#    ('left', 'LEFTPAR', 'RIGHTPAR')
+# precedence = (
+#     ('right','DO'),
+#     ('right','FOR'),
+#     ('right','WHILE'),
+#     ('right','ID'),
+#     ('right','WRITE'),
+#     ('right','READ'),
+#     ('right','IF'),
+#     ('right','MAIN'),
+#     ('left','COMMA'),
+#     ('right','FUNCTION'),
+#     ('right', 'ASSGN'),
+#     ('left', 'AND'),
+#     ('left', 'OR'),
+#     ('left', 'NOTEQ'),
+#     ('left', 'EQ'),
+#     ('left', 'GRTR', 'GRTREQ', 'LESS', 'LESSEQ'),
+#     ('left', 'SUM', 'MINUS'),
+#     ('left', 'MULTP', 'DIVIDE'),
+#     ('left', 'LEFTPAR', 'RIGHTPAR')
 
-#)
+# )
 
 def p_program(p):
     '''program : PROGRAM ID  SEMICOLON program2 cuerpo END SEMICOLON''' 
@@ -29,10 +39,10 @@ def p_program2(p):
     #p[0] = program2(p[1],p[2], "program2")
     print("program2")
 
-def p_program2Empty(p):
-    '''program2 : empty'''
-    #p[0] = null()
-    print("program2 empty)")
+# def p_program2Empty(p):
+#     '''program2 : empty'''
+#     #p[0] = null()
+#     print("program2 empty)")
 
 def p_program3(p):
     '''program3 : funct program3'''
@@ -69,10 +79,10 @@ def p_declare2(p):
     #p[0] = declare2(p[1])
     print("declare2")
 
-def p_declar2Empty(p):
-    '''declare2 : empty'''
-    #p[0] = null()
-    print("declare2 Empty")
+# def p_declar2Empty(p):
+#     '''declare2 : empty'''
+#     #p[0] = null()
+#     print("declare2 Empty")
 
 def p_declare3(p):
     '''declare3 : COMMA  ID declare3 '''
@@ -302,9 +312,9 @@ def p_arithmeticExpEmpty(p):
     '''arithmeticExp : empty'''
     print("Arithmetic Exp Empty")
 
-def p_exp2Empty(p):
-    '''exp2 : empty'''
-    print("exp2Empty")
+# def p_exp2Empty(p):
+#     '''exp2 : empty'''
+#     print("exp2Empty")
 
 def p_output(p): 
     '''output : WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON'''
@@ -376,7 +386,7 @@ fp = codecs.open(test,"r","utf-8")
 cadena  = fp.read()
 fp.close()
 
-parser = yacc.yacc()
+parser = yacc.yacc('SLR')
 result = parser.parse(cadena)
 
 print result
