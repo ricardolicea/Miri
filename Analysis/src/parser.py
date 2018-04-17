@@ -21,6 +21,7 @@ from semantico import *
 #)
 dirProc = {}
 nombrePrograma = ""
+nombreModulo = ""
 varsGlobalesDir = {}
 auxVarsDir = {}
 varsList = {}
@@ -53,7 +54,7 @@ def p_declare(p):
     print("declare")
 
 def p_declareRecursivo(p):
-    '''declareRecursivo : type ID altaVar declare2 declare3 SEMICOLON declareRecursivo'''
+    '''declareRecursivo : type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo'''
     print "declareRecursivo"
 
 def p_declare2(p):
@@ -61,7 +62,7 @@ def p_declare2(p):
     print("declare2")
 
 def p_declare3(p):
-    '''declare3 : COMMA  ID altaVar declare3 '''
+    '''declare3 : COMMA  ID altaVarGlobal declare3 '''
     print("declare3")
 
 def p_program2Empty(p):
@@ -80,9 +81,11 @@ def p_altaModulo(p):
     '''altaModulo : '''
     global tipo
     global dirProc
+    global nombreModulo
     nombreModulo = p[-1]
     print "-------" + str(nombreModulo)
-    dirProc[nombreModulo] += {'Tipo': tipo, 'Vars': {'Tipo': ""}}
+    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {'Tipo': ""}}
+    print dirProc
 
 def p_funct2(p):
     '''funct2 : type ID funct3'''
@@ -114,14 +117,14 @@ def p_program3Empty(p):
     print("program3 empty")
 
 
-def p_altaVar(p):
-    '''altaVar : '''
+def p_altaVarGlobal(p):
+    '''altaVarGlobal : '''
     global dirProc
     global tipo
     nombreVar = p[-1]
     dirProc[nombrePrograma]['Vars'] = nombreVar
     dirProc[nombrePrograma][nombreVar] = {'Tipo': tipo, 'Scope': "global"}
-    print nombrePrograma + " " + str(dirProc)
+    print nombrePrograma + nombreModulo +  " " + str(dirProc)
    
 	
 
@@ -186,19 +189,70 @@ def p_type2Void(p):
     print("type2VOID")
 
 def p_cuerpo(p):
-    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY  est RIGHTKEY'''
+    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain  est RIGHTKEY'''
     print("cuerpo")
 
-
+def p_altaModuloMain(p):
+    '''altaModuloMain : '''
+    global tipo
+    global dirProc
+    global nombreModulo
+    nombreModulo = "main"
+    print "-------" + str(nombreModulo)
+    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {'Tipo': ""}}
+    print dirProc
 
 def p_est(p):
     '''est : conditional'''
     print("estCONDITIONAL")
 
 def p_estVars(p):
-    '''est : declare'''
+    '''est : declareLocal'''
     print "est Vars"
 
+def p_declareLocal(p):
+    '''declareLocal : DECLARE declareRecursivoLocal '''
+    print("declare")
+
+def p_declareRecursivoLocal(p):
+    '''declareRecursivoLocal : type ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal'''
+    print "declareRecursivo"
+
+def p_declare2Local(p):
+    '''declare2Local : array'''
+    print("declare2")
+
+def p_declare3Local(p):
+    '''declare3Local : COMMA  ID altaVarLocal declare3Local '''
+    print("declare3")
+
+def p_declareResursivoEmptyLocal(p):
+    '''declareRecursivoLocal : empty'''
+    print "declare Recursivo Empty"
+
+def p_declareEmptyLocal(p):
+    '''declareLocal : empty'''
+    print "declareEmpty"
+
+
+def p_declar2EmptyLocal(p):
+    '''declare2Local : empty'''
+    print("declare2 Empty")
+
+
+def p_declare3EmptyLocal(p):
+    '''declare3Local : empty'''
+    print("declare3 Empty")
+
+
+def p_altaVarLocal(p):
+    '''altaVarLocal : '''
+    global dirProc
+    global tipo
+    nombreVar = p[-1]
+    dirProc[nombreModulo]['Vars'] = nombreVar
+    dirProc[nombreModulo][nombreVar] = {'Tipo': tipo, 'Scope': "local"}
+    print nombreModulo + " " + str(dirProc)
 
 def p_estCycle(p):
     '''est : cycles'''
@@ -399,10 +453,10 @@ def traducir(result):
 #directorio de la mac
 #directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
-#directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
+directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
 #directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
-directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
+#directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
 fp = codecs.open(test,"r","utf-8")
@@ -416,3 +470,4 @@ result = yacc.parse(cadena)
 #traducir(result)
 
 print result
+print dirProc
