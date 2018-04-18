@@ -4,10 +4,15 @@ declare
 int iA, iB;
 float fA;
 
-funct void suma(){
-
+funct int suma(){
+    declare 
+    int iResu;
+    float fFacto;
 }
-
+funct float multp(){
+    declare 
+    float fResu;
+}
 main(){
     declare
     int iX, iY;

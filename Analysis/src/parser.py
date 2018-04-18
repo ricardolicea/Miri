@@ -54,7 +54,7 @@ def p_altaPrograma(p):
     global dirProc
     nombrePrograma = p[-1]
     dirProc[nombrePrograma] = {}
-    dirProc[nombrePrograma] = {'Tipo': 'programa', 'Vars': {'Tipo': ""}}
+    dirProc[nombrePrograma] = {'Tipo': 'programa', 'Vars': {}}
     
     print dirProc
     
@@ -103,7 +103,7 @@ def p_altaModulo(p):
     global nombreModulo
     nombreModulo = p[-1]
     print "-------" + str(nombreModulo)
-    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {'Tipo': ""}}
+    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}}
     print dirProc
 
 def p_funct2(p):
@@ -141,8 +141,7 @@ def p_altaVarGlobal(p):
     global dirProc
     global tipo
     nombreVar = p[-1]
-    dirProc[nombrePrograma]['Vars'] = nombreVar
-    dirProc[nombrePrograma][nombreVar] = {'Tipo': tipo, 'Scope': "global"}
+    dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global"}
     print nombrePrograma + nombreModulo +  " " + str(dirProc)
    
 	
@@ -221,7 +220,7 @@ def p_altaModuloMain(p):
     global nombreModulo
     nombreModulo = "main"
     print "-------" + str(nombreModulo)
-    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {'Tipo': ""}}
+    dirProc[nombreModulo] = {'Tipo': "Main", 'Vars': {}}
     print dirProc
 
 def p_est(p):
@@ -272,9 +271,8 @@ def p_altaVarLocal(p):
     global dirProc
     global tipo
     nombreVar = p[-1]
-    dirProc[nombreModulo]['Vars'] = nombreVar
-    dirProc[nombreModulo][nombreVar] = {'Tipo': tipo, 'Scope': "local"}
-    print nombreModulo + " " + str(dirProc)
+    dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local"}
+    print nombrePrograma + nombreModulo +  " " + str(dirProc)
 
 def p_estCycle(p):
     '''est : cycles'''
@@ -473,9 +471,9 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
-directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
+#directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
 #directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
