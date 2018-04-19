@@ -6,6 +6,7 @@ import re
 from lexer import tokens
 from sys import stdin
 from semantico import *
+from cuadruplos import *
 
 
 # precedence = (
@@ -39,14 +40,18 @@ varsGlobalesDir = {}
 auxVarsDir = {}
 varsList = {}
 tipo = ""
-
+cuad = Cuadruplo("", "", "", "")
 
 def p_program(p):
-    '''program : PROGRAM createDirProc ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
+    '''program : PROGRAM createDirProc ID altaPrograma SEMICOLON program2  goToMainQuad cuerpo END SEMICOLON''' 
     print("program")
 
 def p_createDirProc(p):
     '''createDirProc : '''
+
+def p_goToMainQuad(p):
+    '''goToMainQuad : '''
+    goToMainQuad()
 
 def p_altaPrograma(p):
     '''altaPrograma : empty'''
@@ -56,7 +61,7 @@ def p_altaPrograma(p):
     dirProc[nombrePrograma] = {}
     dirProc[nombrePrograma] = {'Tipo': 'programa', 'Vars': {}}
     
-    print dirProc
+    #print dirProc
     
 
 def p_program2(p):
@@ -104,7 +109,7 @@ def p_altaModulo(p):
     nombreModulo = p[-1]
     print "-------" + str(nombreModulo)
     dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}}
-    print dirProc
+    #print dirProc
 
 def p_funct2(p):
     '''funct2 : type ID funct3'''
@@ -142,7 +147,7 @@ def p_altaVarGlobal(p):
     global tipo
     nombreVar = p[-1]
     dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global"}
-    print nombrePrograma + nombreModulo +  " " + str(dirProc)
+    #print nombrePrograma + nombreModulo +  " " + str(dirProc)
    
 	
 
@@ -221,7 +226,7 @@ def p_altaModuloMain(p):
     nombreModulo = "main"
     print "-------" + str(nombreModulo)
     dirProc[nombreModulo] = {'Tipo': "Main", 'Vars': {}}
-    print dirProc
+   # print dirProc
 
 def p_est(p):
     '''est : conditional'''
@@ -272,7 +277,7 @@ def p_altaVarLocal(p):
     global tipo
     nombreVar = p[-1]
     dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local"}
-    print nombrePrograma + nombreModulo +  " " + str(dirProc)
+    #print nombrePrograma + nombreModulo +  " " + str(dirProc)
 
 def p_estCycle(p):
     '''est : cycles'''
@@ -491,4 +496,4 @@ result = yacc.parse(cadena)
 
 
 print result
-print dirProc
+#print dirProc
