@@ -2,7 +2,6 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    NUMBER
     MULTP
     DOT
     LESSEQ
@@ -17,26 +16,26 @@ Unused terminals:
 Grammar
 
 Rule 0     S' -> program
-Rule 1     program -> PROGRAM createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
-Rule 2     createDirProc -> <empty>
-Rule 3     goToMainQuad -> <empty>
-Rule 4     altaPrograma -> empty
-Rule 5     program2 -> declare program3
+Rule 1     program -> PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
+Rule 2     goToMainQuad -> <empty>
+Rule 3     altaPrograma -> <empty>
+Rule 4     program2 -> declare program3
+Rule 5     program2 -> empty
 Rule 6     declare -> DECLARE declareRecursivo
-Rule 7     declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
-Rule 8     declare2 -> array
-Rule 9     declare3 -> COMMA ID altaVarGlobal declare3
-Rule 10    program3 -> funct program3
-Rule 11    funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-Rule 12    altaModulo -> <empty>
-Rule 13    funct2 -> type ID funct3
-Rule 14    funct3 -> COMMA funct type ID funct3
-Rule 15    funct2 -> empty
-Rule 16    funct3 -> empty
-Rule 17    program3 -> empty
-Rule 18    altaVarGlobal -> <empty>
-Rule 19    declareRecursivo -> empty
-Rule 20    declare -> empty
+Rule 7     declare -> empty
+Rule 8     declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
+Rule 9     declare2 -> array
+Rule 10    declare3 -> COMMA ID altaVarGlobal declare3
+Rule 11    program3 -> funct program3
+Rule 12    funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+Rule 13    altaModulo -> <empty>
+Rule 14    funct2 -> type ID funct3
+Rule 15    funct3 -> COMMA funct type ID funct3
+Rule 16    funct2 -> empty
+Rule 17    funct3 -> empty
+Rule 18    program3 -> empty
+Rule 19    altaVarGlobal -> <empty>
+Rule 20    declareRecursivo -> empty
 Rule 21    declare3 -> empty
 Rule 22    array -> LEFTBRACK exp RIGHTBRACK array
 Rule 23    array -> empty
@@ -48,161 +47,166 @@ Rule 28    type2 -> BOOL
 Rule 29    type2 -> VOID
 Rule 30    cuerpo -> MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY
 Rule 31    altaModuloMain -> <empty>
-Rule 32    est -> conditional
+Rule 32    est -> conditional est
 Rule 33    est -> declareLocal
 Rule 34    declareLocal -> DECLARE declareRecursivoLocal
-Rule 35    declareRecursivoLocal -> type ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
-Rule 36    declare2Local -> array
-Rule 37    declare3Local -> COMMA ID altaVarLocal declare3Local
-Rule 38    declareRecursivoLocal -> empty
-Rule 39    declareLocal -> empty
-Rule 40    declare2Local -> empty
-Rule 41    declare3Local -> empty
-Rule 42    altaVarLocal -> <empty>
-Rule 43    est -> cycles
-Rule 44    est -> input
-Rule 45    est -> output
-Rule 46    est -> assignment
-Rule 47    est -> funct
-Rule 48    est -> empty
-Rule 49    assignment -> ID ASSGN ID SEMICOLON
-Rule 50    conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-Rule 51    conditional2 -> exp conditional2
-Rule 52    conditional2 -> empty
-Rule 53    cycles -> while
-Rule 54    cycles -> for
-Rule 55    cycles -> do-while
-Rule 56    do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
-Rule 57    while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-Rule 58    while2 -> exp while2
-Rule 59    while2 -> empty
-Rule 60    for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-Rule 61    arithmeticOp -> SUM
-Rule 62    arithmeticOp -> MINUS
-Rule 63    for2 -> ID ASSGN ID for2
-Rule 64    for2 -> empty
-Rule 65    for3 -> exp for3
-Rule 66    for3 -> empty
-Rule 67    exp -> ID array exp2 SEMICOLON
-Rule 68    exp2 -> LESS
-Rule 69    exp2 -> GRTR
-Rule 70    exp2 -> EQ
-Rule 71    exp2 -> NOTEQ
-Rule 72    exp2 -> AND
-Rule 73    exp2 -> OR
-Rule 74    exp2 -> arithmeticExp
-Rule 75    arithmeticExp -> ID EQ ID arithmeticOp ID arithmeticExp
-Rule 76    arithmeticExp -> empty
-Rule 77    output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-Rule 78    output2 -> ID output2
-Rule 79    output2 -> empty
-Rule 80    input -> READ LEFTPAR ID RIGHTPAR SEMICOLON
-Rule 81    empty -> <empty>
+Rule 35    declareRecursivoLocal -> type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
+Rule 36    assignmentDecl -> ASSGN NUMBER assignmentDecl2
+Rule 37    assignmentDecl2 -> empty
+Rule 38    assignmentDecl -> empty
+Rule 39    declare2Local -> array
+Rule 40    declare3Local -> COMMA ID assignmentDecl altaVarLocal declare3Local
+Rule 41    declareRecursivoLocal -> empty
+Rule 42    declareLocal -> empty
+Rule 43    declare2Local -> empty
+Rule 44    declare3Local -> empty
+Rule 45    altaVarLocal -> <empty>
+Rule 46    est -> cycles est
+Rule 47    est -> input est
+Rule 48    est -> output est
+Rule 49    est -> assignment est
+Rule 50    est -> funct est
+Rule 51    est -> empty
+Rule 52    assignment -> ID ASSGN NUMBER SEMICOLON
+Rule 53    assignment -> empty
+Rule 54    conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+Rule 55    conditional2 -> exp conditional2
+Rule 56    conditional2 -> empty
+Rule 57    cycles -> while
+Rule 58    cycles -> for
+Rule 59    cycles -> do-while
+Rule 60    do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+Rule 61    while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+Rule 62    while2 -> exp while2
+Rule 63    while2 -> empty
+Rule 64    for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+Rule 65    arithmeticOp -> SUM
+Rule 66    arithmeticOp -> MINUS
+Rule 67    for2 -> ID ASSGN ID for2
+Rule 68    for2 -> empty
+Rule 69    for3 -> exp for3
+Rule 70    for3 -> empty
+Rule 71    exp -> ID array exp2 SEMICOLON
+Rule 72    exp2 -> LESS
+Rule 73    exp2 -> GRTR
+Rule 74    exp2 -> EQ
+Rule 75    exp2 -> NOTEQ
+Rule 76    exp2 -> AND
+Rule 77    exp2 -> OR
+Rule 78    exp2 -> arithmeticExp
+Rule 79    arithmeticExp -> ID EQ ID arithmeticOp ID arithmeticExp
+Rule 80    arithmeticExp -> empty
+Rule 81    output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+Rule 82    output2 -> ID output2
+Rule 83    output2 -> empty
+Rule 84    input -> READ LEFTPAR ID RIGHTPAR SEMICOLON
+Rule 85    empty -> <empty>
 
 Terminals, with rules where they appear
 
-AND                  : 72
-ASSGN                : 49 63
+AND                  : 76
+ASSGN                : 36 52 67
 BOOL                 : 28
 COLON                : 
-COMMA                : 9 14 37
+COMMA                : 10 15 40
 CYCLE                : 
 DECLARE              : 6 34
 DIVIDE               : 
-DO                   : 56
+DO                   : 60
 DOT                  : 
-ELSE                 : 50
+ELSE                 : 54
 END                  : 1
-EQ                   : 70 75
+EQ                   : 74 79
 FLOAT                : 26
-FOR                  : 60
-FUNCTION             : 11
-GRTR                 : 69
+FOR                  : 64
+FUNCTION             : 12
+GRTR                 : 73
 GRTREQ               : 
-ID                   : 1 7 9 11 13 14 35 37 49 49 60 63 63 67 75 75 75 78 80
-IF                   : 50
+ID                   : 1 8 10 12 14 15 35 40 52 64 67 67 71 79 79 79 82 84
+IF                   : 54
 INT                  : 25
 LEFTBRACK            : 22
-LEFTKEY              : 11 30 50 56 57 60
-LEFTPAR              : 11 30 50 56 57 60 77 80
-LESS                 : 68
+LEFTKEY              : 12 30 54 60 61 64
+LEFTPAR              : 12 30 54 60 61 64 81 84
+LESS                 : 72
 LESSEQ               : 
 MAIN                 : 30
-MINUS                : 62
+MINUS                : 66
 MULTP                : 
-NOTEQ                : 71
-NUMBER               : 
-OR                   : 73
+NOTEQ                : 75
+NUMBER               : 36 52
+OR                   : 77
 PROGRAM              : 1
-QUOTE                : 77 77
-READ                 : 80
+QUOTE                : 81 81
+READ                 : 84
 RIGHTBRACK           : 22
-RIGHTKEY             : 11 30 50 50 56 57 60
-RIGHTPAR             : 11 30 50 56 57 60 77 80
-SEMICOLON            : 1 1 7 35 49 60 60 67 77 80
+RIGHTKEY             : 12 30 54 54 60 61 64
+RIGHTPAR             : 12 30 54 60 61 64 81 84
+SEMICOLON            : 1 1 8 35 52 64 64 71 81 84
 SPACE                : 
 STRING               : 27
-SUM                  : 61
+SUM                  : 65
 TYPE                 : 
 VOID                 : 29
-WHILE                : 56 57 57
-WRITE                : 77
+WHILE                : 60 61 61
+WRITE                : 81
 error                : 
 newline              : 
 
 Nonterminals, with rules where they appear
 
-altaModulo           : 11
+altaModulo           : 12
 altaModuloMain       : 30
 altaPrograma         : 1
-altaVarGlobal        : 7 9
-altaVarLocal         : 35 37
-arithmeticExp        : 74 75
-arithmeticOp         : 60 60 75
-array                : 8 22 36 67
-assignment           : 46
+altaVarGlobal        : 8 10
+altaVarLocal         : 35 40
+arithmeticExp        : 78 79
+arithmeticOp         : 64 64 79
+array                : 9 22 39 71
+assignment           : 49
+assignmentDecl       : 35 40
+assignmentDecl2      : 36
 conditional          : 32
-conditional2         : 50 51
-createDirProc        : 1
+conditional2         : 54 55
 cuerpo               : 1
-cycles               : 43
-declare              : 5
-declare2             : 7
+cycles               : 46
+declare              : 4
+declare2             : 8
 declare2Local        : 35
-declare3             : 7 9
-declare3Local        : 35 37
+declare3             : 8 10
+declare3Local        : 35 40
 declareLocal         : 33
-declareRecursivo     : 6 7
+declareRecursivo     : 6 8
 declareRecursivoLocal : 34 35
-do-while             : 55
-empty                : 4 15 16 17 19 20 21 23 38 39 40 41 48 52 59 64 66 76 79
-est                  : 11 30 50 50 56 57 60
-exp                  : 22 51 58 65 77
-exp2                 : 67
-for                  : 54
-for2                 : 60 63
-for3                 : 60 65
-funct                : 10 14 47
-funct2               : 11
-funct3               : 13 14
+do-while             : 59
+empty                : 5 7 16 17 18 20 21 23 37 38 41 42 43 44 51 53 56 63 68 70 80 83
+est                  : 12 30 32 46 47 48 49 50 54 54 60 61 64
+exp                  : 22 55 62 69 81
+exp2                 : 71
+for                  : 58
+for2                 : 64 67
+for3                 : 64 69
+funct                : 11 15 50
+funct2               : 12
+funct3               : 14 15
 goToMainQuad         : 1
-input                : 44
-output               : 45
-output2              : 77 78
+input                : 47
+output               : 48
+output2              : 81 82
 program              : 0
 program2             : 1
-program3             : 5 10
-type                 : 7 11 13 14 35
+program3             : 4 11
+type                 : 8 12 14 15 35
 type2                : 24
-while                : 53
-while2               : 56 57 58
+while                : 57
+while2               : 60 61 62
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . program
-    (1) program -> . PROGRAM createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
+    (1) program -> . PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
 
     PROGRAM         shift and go to state 2
 
@@ -216,164 +220,151 @@ state 1
 
 state 2
 
-    (1) program -> PROGRAM . createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
-    (2) createDirProc -> .
+    (1) program -> PROGRAM . ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
 
-    ID              reduce using rule 2 (createDirProc -> .)
+    ID              shift and go to state 3
 
-    createDirProc                  shift and go to state 3
 
 state 3
 
-    (1) program -> PROGRAM createDirProc . ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
+    (1) program -> PROGRAM ID . altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
+    (3) altaPrograma -> .
 
-    ID              shift and go to state 4
+    SEMICOLON       reduce using rule 3 (altaPrograma -> .)
 
+    altaPrograma                   shift and go to state 4
 
 state 4
 
-    (1) program -> PROGRAM createDirProc ID . altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
-    (4) altaPrograma -> . empty
-    (81) empty -> .
+    (1) program -> PROGRAM ID altaPrograma . SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
 
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    SEMICOLON       shift and go to state 5
 
-    altaPrograma                   shift and go to state 5
-    empty                          shift and go to state 6
 
 state 5
 
-    (1) program -> PROGRAM createDirProc ID altaPrograma . SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON
+    (1) program -> PROGRAM ID altaPrograma SEMICOLON . program2 goToMainQuad cuerpo END SEMICOLON
+    (4) program2 -> . declare program3
+    (5) program2 -> . empty
+    (6) declare -> . DECLARE declareRecursivo
+    (7) declare -> . empty
+    (85) empty -> .
 
-    SEMICOLON       shift and go to state 7
+    DECLARE         shift and go to state 7
+    MAIN            reduce using rule 85 (empty -> .)
+    FUNCTION        reduce using rule 85 (empty -> .)
 
+    program2                       shift and go to state 6
+    declare                        shift and go to state 8
+    empty                          shift and go to state 9
 
 state 6
 
-    (4) altaPrograma -> empty .
+    (1) program -> PROGRAM ID altaPrograma SEMICOLON program2 . goToMainQuad cuerpo END SEMICOLON
+    (2) goToMainQuad -> .
 
-    SEMICOLON       reduce using rule 4 (altaPrograma -> empty .)
+    MAIN            reduce using rule 2 (goToMainQuad -> .)
 
+    goToMainQuad                   shift and go to state 10
 
 state 7
 
-    (1) program -> PROGRAM createDirProc ID altaPrograma SEMICOLON . program2 goToMainQuad cuerpo END SEMICOLON
-    (5) program2 -> . declare program3
-    (6) declare -> . DECLARE declareRecursivo
-    (20) declare -> . empty
-    (81) empty -> .
-
-    DECLARE         shift and go to state 9
-    FUNCTION        reduce using rule 81 (empty -> .)
-    MAIN            reduce using rule 81 (empty -> .)
-
-    program2                       shift and go to state 8
-    declare                        shift and go to state 10
-    empty                          shift and go to state 11
-
-state 8
-
-    (1) program -> PROGRAM createDirProc ID altaPrograma SEMICOLON program2 . goToMainQuad cuerpo END SEMICOLON
-    (3) goToMainQuad -> .
-
-    MAIN            reduce using rule 3 (goToMainQuad -> .)
-
-    goToMainQuad                   shift and go to state 12
-
-state 9
-
     (6) declare -> DECLARE . declareRecursivo
-    (7) declareRecursivo -> . type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
-    (19) declareRecursivo -> . empty
+    (8) declareRecursivo -> . type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
+    (20) declareRecursivo -> . empty
     (24) type -> . type2
-    (81) empty -> .
+    (85) empty -> .
     (25) type2 -> . INT
     (26) type2 -> . FLOAT
     (27) type2 -> . STRING
     (28) type2 -> . BOOL
     (29) type2 -> . VOID
 
-    FUNCTION        reduce using rule 81 (empty -> .)
-    MAIN            reduce using rule 81 (empty -> .)
-    INT             shift and go to state 14
-    FLOAT           shift and go to state 16
-    STRING          shift and go to state 13
-    BOOL            shift and go to state 17
-    VOID            shift and go to state 15
+    FUNCTION        reduce using rule 85 (empty -> .)
+    MAIN            reduce using rule 85 (empty -> .)
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 11
+    BOOL            shift and go to state 15
+    VOID            shift and go to state 13
 
-    declareRecursivo               shift and go to state 18
-    type                           shift and go to state 19
-    empty                          shift and go to state 20
-    type2                          shift and go to state 21
+    declareRecursivo               shift and go to state 16
+    type                           shift and go to state 17
+    empty                          shift and go to state 18
+    type2                          shift and go to state 19
+
+state 8
+
+    (4) program2 -> declare . program3
+    (11) program3 -> . funct program3
+    (18) program3 -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+
+    FUNCTION        shift and go to state 20
+    MAIN            reduce using rule 85 (empty -> .)
+
+    funct                          shift and go to state 21
+    program3                       shift and go to state 22
+    empty                          shift and go to state 23
+
+state 9
+
+    (5) program2 -> empty .
+    (7) declare -> empty .
+
+  ! reduce/reduce conflict for MAIN resolved using rule 5 (program2 -> empty .)
+    MAIN            reduce using rule 5 (program2 -> empty .)
+    FUNCTION        reduce using rule 7 (declare -> empty .)
+
+  ! MAIN            [ reduce using rule 7 (declare -> empty .) ]
+
 
 state 10
 
-    (5) program2 -> declare . program3
-    (10) program3 -> . funct program3
-    (17) program3 -> . empty
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-
-    FUNCTION        shift and go to state 22
-    MAIN            reduce using rule 81 (empty -> .)
-
-    funct                          shift and go to state 23
-    program3                       shift and go to state 24
-    empty                          shift and go to state 25
-
-state 11
-
-    (20) declare -> empty .
-
-    FUNCTION        reduce using rule 20 (declare -> empty .)
-    MAIN            reduce using rule 20 (declare -> empty .)
-
-
-state 12
-
-    (1) program -> PROGRAM createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad . cuerpo END SEMICOLON
+    (1) program -> PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad . cuerpo END SEMICOLON
     (30) cuerpo -> . MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY
 
-    MAIN            shift and go to state 27
+    MAIN            shift and go to state 25
 
-    cuerpo                         shift and go to state 26
+    cuerpo                         shift and go to state 24
 
-state 13
+state 11
 
     (27) type2 -> STRING .
 
     ID              reduce using rule 27 (type2 -> STRING .)
 
 
-state 14
+state 12
 
     (25) type2 -> INT .
 
     ID              reduce using rule 25 (type2 -> INT .)
 
 
-state 15
+state 13
 
     (29) type2 -> VOID .
 
     ID              reduce using rule 29 (type2 -> VOID .)
 
 
-state 16
+state 14
 
     (26) type2 -> FLOAT .
 
     ID              reduce using rule 26 (type2 -> FLOAT .)
 
 
-state 17
+state 15
 
     (28) type2 -> BOOL .
 
     ID              reduce using rule 28 (type2 -> BOOL .)
 
 
-state 18
+state 16
 
     (6) declare -> DECLARE declareRecursivo .
 
@@ -381,31 +372,31 @@ state 18
     MAIN            reduce using rule 6 (declare -> DECLARE declareRecursivo .)
 
 
+state 17
+
+    (8) declareRecursivo -> type . ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
+
+    ID              shift and go to state 26
+
+
+state 18
+
+    (20) declareRecursivo -> empty .
+
+    FUNCTION        reduce using rule 20 (declareRecursivo -> empty .)
+    MAIN            reduce using rule 20 (declareRecursivo -> empty .)
+
+
 state 19
-
-    (7) declareRecursivo -> type . ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
-
-    ID              shift and go to state 28
-
-
-state 20
-
-    (19) declareRecursivo -> empty .
-
-    FUNCTION        reduce using rule 19 (declareRecursivo -> empty .)
-    MAIN            reduce using rule 19 (declareRecursivo -> empty .)
-
-
-state 21
 
     (24) type -> type2 .
 
     ID              reduce using rule 24 (type -> type2 .)
 
 
-state 22
+state 20
 
-    (11) funct -> FUNCTION . type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (12) funct -> FUNCTION . type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
     (24) type -> . type2
     (25) type2 -> . INT
     (26) type2 -> . FLOAT
@@ -413,170 +404,172 @@ state 22
     (28) type2 -> . BOOL
     (29) type2 -> . VOID
 
-    INT             shift and go to state 14
-    FLOAT           shift and go to state 16
-    STRING          shift and go to state 13
-    BOOL            shift and go to state 17
-    VOID            shift and go to state 15
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 11
+    BOOL            shift and go to state 15
+    VOID            shift and go to state 13
 
-    type                           shift and go to state 29
-    type2                          shift and go to state 21
+    type                           shift and go to state 27
+    type2                          shift and go to state 19
+
+state 21
+
+    (11) program3 -> funct . program3
+    (11) program3 -> . funct program3
+    (18) program3 -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+
+    FUNCTION        shift and go to state 20
+    MAIN            reduce using rule 85 (empty -> .)
+
+    program3                       shift and go to state 28
+    funct                          shift and go to state 21
+    empty                          shift and go to state 23
+
+state 22
+
+    (4) program2 -> declare program3 .
+
+    MAIN            reduce using rule 4 (program2 -> declare program3 .)
+
 
 state 23
 
-    (10) program3 -> funct . program3
-    (10) program3 -> . funct program3
-    (17) program3 -> . empty
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
+    (18) program3 -> empty .
 
-    FUNCTION        shift and go to state 22
-    MAIN            reduce using rule 81 (empty -> .)
+    MAIN            reduce using rule 18 (program3 -> empty .)
 
-    program3                       shift and go to state 30
-    funct                          shift and go to state 23
-    empty                          shift and go to state 25
 
 state 24
 
-    (5) program2 -> declare program3 .
+    (1) program -> PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo . END SEMICOLON
 
-    MAIN            reduce using rule 5 (program2 -> declare program3 .)
+    END             shift and go to state 29
 
 
 state 25
 
-    (17) program3 -> empty .
+    (30) cuerpo -> MAIN . LEFTPAR RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY
 
-    MAIN            reduce using rule 17 (program3 -> empty .)
+    LEFTPAR         shift and go to state 30
 
 
 state 26
 
-    (1) program -> PROGRAM createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo . END SEMICOLON
+    (8) declareRecursivo -> type ID . altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
+    (19) altaVarGlobal -> .
 
-    END             shift and go to state 31
+    LEFTBRACK       reduce using rule 19 (altaVarGlobal -> .)
+    COMMA           reduce using rule 19 (altaVarGlobal -> .)
+    SEMICOLON       reduce using rule 19 (altaVarGlobal -> .)
 
+    altaVarGlobal                  shift and go to state 31
 
 state 27
 
-    (30) cuerpo -> MAIN . LEFTPAR RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY
+    (12) funct -> FUNCTION type . ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
 
-    LEFTPAR         shift and go to state 32
+    ID              shift and go to state 32
 
 
 state 28
 
-    (7) declareRecursivo -> type ID . altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
-    (18) altaVarGlobal -> .
+    (11) program3 -> funct program3 .
 
-    LEFTBRACK       reduce using rule 18 (altaVarGlobal -> .)
-    COMMA           reduce using rule 18 (altaVarGlobal -> .)
-    SEMICOLON       reduce using rule 18 (altaVarGlobal -> .)
+    MAIN            reduce using rule 11 (program3 -> funct program3 .)
 
-    altaVarGlobal                  shift and go to state 33
 
 state 29
 
-    (11) funct -> FUNCTION type . ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (1) program -> PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END . SEMICOLON
 
-    ID              shift and go to state 34
+    SEMICOLON       shift and go to state 33
 
 
 state 30
 
-    (10) program3 -> funct program3 .
+    (30) cuerpo -> MAIN LEFTPAR . RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY
 
-    MAIN            reduce using rule 10 (program3 -> funct program3 .)
+    RIGHTPAR        shift and go to state 34
 
 
 state 31
 
-    (1) program -> PROGRAM createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END . SEMICOLON
+    (8) declareRecursivo -> type ID altaVarGlobal . declare2 declare3 SEMICOLON declareRecursivo
+    (9) declare2 -> . array
+    (22) array -> . LEFTBRACK exp RIGHTBRACK array
+    (23) array -> . empty
+    (85) empty -> .
 
-    SEMICOLON       shift and go to state 35
+    LEFTBRACK       shift and go to state 35
+    COMMA           reduce using rule 85 (empty -> .)
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
+    declare2                       shift and go to state 36
+    array                          shift and go to state 37
+    empty                          shift and go to state 38
 
 state 32
 
-    (30) cuerpo -> MAIN LEFTPAR . RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY
+    (12) funct -> FUNCTION type ID . altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (13) altaModulo -> .
 
-    RIGHTPAR        shift and go to state 36
+    LEFTPAR         reduce using rule 13 (altaModulo -> .)
 
+    altaModulo                     shift and go to state 39
 
 state 33
 
-    (7) declareRecursivo -> type ID altaVarGlobal . declare2 declare3 SEMICOLON declareRecursivo
-    (8) declare2 -> . array
-    (22) array -> . LEFTBRACK exp RIGHTBRACK array
-    (23) array -> . empty
-    (81) empty -> .
+    (1) program -> PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON .
 
-    LEFTBRACK       shift and go to state 37
-    COMMA           reduce using rule 81 (empty -> .)
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    $end            reduce using rule 1 (program -> PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON .)
 
-    declare2                       shift and go to state 38
-    array                          shift and go to state 39
-    empty                          shift and go to state 40
 
 state 34
 
-    (11) funct -> FUNCTION type ID . altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (12) altaModulo -> .
+    (30) cuerpo -> MAIN LEFTPAR RIGHTPAR . LEFTKEY altaModuloMain est RIGHTKEY
 
-    LEFTPAR         reduce using rule 12 (altaModulo -> .)
+    LEFTKEY         shift and go to state 40
 
-    altaModulo                     shift and go to state 41
 
 state 35
 
-    (1) program -> PROGRAM createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON .
+    (22) array -> LEFTBRACK . exp RIGHTBRACK array
+    (71) exp -> . ID array exp2 SEMICOLON
 
-    $end            reduce using rule 1 (program -> PROGRAM createDirProc ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON .)
+    ID              shift and go to state 42
 
+    exp                            shift and go to state 41
 
 state 36
 
-    (30) cuerpo -> MAIN LEFTPAR RIGHTPAR . LEFTKEY altaModuloMain est RIGHTKEY
+    (8) declareRecursivo -> type ID altaVarGlobal declare2 . declare3 SEMICOLON declareRecursivo
+    (10) declare3 -> . COMMA ID altaVarGlobal declare3
+    (21) declare3 -> . empty
+    (85) empty -> .
 
-    LEFTKEY         shift and go to state 42
+    COMMA           shift and go to state 44
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
+    declare3                       shift and go to state 43
+    empty                          shift and go to state 45
 
 state 37
 
-    (22) array -> LEFTBRACK . exp RIGHTBRACK array
-    (67) exp -> . ID array exp2 SEMICOLON
+    (9) declare2 -> array .
 
-    ID              shift and go to state 44
+    COMMA           reduce using rule 9 (declare2 -> array .)
+    SEMICOLON       reduce using rule 9 (declare2 -> array .)
 
-    exp                            shift and go to state 43
 
 state 38
 
-    (7) declareRecursivo -> type ID altaVarGlobal declare2 . declare3 SEMICOLON declareRecursivo
-    (9) declare3 -> . COMMA ID altaVarGlobal declare3
-    (21) declare3 -> . empty
-    (81) empty -> .
-
-    COMMA           shift and go to state 46
-    SEMICOLON       reduce using rule 81 (empty -> .)
-
-    declare3                       shift and go to state 45
-    empty                          shift and go to state 47
-
-state 39
-
-    (8) declare2 -> array .
-
-    COMMA           reduce using rule 8 (declare2 -> array .)
-    SEMICOLON       reduce using rule 8 (declare2 -> array .)
-
-
-state 40
-
     (23) array -> empty .
 
+    COMMA           reduce using rule 23 (array -> empty .)
+    SEMICOLON       reduce using rule 23 (array -> empty .)
     LESS            reduce using rule 23 (array -> empty .)
     GRTR            reduce using rule 23 (array -> empty .)
     EQ              reduce using rule 23 (array -> empty .)
@@ -584,18 +577,16 @@ state 40
     AND             reduce using rule 23 (array -> empty .)
     OR              reduce using rule 23 (array -> empty .)
     ID              reduce using rule 23 (array -> empty .)
-    SEMICOLON       reduce using rule 23 (array -> empty .)
-    COMMA           reduce using rule 23 (array -> empty .)
 
 
-state 41
+state 39
 
-    (11) funct -> FUNCTION type ID altaModulo . LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (12) funct -> FUNCTION type ID altaModulo . LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
 
-    LEFTPAR         shift and go to state 48
+    LEFTPAR         shift and go to state 46
 
 
-state 42
+state 40
 
     (30) cuerpo -> MAIN LEFTPAR RIGHTPAR LEFTKEY . altaModuloMain est RIGHTKEY
     (31) altaModuloMain -> .
@@ -611,402 +602,841 @@ state 42
     DO              reduce using rule 31 (altaModuloMain -> .)
     RIGHTKEY        reduce using rule 31 (altaModuloMain -> .)
 
-    altaModuloMain                 shift and go to state 49
+    altaModuloMain                 shift and go to state 47
 
-state 43
+state 41
 
     (22) array -> LEFTBRACK exp . RIGHTBRACK array
 
-    RIGHTBRACK      shift and go to state 50
+    RIGHTBRACK      shift and go to state 48
+
+
+state 42
+
+    (71) exp -> ID . array exp2 SEMICOLON
+    (22) array -> . LEFTBRACK exp RIGHTBRACK array
+    (23) array -> . empty
+    (85) empty -> .
+
+    LEFTBRACK       shift and go to state 35
+    LESS            reduce using rule 85 (empty -> .)
+    GRTR            reduce using rule 85 (empty -> .)
+    EQ              reduce using rule 85 (empty -> .)
+    NOTEQ           reduce using rule 85 (empty -> .)
+    AND             reduce using rule 85 (empty -> .)
+    OR              reduce using rule 85 (empty -> .)
+    ID              reduce using rule 85 (empty -> .)
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    array                          shift and go to state 49
+    empty                          shift and go to state 38
+
+state 43
+
+    (8) declareRecursivo -> type ID altaVarGlobal declare2 declare3 . SEMICOLON declareRecursivo
+
+    SEMICOLON       shift and go to state 50
 
 
 state 44
 
-    (67) exp -> ID . array exp2 SEMICOLON
-    (22) array -> . LEFTBRACK exp RIGHTBRACK array
-    (23) array -> . empty
-    (81) empty -> .
+    (10) declare3 -> COMMA . ID altaVarGlobal declare3
 
-    LEFTBRACK       shift and go to state 37
-    LESS            reduce using rule 81 (empty -> .)
-    GRTR            reduce using rule 81 (empty -> .)
-    EQ              reduce using rule 81 (empty -> .)
-    NOTEQ           reduce using rule 81 (empty -> .)
-    AND             reduce using rule 81 (empty -> .)
-    OR              reduce using rule 81 (empty -> .)
-    ID              reduce using rule 81 (empty -> .)
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    ID              shift and go to state 51
 
-    array                          shift and go to state 51
-    empty                          shift and go to state 40
 
 state 45
-
-    (7) declareRecursivo -> type ID altaVarGlobal declare2 declare3 . SEMICOLON declareRecursivo
-
-    SEMICOLON       shift and go to state 52
-
-
-state 46
-
-    (9) declare3 -> COMMA . ID altaVarGlobal declare3
-
-    ID              shift and go to state 53
-
-
-state 47
 
     (21) declare3 -> empty .
 
     SEMICOLON       reduce using rule 21 (declare3 -> empty .)
 
 
-state 48
+state 46
 
-    (11) funct -> FUNCTION type ID altaModulo LEFTPAR . funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (13) funct2 -> . type ID funct3
-    (15) funct2 -> . empty
+    (12) funct -> FUNCTION type ID altaModulo LEFTPAR . funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (14) funct2 -> . type ID funct3
+    (16) funct2 -> . empty
     (24) type -> . type2
-    (81) empty -> .
+    (85) empty -> .
     (25) type2 -> . INT
     (26) type2 -> . FLOAT
     (27) type2 -> . STRING
     (28) type2 -> . BOOL
     (29) type2 -> . VOID
 
-    RIGHTPAR        reduce using rule 81 (empty -> .)
-    INT             shift and go to state 14
-    FLOAT           shift and go to state 16
-    STRING          shift and go to state 13
-    BOOL            shift and go to state 17
-    VOID            shift and go to state 15
+    RIGHTPAR        reduce using rule 85 (empty -> .)
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 11
+    BOOL            shift and go to state 15
+    VOID            shift and go to state 13
 
-    funct2                         shift and go to state 54
-    type                           shift and go to state 55
-    empty                          shift and go to state 56
-    type2                          shift and go to state 21
+    funct2                         shift and go to state 52
+    type                           shift and go to state 53
+    empty                          shift and go to state 54
+    type2                          shift and go to state 19
 
-state 49
+state 47
 
     (30) cuerpo -> MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain . est RIGHTKEY
-    (32) est -> . conditional
+    (32) est -> . conditional est
     (33) est -> . declareLocal
-    (43) est -> . cycles
-    (44) est -> . input
-    (45) est -> . output
-    (46) est -> . assignment
-    (47) est -> . funct
-    (48) est -> . empty
-    (50) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
     (34) declareLocal -> . DECLARE declareRecursivoLocal
-    (39) declareLocal -> . empty
-    (53) cycles -> . while
-    (54) cycles -> . for
-    (55) cycles -> . do-while
-    (80) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
-    (77) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (49) assignment -> . ID ASSGN ID SEMICOLON
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-    (57) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (60) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (56) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    IF              shift and go to state 71
-    DECLARE         shift and go to state 70
-    READ            shift and go to state 59
-    WRITE           shift and go to state 68
-    ID              shift and go to state 69
-    FUNCTION        shift and go to state 22
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    WHILE           shift and go to state 61
-    FOR             shift and go to state 66
-    DO              shift and go to state 57
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
 
-    funct                          shift and go to state 58
-    conditional                    shift and go to state 60
-    do-while                       shift and go to state 62
-    est                            shift and go to state 63
-    for                            shift and go to state 64
-    input                          shift and go to state 65
-    assignment                     shift and go to state 67
-    cycles                         shift and go to state 72
-    while                          shift and go to state 73
-    empty                          shift and go to state 74
-    output                         shift and go to state 75
-    declareLocal                   shift and go to state 76
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
 
-state 50
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 61
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
+
+state 48
 
     (22) array -> LEFTBRACK exp RIGHTBRACK . array
     (22) array -> . LEFTBRACK exp RIGHTBRACK array
     (23) array -> . empty
-    (81) empty -> .
+    (85) empty -> .
 
-    LEFTBRACK       shift and go to state 37
-    COMMA           reduce using rule 81 (empty -> .)
-    SEMICOLON       reduce using rule 81 (empty -> .)
-    LESS            reduce using rule 81 (empty -> .)
-    GRTR            reduce using rule 81 (empty -> .)
-    EQ              reduce using rule 81 (empty -> .)
-    NOTEQ           reduce using rule 81 (empty -> .)
-    AND             reduce using rule 81 (empty -> .)
-    OR              reduce using rule 81 (empty -> .)
-    ID              reduce using rule 81 (empty -> .)
+    LEFTBRACK       shift and go to state 35
+    COMMA           reduce using rule 85 (empty -> .)
+    SEMICOLON       reduce using rule 85 (empty -> .)
+    LESS            reduce using rule 85 (empty -> .)
+    GRTR            reduce using rule 85 (empty -> .)
+    EQ              reduce using rule 85 (empty -> .)
+    NOTEQ           reduce using rule 85 (empty -> .)
+    AND             reduce using rule 85 (empty -> .)
+    OR              reduce using rule 85 (empty -> .)
+    ID              reduce using rule 85 (empty -> .)
 
-    array                          shift and go to state 77
-    empty                          shift and go to state 40
+    array                          shift and go to state 75
+    empty                          shift and go to state 38
 
-state 51
+state 49
 
-    (67) exp -> ID array . exp2 SEMICOLON
-    (68) exp2 -> . LESS
-    (69) exp2 -> . GRTR
-    (70) exp2 -> . EQ
-    (71) exp2 -> . NOTEQ
-    (72) exp2 -> . AND
-    (73) exp2 -> . OR
-    (74) exp2 -> . arithmeticExp
-    (75) arithmeticExp -> . ID EQ ID arithmeticOp ID arithmeticExp
-    (76) arithmeticExp -> . empty
-    (81) empty -> .
+    (71) exp -> ID array . exp2 SEMICOLON
+    (72) exp2 -> . LESS
+    (73) exp2 -> . GRTR
+    (74) exp2 -> . EQ
+    (75) exp2 -> . NOTEQ
+    (76) exp2 -> . AND
+    (77) exp2 -> . OR
+    (78) exp2 -> . arithmeticExp
+    (79) arithmeticExp -> . ID EQ ID arithmeticOp ID arithmeticExp
+    (80) arithmeticExp -> . empty
+    (85) empty -> .
 
-    LESS            shift and go to state 80
-    GRTR            shift and go to state 84
-    EQ              shift and go to state 85
-    NOTEQ           shift and go to state 81
-    AND             shift and go to state 78
-    OR              shift and go to state 83
-    ID              shift and go to state 86
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    LESS            shift and go to state 78
+    GRTR            shift and go to state 82
+    EQ              shift and go to state 83
+    NOTEQ           shift and go to state 79
+    AND             shift and go to state 76
+    OR              shift and go to state 81
+    ID              shift and go to state 84
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
-    exp2                           shift and go to state 82
-    arithmeticExp                  shift and go to state 79
-    empty                          shift and go to state 87
+    exp2                           shift and go to state 80
+    arithmeticExp                  shift and go to state 77
+    empty                          shift and go to state 85
 
-state 52
+state 50
 
-    (7) declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON . declareRecursivo
-    (7) declareRecursivo -> . type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
-    (19) declareRecursivo -> . empty
+    (8) declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON . declareRecursivo
+    (8) declareRecursivo -> . type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo
+    (20) declareRecursivo -> . empty
     (24) type -> . type2
-    (81) empty -> .
+    (85) empty -> .
     (25) type2 -> . INT
     (26) type2 -> . FLOAT
     (27) type2 -> . STRING
     (28) type2 -> . BOOL
     (29) type2 -> . VOID
 
-    FUNCTION        reduce using rule 81 (empty -> .)
-    MAIN            reduce using rule 81 (empty -> .)
-    INT             shift and go to state 14
-    FLOAT           shift and go to state 16
-    STRING          shift and go to state 13
-    BOOL            shift and go to state 17
-    VOID            shift and go to state 15
+    FUNCTION        reduce using rule 85 (empty -> .)
+    MAIN            reduce using rule 85 (empty -> .)
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 11
+    BOOL            shift and go to state 15
+    VOID            shift and go to state 13
 
-    declareRecursivo               shift and go to state 88
-    type                           shift and go to state 19
-    empty                          shift and go to state 20
-    type2                          shift and go to state 21
+    declareRecursivo               shift and go to state 86
+    type                           shift and go to state 17
+    empty                          shift and go to state 18
+    type2                          shift and go to state 19
+
+state 51
+
+    (10) declare3 -> COMMA ID . altaVarGlobal declare3
+    (19) altaVarGlobal -> .
+
+    COMMA           reduce using rule 19 (altaVarGlobal -> .)
+    SEMICOLON       reduce using rule 19 (altaVarGlobal -> .)
+
+    altaVarGlobal                  shift and go to state 87
+
+state 52
+
+    (12) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 . RIGHTPAR LEFTKEY est RIGHTKEY
+
+    RIGHTPAR        shift and go to state 88
+
 
 state 53
 
-    (9) declare3 -> COMMA ID . altaVarGlobal declare3
-    (18) altaVarGlobal -> .
+    (14) funct2 -> type . ID funct3
 
-    COMMA           reduce using rule 18 (altaVarGlobal -> .)
-    SEMICOLON       reduce using rule 18 (altaVarGlobal -> .)
+    ID              shift and go to state 89
 
-    altaVarGlobal                  shift and go to state 89
 
 state 54
 
-    (11) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 . RIGHTPAR LEFTKEY est RIGHTKEY
+    (16) funct2 -> empty .
 
-    RIGHTPAR        shift and go to state 90
+    RIGHTPAR        reduce using rule 16 (funct2 -> empty .)
 
 
 state 55
 
-    (13) funct2 -> type . ID funct3
+    (60) do-while -> DO . LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    ID              shift and go to state 91
+    LEFTKEY         shift and go to state 90
 
 
 state 56
 
-    (15) funct2 -> empty .
+    (50) est -> funct . est
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    RIGHTPAR        reduce using rule 15 (funct2 -> empty .)
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
 
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 91
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    declareLocal                   shift and go to state 74
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    cycles                         shift and go to state 70
 
 state 57
 
-    (56) do-while -> DO . LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+    (84) input -> READ . LEFTPAR ID RIGHTPAR SEMICOLON
 
-    LEFTKEY         shift and go to state 92
+    LEFTPAR         shift and go to state 92
 
 
 state 58
 
-    (47) est -> funct .
+    (32) est -> conditional . est
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    RIGHTKEY        reduce using rule 47 (est -> funct .)
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
 
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 93
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
 
 state 59
 
-    (80) input -> READ . LEFTPAR ID RIGHTPAR SEMICOLON
-
-    LEFTPAR         shift and go to state 93
-
-
-state 60
-
-    (32) est -> conditional .
-
-    RIGHTKEY        reduce using rule 32 (est -> conditional .)
-
-
-state 61
-
-    (57) while -> WHILE . LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (61) while -> WHILE . LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
 
     LEFTPAR         shift and go to state 94
 
 
-state 62
+state 60
 
-    (55) cycles -> do-while .
+    (59) cycles -> do-while .
 
-    RIGHTKEY        reduce using rule 55 (cycles -> do-while .)
+    IF              reduce using rule 59 (cycles -> do-while .)
+    DECLARE         reduce using rule 59 (cycles -> do-while .)
+    READ            reduce using rule 59 (cycles -> do-while .)
+    WRITE           reduce using rule 59 (cycles -> do-while .)
+    ID              reduce using rule 59 (cycles -> do-while .)
+    FUNCTION        reduce using rule 59 (cycles -> do-while .)
+    WHILE           reduce using rule 59 (cycles -> do-while .)
+    FOR             reduce using rule 59 (cycles -> do-while .)
+    DO              reduce using rule 59 (cycles -> do-while .)
+    RIGHTKEY        reduce using rule 59 (cycles -> do-while .)
 
 
-state 63
+state 61
 
     (30) cuerpo -> MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain est . RIGHTKEY
 
     RIGHTKEY        shift and go to state 95
 
 
+state 62
+
+    (58) cycles -> for .
+
+    IF              reduce using rule 58 (cycles -> for .)
+    DECLARE         reduce using rule 58 (cycles -> for .)
+    READ            reduce using rule 58 (cycles -> for .)
+    WRITE           reduce using rule 58 (cycles -> for .)
+    ID              reduce using rule 58 (cycles -> for .)
+    FUNCTION        reduce using rule 58 (cycles -> for .)
+    WHILE           reduce using rule 58 (cycles -> for .)
+    FOR             reduce using rule 58 (cycles -> for .)
+    DO              reduce using rule 58 (cycles -> for .)
+    RIGHTKEY        reduce using rule 58 (cycles -> for .)
+
+
+state 63
+
+    (47) est -> input . est
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
+
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 96
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
+
 state 64
 
-    (54) cycles -> for .
-
-    RIGHTKEY        reduce using rule 54 (cycles -> for .)
-
-
-state 65
-
-    (44) est -> input .
-
-    RIGHTKEY        reduce using rule 44 (est -> input .)
-
-
-state 66
-
-    (60) for -> FOR . LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-
-    LEFTPAR         shift and go to state 96
-
-
-state 67
-
-    (46) est -> assignment .
-
-    RIGHTKEY        reduce using rule 46 (est -> assignment .)
-
-
-state 68
-
-    (77) output -> WRITE . LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (64) for -> FOR . LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
 
     LEFTPAR         shift and go to state 97
 
 
-state 69
+state 65
 
-    (49) assignment -> ID . ASSGN ID SEMICOLON
+    (49) est -> assignment . est
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    ASSGN           shift and go to state 98
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
+
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 98
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
+
+state 66
+
+    (81) output -> WRITE . LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+
+    LEFTPAR         shift and go to state 99
 
 
-state 70
+state 67
+
+    (52) assignment -> ID . ASSGN NUMBER SEMICOLON
+
+    ASSGN           shift and go to state 100
+
+
+state 68
 
     (34) declareLocal -> DECLARE . declareRecursivoLocal
-    (35) declareRecursivoLocal -> . type ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
-    (38) declareRecursivoLocal -> . empty
+    (35) declareRecursivoLocal -> . type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
+    (41) declareRecursivoLocal -> . empty
     (24) type -> . type2
-    (81) empty -> .
+    (85) empty -> .
     (25) type2 -> . INT
     (26) type2 -> . FLOAT
     (27) type2 -> . STRING
     (28) type2 -> . BOOL
     (29) type2 -> . VOID
 
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    INT             shift and go to state 14
-    FLOAT           shift and go to state 16
-    STRING          shift and go to state 13
-    BOOL            shift and go to state 17
-    VOID            shift and go to state 15
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 11
+    BOOL            shift and go to state 15
+    VOID            shift and go to state 13
 
-    declareRecursivoLocal          shift and go to state 99
-    type2                          shift and go to state 21
-    type                           shift and go to state 100
-    empty                          shift and go to state 101
+    declareRecursivoLocal          shift and go to state 101
+    type2                          shift and go to state 19
+    type                           shift and go to state 102
+    empty                          shift and go to state 103
+
+state 69
+
+    (54) conditional -> IF . LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+
+    LEFTPAR         shift and go to state 104
+
+
+state 70
+
+    (46) est -> cycles . est
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
+
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 105
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
 
 state 71
 
-    (50) conditional -> IF . LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (57) cycles -> while .
 
-    LEFTPAR         shift and go to state 102
+    IF              reduce using rule 57 (cycles -> while .)
+    DECLARE         reduce using rule 57 (cycles -> while .)
+    READ            reduce using rule 57 (cycles -> while .)
+    WRITE           reduce using rule 57 (cycles -> while .)
+    ID              reduce using rule 57 (cycles -> while .)
+    FUNCTION        reduce using rule 57 (cycles -> while .)
+    WHILE           reduce using rule 57 (cycles -> while .)
+    FOR             reduce using rule 57 (cycles -> while .)
+    DO              reduce using rule 57 (cycles -> while .)
+    RIGHTKEY        reduce using rule 57 (cycles -> while .)
 
 
 state 72
 
-    (43) est -> cycles .
+    (51) est -> empty .
+    (42) declareLocal -> empty .
+    (53) assignment -> empty .
 
-    RIGHTKEY        reduce using rule 43 (est -> cycles .)
+  ! reduce/reduce conflict for RIGHTKEY resolved using rule 42 (declareLocal -> empty .)
+  ! reduce/reduce conflict for RIGHTKEY resolved using rule 42 (declareLocal -> empty .)
+    RIGHTKEY        reduce using rule 42 (declareLocal -> empty .)
+    IF              reduce using rule 53 (assignment -> empty .)
+    DECLARE         reduce using rule 53 (assignment -> empty .)
+    READ            reduce using rule 53 (assignment -> empty .)
+    WRITE           reduce using rule 53 (assignment -> empty .)
+    ID              reduce using rule 53 (assignment -> empty .)
+    FUNCTION        reduce using rule 53 (assignment -> empty .)
+    WHILE           reduce using rule 53 (assignment -> empty .)
+    FOR             reduce using rule 53 (assignment -> empty .)
+    DO              reduce using rule 53 (assignment -> empty .)
+
+  ! RIGHTKEY        [ reduce using rule 51 (est -> empty .) ]
+  ! RIGHTKEY        [ reduce using rule 53 (assignment -> empty .) ]
 
 
 state 73
 
-    (53) cycles -> while .
+    (48) est -> output . est
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    RIGHTKEY        reduce using rule 53 (cycles -> while .)
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
 
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 106
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
 
 state 74
-
-    (48) est -> empty .
-    (39) declareLocal -> empty .
-
-  ! reduce/reduce conflict for RIGHTKEY resolved using rule 39 (declareLocal -> empty .)
-    RIGHTKEY        reduce using rule 39 (declareLocal -> empty .)
-
-  ! RIGHTKEY        [ reduce using rule 48 (est -> empty .) ]
-
-
-state 75
-
-    (45) est -> output .
-
-    RIGHTKEY        reduce using rule 45 (est -> output .)
-
-
-state 76
 
     (33) est -> declareLocal .
 
     RIGHTKEY        reduce using rule 33 (est -> declareLocal .)
 
 
-state 77
+state 75
 
     (22) array -> LEFTBRACK exp RIGHTBRACK array .
 
+    COMMA           reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
+    SEMICOLON       reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
     LESS            reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
     GRTR            reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
     EQ              reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
@@ -1014,192 +1444,224 @@ state 77
     AND             reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
     OR              reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
     ID              reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
-    SEMICOLON       reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
-    COMMA           reduce using rule 22 (array -> LEFTBRACK exp RIGHTBRACK array .)
+
+
+state 76
+
+    (76) exp2 -> AND .
+
+    SEMICOLON       reduce using rule 76 (exp2 -> AND .)
+
+
+state 77
+
+    (78) exp2 -> arithmeticExp .
+
+    SEMICOLON       reduce using rule 78 (exp2 -> arithmeticExp .)
 
 
 state 78
 
-    (72) exp2 -> AND .
+    (72) exp2 -> LESS .
 
-    SEMICOLON       reduce using rule 72 (exp2 -> AND .)
+    SEMICOLON       reduce using rule 72 (exp2 -> LESS .)
 
 
 state 79
 
-    (74) exp2 -> arithmeticExp .
+    (75) exp2 -> NOTEQ .
 
-    SEMICOLON       reduce using rule 74 (exp2 -> arithmeticExp .)
+    SEMICOLON       reduce using rule 75 (exp2 -> NOTEQ .)
 
 
 state 80
 
-    (68) exp2 -> LESS .
+    (71) exp -> ID array exp2 . SEMICOLON
 
-    SEMICOLON       reduce using rule 68 (exp2 -> LESS .)
+    SEMICOLON       shift and go to state 107
 
 
 state 81
 
-    (71) exp2 -> NOTEQ .
+    (77) exp2 -> OR .
 
-    SEMICOLON       reduce using rule 71 (exp2 -> NOTEQ .)
+    SEMICOLON       reduce using rule 77 (exp2 -> OR .)
 
 
 state 82
 
-    (67) exp -> ID array exp2 . SEMICOLON
+    (73) exp2 -> GRTR .
 
-    SEMICOLON       shift and go to state 103
+    SEMICOLON       reduce using rule 73 (exp2 -> GRTR .)
 
 
 state 83
 
-    (73) exp2 -> OR .
+    (74) exp2 -> EQ .
 
-    SEMICOLON       reduce using rule 73 (exp2 -> OR .)
+    SEMICOLON       reduce using rule 74 (exp2 -> EQ .)
 
 
 state 84
 
-    (69) exp2 -> GRTR .
+    (79) arithmeticExp -> ID . EQ ID arithmeticOp ID arithmeticExp
 
-    SEMICOLON       reduce using rule 69 (exp2 -> GRTR .)
+    EQ              shift and go to state 108
 
 
 state 85
 
-    (70) exp2 -> EQ .
+    (80) arithmeticExp -> empty .
 
-    SEMICOLON       reduce using rule 70 (exp2 -> EQ .)
+    SEMICOLON       reduce using rule 80 (arithmeticExp -> empty .)
 
 
 state 86
 
-    (75) arithmeticExp -> ID . EQ ID arithmeticOp ID arithmeticExp
+    (8) declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo .
 
-    EQ              shift and go to state 104
+    FUNCTION        reduce using rule 8 (declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo .)
+    MAIN            reduce using rule 8 (declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo .)
 
 
 state 87
 
-    (76) arithmeticExp -> empty .
+    (10) declare3 -> COMMA ID altaVarGlobal . declare3
+    (10) declare3 -> . COMMA ID altaVarGlobal declare3
+    (21) declare3 -> . empty
+    (85) empty -> .
 
-    SEMICOLON       reduce using rule 76 (arithmeticExp -> empty .)
+    COMMA           shift and go to state 44
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
+    empty                          shift and go to state 45
+    declare3                       shift and go to state 109
 
 state 88
 
-    (7) declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo .
+    (12) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR . LEFTKEY est RIGHTKEY
 
-    FUNCTION        reduce using rule 7 (declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo .)
-    MAIN            reduce using rule 7 (declareRecursivo -> type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo .)
+    LEFTKEY         shift and go to state 110
 
 
 state 89
 
-    (9) declare3 -> COMMA ID altaVarGlobal . declare3
-    (9) declare3 -> . COMMA ID altaVarGlobal declare3
-    (21) declare3 -> . empty
-    (81) empty -> .
+    (14) funct2 -> type ID . funct3
+    (15) funct3 -> . COMMA funct type ID funct3
+    (17) funct3 -> . empty
+    (85) empty -> .
 
-    COMMA           shift and go to state 46
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    COMMA           shift and go to state 112
+    RIGHTPAR        reduce using rule 85 (empty -> .)
 
-    empty                          shift and go to state 47
-    declare3                       shift and go to state 105
+    funct3                         shift and go to state 111
+    empty                          shift and go to state 113
 
 state 90
 
-    (11) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR . LEFTKEY est RIGHTKEY
+    (60) do-while -> DO LEFTKEY . est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    LEFTKEY         shift and go to state 106
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
 
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 114
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
 
 state 91
 
-    (13) funct2 -> type ID . funct3
-    (14) funct3 -> . COMMA funct type ID funct3
-    (16) funct3 -> . empty
-    (81) empty -> .
+    (50) est -> funct est .
 
-    COMMA           shift and go to state 108
-    RIGHTPAR        reduce using rule 81 (empty -> .)
+    RIGHTKEY        reduce using rule 50 (est -> funct est .)
 
-    funct3                         shift and go to state 107
-    empty                          shift and go to state 109
 
 state 92
 
-    (56) do-while -> DO LEFTKEY . est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
-    (32) est -> . conditional
-    (33) est -> . declareLocal
-    (43) est -> . cycles
-    (44) est -> . input
-    (45) est -> . output
-    (46) est -> . assignment
-    (47) est -> . funct
-    (48) est -> . empty
-    (50) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-    (34) declareLocal -> . DECLARE declareRecursivoLocal
-    (39) declareLocal -> . empty
-    (53) cycles -> . while
-    (54) cycles -> . for
-    (55) cycles -> . do-while
-    (80) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
-    (77) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (49) assignment -> . ID ASSGN ID SEMICOLON
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-    (57) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (60) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (56) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+    (84) input -> READ LEFTPAR . ID RIGHTPAR SEMICOLON
 
-    IF              shift and go to state 71
-    DECLARE         shift and go to state 70
-    READ            shift and go to state 59
-    WRITE           shift and go to state 68
-    ID              shift and go to state 69
-    FUNCTION        shift and go to state 22
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    WHILE           shift and go to state 61
-    FOR             shift and go to state 66
-    DO              shift and go to state 57
+    ID              shift and go to state 115
 
-    funct                          shift and go to state 58
-    conditional                    shift and go to state 60
-    do-while                       shift and go to state 62
-    est                            shift and go to state 110
-    for                            shift and go to state 64
-    input                          shift and go to state 65
-    assignment                     shift and go to state 67
-    cycles                         shift and go to state 72
-    while                          shift and go to state 73
-    empty                          shift and go to state 74
-    output                         shift and go to state 75
-    declareLocal                   shift and go to state 76
 
 state 93
 
-    (80) input -> READ LEFTPAR . ID RIGHTPAR SEMICOLON
+    (32) est -> conditional est .
 
-    ID              shift and go to state 111
+    RIGHTKEY        reduce using rule 32 (est -> conditional est .)
 
 
 state 94
 
-    (57) while -> WHILE LEFTPAR . while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (58) while2 -> . exp while2
-    (59) while2 -> . empty
-    (67) exp -> . ID array exp2 SEMICOLON
-    (81) empty -> .
+    (61) while -> WHILE LEFTPAR . while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (62) while2 -> . exp while2
+    (63) while2 -> . empty
+    (71) exp -> . ID array exp2 SEMICOLON
+    (85) empty -> .
 
-    ID              shift and go to state 44
-    RIGHTPAR        reduce using rule 81 (empty -> .)
+    ID              shift and go to state 42
+    RIGHTPAR        reduce using rule 85 (empty -> .)
 
-    while2                         shift and go to state 112
-    exp                            shift and go to state 113
-    empty                          shift and go to state 114
+    while2                         shift and go to state 116
+    exp                            shift and go to state 117
+    empty                          shift and go to state 118
 
 state 95
 
@@ -1210,330 +1672,382 @@ state 95
 
 state 96
 
-    (60) for -> FOR LEFTPAR . for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (63) for2 -> . ID ASSGN ID for2
-    (64) for2 -> . empty
-    (81) empty -> .
+    (47) est -> input est .
 
-    ID              shift and go to state 116
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    RIGHTKEY        reduce using rule 47 (est -> input est .)
 
-    for2                           shift and go to state 115
-    empty                          shift and go to state 117
 
 state 97
 
-    (77) output -> WRITE LEFTPAR . output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (78) output2 -> . ID output2
-    (79) output2 -> . empty
-    (81) empty -> .
+    (64) for -> FOR LEFTPAR . for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (67) for2 -> . ID ASSGN ID for2
+    (68) for2 -> . empty
+    (85) empty -> .
 
-    ID              shift and go to state 119
-    QUOTE           reduce using rule 81 (empty -> .)
+    ID              shift and go to state 120
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
-    output2                        shift and go to state 118
-    empty                          shift and go to state 120
+    for2                           shift and go to state 119
+    empty                          shift and go to state 121
 
 state 98
 
-    (49) assignment -> ID ASSGN . ID SEMICOLON
+    (49) est -> assignment est .
 
-    ID              shift and go to state 121
+    RIGHTKEY        reduce using rule 49 (est -> assignment est .)
 
 
 state 99
+
+    (81) output -> WRITE LEFTPAR . output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (82) output2 -> . ID output2
+    (83) output2 -> . empty
+    (85) empty -> .
+
+    ID              shift and go to state 123
+    QUOTE           reduce using rule 85 (empty -> .)
+
+    output2                        shift and go to state 122
+    empty                          shift and go to state 124
+
+state 100
+
+    (52) assignment -> ID ASSGN . NUMBER SEMICOLON
+
+    NUMBER          shift and go to state 125
+
+
+state 101
 
     (34) declareLocal -> DECLARE declareRecursivoLocal .
 
     RIGHTKEY        reduce using rule 34 (declareLocal -> DECLARE declareRecursivoLocal .)
 
 
-state 100
-
-    (35) declareRecursivoLocal -> type . ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
-
-    ID              shift and go to state 122
-
-
-state 101
-
-    (38) declareRecursivoLocal -> empty .
-
-    RIGHTKEY        reduce using rule 38 (declareRecursivoLocal -> empty .)
-
-
 state 102
 
-    (50) conditional -> IF LEFTPAR . conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-    (51) conditional2 -> . exp conditional2
-    (52) conditional2 -> . empty
-    (67) exp -> . ID array exp2 SEMICOLON
-    (81) empty -> .
-
-    ID              shift and go to state 44
-    RIGHTPAR        reduce using rule 81 (empty -> .)
-
-    conditional2                   shift and go to state 125
-    exp                            shift and go to state 124
-    empty                          shift and go to state 123
-
-state 103
-
-    (67) exp -> ID array exp2 SEMICOLON .
-
-    ID              reduce using rule 67 (exp -> ID array exp2 SEMICOLON .)
-    RIGHTPAR        reduce using rule 67 (exp -> ID array exp2 SEMICOLON .)
-    SEMICOLON       reduce using rule 67 (exp -> ID array exp2 SEMICOLON .)
-    RIGHTBRACK      reduce using rule 67 (exp -> ID array exp2 SEMICOLON .)
-    QUOTE           reduce using rule 67 (exp -> ID array exp2 SEMICOLON .)
-
-
-state 104
-
-    (75) arithmeticExp -> ID EQ . ID arithmeticOp ID arithmeticExp
+    (35) declareRecursivoLocal -> type . ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
 
     ID              shift and go to state 126
 
 
+state 103
+
+    (41) declareRecursivoLocal -> empty .
+
+    RIGHTKEY        reduce using rule 41 (declareRecursivoLocal -> empty .)
+
+
+state 104
+
+    (54) conditional -> IF LEFTPAR . conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (55) conditional2 -> . exp conditional2
+    (56) conditional2 -> . empty
+    (71) exp -> . ID array exp2 SEMICOLON
+    (85) empty -> .
+
+    ID              shift and go to state 42
+    RIGHTPAR        reduce using rule 85 (empty -> .)
+
+    conditional2                   shift and go to state 129
+    exp                            shift and go to state 128
+    empty                          shift and go to state 127
+
 state 105
 
-    (9) declare3 -> COMMA ID altaVarGlobal declare3 .
+    (46) est -> cycles est .
 
-    SEMICOLON       reduce using rule 9 (declare3 -> COMMA ID altaVarGlobal declare3 .)
+    RIGHTKEY        reduce using rule 46 (est -> cycles est .)
 
 
 state 106
 
-    (11) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY . est RIGHTKEY
-    (32) est -> . conditional
-    (33) est -> . declareLocal
-    (43) est -> . cycles
-    (44) est -> . input
-    (45) est -> . output
-    (46) est -> . assignment
-    (47) est -> . funct
-    (48) est -> . empty
-    (50) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-    (34) declareLocal -> . DECLARE declareRecursivoLocal
-    (39) declareLocal -> . empty
-    (53) cycles -> . while
-    (54) cycles -> . for
-    (55) cycles -> . do-while
-    (80) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
-    (77) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (49) assignment -> . ID ASSGN ID SEMICOLON
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-    (57) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (60) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (56) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+    (48) est -> output est .
 
-    IF              shift and go to state 71
-    DECLARE         shift and go to state 70
-    READ            shift and go to state 59
-    WRITE           shift and go to state 68
-    ID              shift and go to state 69
-    FUNCTION        shift and go to state 22
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    WHILE           shift and go to state 61
-    FOR             shift and go to state 66
-    DO              shift and go to state 57
+    RIGHTKEY        reduce using rule 48 (est -> output est .)
 
-    funct                          shift and go to state 58
-    conditional                    shift and go to state 60
-    do-while                       shift and go to state 62
-    est                            shift and go to state 127
-    for                            shift and go to state 64
-    input                          shift and go to state 65
-    assignment                     shift and go to state 67
-    declareLocal                   shift and go to state 76
-    while                          shift and go to state 73
-    empty                          shift and go to state 74
-    output                         shift and go to state 75
-    cycles                         shift and go to state 72
 
 state 107
 
-    (13) funct2 -> type ID funct3 .
+    (71) exp -> ID array exp2 SEMICOLON .
 
-    RIGHTPAR        reduce using rule 13 (funct2 -> type ID funct3 .)
+    ID              reduce using rule 71 (exp -> ID array exp2 SEMICOLON .)
+    SEMICOLON       reduce using rule 71 (exp -> ID array exp2 SEMICOLON .)
+    RIGHTPAR        reduce using rule 71 (exp -> ID array exp2 SEMICOLON .)
+    RIGHTBRACK      reduce using rule 71 (exp -> ID array exp2 SEMICOLON .)
+    QUOTE           reduce using rule 71 (exp -> ID array exp2 SEMICOLON .)
 
 
 state 108
 
-    (14) funct3 -> COMMA . funct type ID funct3
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (79) arithmeticExp -> ID EQ . ID arithmeticOp ID arithmeticExp
 
-    FUNCTION        shift and go to state 22
+    ID              shift and go to state 130
 
-    funct                          shift and go to state 128
 
 state 109
 
-    (16) funct3 -> empty .
+    (10) declare3 -> COMMA ID altaVarGlobal declare3 .
 
-    RIGHTPAR        reduce using rule 16 (funct3 -> empty .)
+    SEMICOLON       reduce using rule 10 (declare3 -> COMMA ID altaVarGlobal declare3 .)
 
 
 state 110
 
-    (56) do-while -> DO LEFTKEY est . RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+    (12) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY . est RIGHTKEY
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    RIGHTKEY        shift and go to state 129
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
 
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 131
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    declareLocal                   shift and go to state 74
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    cycles                         shift and go to state 70
 
 state 111
 
-    (80) input -> READ LEFTPAR ID . RIGHTPAR SEMICOLON
+    (14) funct2 -> type ID funct3 .
 
-    RIGHTPAR        shift and go to state 130
+    RIGHTPAR        reduce using rule 14 (funct2 -> type ID funct3 .)
 
 
 state 112
 
-    (57) while -> WHILE LEFTPAR while2 . RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (15) funct3 -> COMMA . funct type ID funct3
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
 
-    RIGHTPAR        shift and go to state 131
+    FUNCTION        shift and go to state 20
 
+    funct                          shift and go to state 132
 
 state 113
 
-    (58) while2 -> exp . while2
-    (58) while2 -> . exp while2
-    (59) while2 -> . empty
-    (67) exp -> . ID array exp2 SEMICOLON
-    (81) empty -> .
+    (17) funct3 -> empty .
 
-    ID              shift and go to state 44
-    RIGHTPAR        reduce using rule 81 (empty -> .)
+    RIGHTPAR        reduce using rule 17 (funct3 -> empty .)
 
-    while2                         shift and go to state 132
-    empty                          shift and go to state 114
-    exp                            shift and go to state 113
 
 state 114
 
-    (59) while2 -> empty .
+    (60) do-while -> DO LEFTKEY est . RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    RIGHTPAR        reduce using rule 59 (while2 -> empty .)
+    RIGHTKEY        shift and go to state 133
 
 
 state 115
 
-    (60) for -> FOR LEFTPAR for2 . SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (84) input -> READ LEFTPAR ID . RIGHTPAR SEMICOLON
 
-    SEMICOLON       shift and go to state 133
+    RIGHTPAR        shift and go to state 134
 
 
 state 116
 
-    (63) for2 -> ID . ASSGN ID for2
+    (61) while -> WHILE LEFTPAR while2 . RIGHTPAR WHILE LEFTKEY est RIGHTKEY
 
-    ASSGN           shift and go to state 134
+    RIGHTPAR        shift and go to state 135
 
 
 state 117
 
-    (64) for2 -> empty .
+    (62) while2 -> exp . while2
+    (62) while2 -> . exp while2
+    (63) while2 -> . empty
+    (71) exp -> . ID array exp2 SEMICOLON
+    (85) empty -> .
 
-    SEMICOLON       reduce using rule 64 (for2 -> empty .)
+    ID              shift and go to state 42
+    RIGHTPAR        reduce using rule 85 (empty -> .)
 
+    while2                         shift and go to state 136
+    empty                          shift and go to state 118
+    exp                            shift and go to state 117
 
 state 118
 
-    (77) output -> WRITE LEFTPAR output2 . QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (63) while2 -> empty .
 
-    QUOTE           shift and go to state 135
+    RIGHTPAR        reduce using rule 63 (while2 -> empty .)
 
 
 state 119
 
-    (78) output2 -> ID . output2
-    (78) output2 -> . ID output2
-    (79) output2 -> . empty
-    (81) empty -> .
-
-    ID              shift and go to state 119
-    QUOTE           reduce using rule 81 (empty -> .)
-
-    output2                        shift and go to state 136
-    empty                          shift and go to state 120
-
-state 120
-
-    (79) output2 -> empty .
-
-    QUOTE           reduce using rule 79 (output2 -> empty .)
-
-
-state 121
-
-    (49) assignment -> ID ASSGN ID . SEMICOLON
+    (64) for -> FOR LEFTPAR for2 . SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
 
     SEMICOLON       shift and go to state 137
 
 
+state 120
+
+    (67) for2 -> ID . ASSGN ID for2
+
+    ASSGN           shift and go to state 138
+
+
+state 121
+
+    (68) for2 -> empty .
+
+    SEMICOLON       reduce using rule 68 (for2 -> empty .)
+
+
 state 122
 
-    (35) declareRecursivoLocal -> type ID . altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
-    (42) altaVarLocal -> .
+    (81) output -> WRITE LEFTPAR output2 . QUOTE exp QUOTE RIGHTPAR SEMICOLON
 
-    LEFTBRACK       reduce using rule 42 (altaVarLocal -> .)
-    COMMA           reduce using rule 42 (altaVarLocal -> .)
-    SEMICOLON       reduce using rule 42 (altaVarLocal -> .)
+    QUOTE           shift and go to state 139
 
-    altaVarLocal                   shift and go to state 138
 
 state 123
 
-    (52) conditional2 -> empty .
+    (82) output2 -> ID . output2
+    (82) output2 -> . ID output2
+    (83) output2 -> . empty
+    (85) empty -> .
 
-    RIGHTPAR        reduce using rule 52 (conditional2 -> empty .)
+    ID              shift and go to state 123
+    QUOTE           reduce using rule 85 (empty -> .)
 
+    output2                        shift and go to state 140
+    empty                          shift and go to state 124
 
 state 124
 
-    (51) conditional2 -> exp . conditional2
-    (51) conditional2 -> . exp conditional2
-    (52) conditional2 -> . empty
-    (67) exp -> . ID array exp2 SEMICOLON
-    (81) empty -> .
+    (83) output2 -> empty .
 
-    ID              shift and go to state 44
-    RIGHTPAR        reduce using rule 81 (empty -> .)
+    QUOTE           reduce using rule 83 (output2 -> empty .)
 
-    empty                          shift and go to state 123
-    conditional2                   shift and go to state 139
-    exp                            shift and go to state 124
 
 state 125
 
-    (50) conditional -> IF LEFTPAR conditional2 . RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (52) assignment -> ID ASSGN NUMBER . SEMICOLON
 
-    RIGHTPAR        shift and go to state 140
+    SEMICOLON       shift and go to state 141
 
 
 state 126
 
-    (75) arithmeticExp -> ID EQ ID . arithmeticOp ID arithmeticExp
-    (61) arithmeticOp -> . SUM
-    (62) arithmeticOp -> . MINUS
+    (35) declareRecursivoLocal -> type ID . assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
+    (36) assignmentDecl -> . ASSGN NUMBER assignmentDecl2
+    (38) assignmentDecl -> . empty
+    (85) empty -> .
 
-    SUM             shift and go to state 142
-    MINUS           shift and go to state 143
+    ASSGN           shift and go to state 142
+    LEFTBRACK       reduce using rule 85 (empty -> .)
+    COMMA           reduce using rule 85 (empty -> .)
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
-    arithmeticOp                   shift and go to state 141
+    assignmentDecl                 shift and go to state 143
+    empty                          shift and go to state 144
 
 state 127
 
-    (11) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est . RIGHTKEY
+    (56) conditional2 -> empty .
 
-    RIGHTKEY        shift and go to state 144
+    RIGHTPAR        reduce using rule 56 (conditional2 -> empty .)
 
 
 state 128
 
-    (14) funct3 -> COMMA funct . type ID funct3
+    (55) conditional2 -> exp . conditional2
+    (55) conditional2 -> . exp conditional2
+    (56) conditional2 -> . empty
+    (71) exp -> . ID array exp2 SEMICOLON
+    (85) empty -> .
+
+    ID              shift and go to state 42
+    RIGHTPAR        reduce using rule 85 (empty -> .)
+
+    empty                          shift and go to state 127
+    conditional2                   shift and go to state 145
+    exp                            shift and go to state 128
+
+state 129
+
+    (54) conditional -> IF LEFTPAR conditional2 . RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+
+    RIGHTPAR        shift and go to state 146
+
+
+state 130
+
+    (79) arithmeticExp -> ID EQ ID . arithmeticOp ID arithmeticExp
+    (65) arithmeticOp -> . SUM
+    (66) arithmeticOp -> . MINUS
+
+    SUM             shift and go to state 148
+    MINUS           shift and go to state 149
+
+    arithmeticOp                   shift and go to state 147
+
+state 131
+
+    (12) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est . RIGHTKEY
+
+    RIGHTKEY        shift and go to state 150
+
+
+state 132
+
+    (15) funct3 -> COMMA funct . type ID funct3
     (24) type -> . type2
     (25) type2 -> . INT
     (26) type2 -> . FLOAT
@@ -1541,261 +2055,554 @@ state 128
     (28) type2 -> . BOOL
     (29) type2 -> . VOID
 
-    INT             shift and go to state 14
-    FLOAT           shift and go to state 16
-    STRING          shift and go to state 13
-    BOOL            shift and go to state 17
-    VOID            shift and go to state 15
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 11
+    BOOL            shift and go to state 15
+    VOID            shift and go to state 13
 
-    type                           shift and go to state 145
-    type2                          shift and go to state 21
-
-state 129
-
-    (56) do-while -> DO LEFTKEY est RIGHTKEY . WHILE LEFTPAR while2 RIGHTPAR
-
-    WHILE           shift and go to state 146
-
-
-state 130
-
-    (80) input -> READ LEFTPAR ID RIGHTPAR . SEMICOLON
-
-    SEMICOLON       shift and go to state 147
-
-
-state 131
-
-    (57) while -> WHILE LEFTPAR while2 RIGHTPAR . WHILE LEFTKEY est RIGHTKEY
-
-    WHILE           shift and go to state 148
-
-
-state 132
-
-    (58) while2 -> exp while2 .
-
-    RIGHTPAR        reduce using rule 58 (while2 -> exp while2 .)
-
+    type                           shift and go to state 151
+    type2                          shift and go to state 19
 
 state 133
 
-    (60) for -> FOR LEFTPAR for2 SEMICOLON . for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (65) for3 -> . exp for3
-    (66) for3 -> . empty
-    (67) exp -> . ID array exp2 SEMICOLON
-    (81) empty -> .
+    (60) do-while -> DO LEFTKEY est RIGHTKEY . WHILE LEFTPAR while2 RIGHTPAR
 
-    ID              shift and go to state 44
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    WHILE           shift and go to state 152
 
-    exp                            shift and go to state 149
-    for3                           shift and go to state 150
-    empty                          shift and go to state 151
 
 state 134
 
-    (63) for2 -> ID ASSGN . ID for2
+    (84) input -> READ LEFTPAR ID RIGHTPAR . SEMICOLON
 
-    ID              shift and go to state 152
+    SEMICOLON       shift and go to state 153
 
 
 state 135
 
-    (77) output -> WRITE LEFTPAR output2 QUOTE . exp QUOTE RIGHTPAR SEMICOLON
-    (67) exp -> . ID array exp2 SEMICOLON
+    (61) while -> WHILE LEFTPAR while2 RIGHTPAR . WHILE LEFTKEY est RIGHTKEY
 
-    ID              shift and go to state 44
+    WHILE           shift and go to state 154
 
-    exp                            shift and go to state 153
 
 state 136
 
-    (78) output2 -> ID output2 .
+    (62) while2 -> exp while2 .
 
-    QUOTE           reduce using rule 78 (output2 -> ID output2 .)
+    RIGHTPAR        reduce using rule 62 (while2 -> exp while2 .)
 
 
 state 137
 
-    (49) assignment -> ID ASSGN ID SEMICOLON .
+    (64) for -> FOR LEFTPAR for2 SEMICOLON . for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (69) for3 -> . exp for3
+    (70) for3 -> . empty
+    (71) exp -> . ID array exp2 SEMICOLON
+    (85) empty -> .
 
-    RIGHTKEY        reduce using rule 49 (assignment -> ID ASSGN ID SEMICOLON .)
+    ID              shift and go to state 42
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
+    exp                            shift and go to state 155
+    for3                           shift and go to state 156
+    empty                          shift and go to state 157
 
 state 138
 
-    (35) declareRecursivoLocal -> type ID altaVarLocal . declare2Local declare3Local SEMICOLON declareRecursivoLocal
-    (36) declare2Local -> . array
-    (40) declare2Local -> . empty
-    (22) array -> . LEFTBRACK exp RIGHTBRACK array
-    (23) array -> . empty
-    (81) empty -> .
-
-    LEFTBRACK       shift and go to state 37
-    COMMA           reduce using rule 81 (empty -> .)
-    SEMICOLON       reduce using rule 81 (empty -> .)
-
-    declare2Local                  shift and go to state 154
-    array                          shift and go to state 155
-    empty                          shift and go to state 156
-
-state 139
-
-    (51) conditional2 -> exp conditional2 .
-
-    RIGHTPAR        reduce using rule 51 (conditional2 -> exp conditional2 .)
-
-
-state 140
-
-    (50) conditional -> IF LEFTPAR conditional2 RIGHTPAR . LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-
-    LEFTKEY         shift and go to state 157
-
-
-state 141
-
-    (75) arithmeticExp -> ID EQ ID arithmeticOp . ID arithmeticExp
+    (67) for2 -> ID ASSGN . ID for2
 
     ID              shift and go to state 158
 
 
+state 139
+
+    (81) output -> WRITE LEFTPAR output2 QUOTE . exp QUOTE RIGHTPAR SEMICOLON
+    (71) exp -> . ID array exp2 SEMICOLON
+
+    ID              shift and go to state 42
+
+    exp                            shift and go to state 159
+
+state 140
+
+    (82) output2 -> ID output2 .
+
+    QUOTE           reduce using rule 82 (output2 -> ID output2 .)
+
+
+state 141
+
+    (52) assignment -> ID ASSGN NUMBER SEMICOLON .
+
+    IF              reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    DECLARE         reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    READ            reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    WRITE           reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    ID              reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    FUNCTION        reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    WHILE           reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    FOR             reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    DO              reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+    RIGHTKEY        reduce using rule 52 (assignment -> ID ASSGN NUMBER SEMICOLON .)
+
+
 state 142
 
-    (61) arithmeticOp -> SUM .
+    (36) assignmentDecl -> ASSGN . NUMBER assignmentDecl2
 
-    SUM             reduce using rule 61 (arithmeticOp -> SUM .)
-    MINUS           reduce using rule 61 (arithmeticOp -> SUM .)
-    ID              reduce using rule 61 (arithmeticOp -> SUM .)
-    RIGHTPAR        reduce using rule 61 (arithmeticOp -> SUM .)
+    NUMBER          shift and go to state 160
 
 
 state 143
 
-    (62) arithmeticOp -> MINUS .
+    (35) declareRecursivoLocal -> type ID assignmentDecl . altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
+    (45) altaVarLocal -> .
 
-    SUM             reduce using rule 62 (arithmeticOp -> MINUS .)
-    MINUS           reduce using rule 62 (arithmeticOp -> MINUS .)
-    ID              reduce using rule 62 (arithmeticOp -> MINUS .)
-    RIGHTPAR        reduce using rule 62 (arithmeticOp -> MINUS .)
+    LEFTBRACK       reduce using rule 45 (altaVarLocal -> .)
+    COMMA           reduce using rule 45 (altaVarLocal -> .)
+    SEMICOLON       reduce using rule 45 (altaVarLocal -> .)
 
+    altaVarLocal                   shift and go to state 161
 
 state 144
 
-    (11) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .
+    (38) assignmentDecl -> empty .
 
-    RIGHTKEY        reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
-    FUNCTION        reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
-    MAIN            reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
-    INT             reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
-    FLOAT           reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
-    STRING          reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
-    BOOL            reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
-    VOID            reduce using rule 11 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    LEFTBRACK       reduce using rule 38 (assignmentDecl -> empty .)
+    COMMA           reduce using rule 38 (assignmentDecl -> empty .)
+    SEMICOLON       reduce using rule 38 (assignmentDecl -> empty .)
 
 
 state 145
 
-    (14) funct3 -> COMMA funct type . ID funct3
+    (55) conditional2 -> exp conditional2 .
 
-    ID              shift and go to state 159
+    RIGHTPAR        reduce using rule 55 (conditional2 -> exp conditional2 .)
 
 
 state 146
 
-    (56) do-while -> DO LEFTKEY est RIGHTKEY WHILE . LEFTPAR while2 RIGHTPAR
+    (54) conditional -> IF LEFTPAR conditional2 RIGHTPAR . LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
 
-    LEFTPAR         shift and go to state 160
+    LEFTKEY         shift and go to state 162
 
 
 state 147
 
-    (80) input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .
+    (79) arithmeticExp -> ID EQ ID arithmeticOp . ID arithmeticExp
 
-    RIGHTKEY        reduce using rule 80 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    ID              shift and go to state 163
 
 
 state 148
 
-    (57) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE . LEFTKEY est RIGHTKEY
+    (65) arithmeticOp -> SUM .
 
-    LEFTKEY         shift and go to state 161
+    RIGHTPAR        reduce using rule 65 (arithmeticOp -> SUM .)
+    SUM             reduce using rule 65 (arithmeticOp -> SUM .)
+    MINUS           reduce using rule 65 (arithmeticOp -> SUM .)
+    ID              reduce using rule 65 (arithmeticOp -> SUM .)
 
 
 state 149
 
-    (65) for3 -> exp . for3
-    (65) for3 -> . exp for3
-    (66) for3 -> . empty
-    (67) exp -> . ID array exp2 SEMICOLON
-    (81) empty -> .
+    (66) arithmeticOp -> MINUS .
 
-    ID              shift and go to state 44
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    RIGHTPAR        reduce using rule 66 (arithmeticOp -> MINUS .)
+    SUM             reduce using rule 66 (arithmeticOp -> MINUS .)
+    MINUS           reduce using rule 66 (arithmeticOp -> MINUS .)
+    ID              reduce using rule 66 (arithmeticOp -> MINUS .)
 
-    for3                           shift and go to state 162
-    empty                          shift and go to state 151
-    exp                            shift and go to state 149
 
 state 150
 
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 . SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (12) funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .
 
-    SEMICOLON       shift and go to state 163
+    IF              reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    DECLARE         reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    READ            reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    WRITE           reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    ID              reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    FUNCTION        reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    WHILE           reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    FOR             reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    DO              reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    RIGHTKEY        reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    MAIN            reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    INT             reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    FLOAT           reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    STRING          reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    BOOL            reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
+    VOID            reduce using rule 12 (funct -> FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY .)
 
 
 state 151
 
-    (66) for3 -> empty .
+    (15) funct3 -> COMMA funct type . ID funct3
 
-    SEMICOLON       reduce using rule 66 (for3 -> empty .)
+    ID              shift and go to state 164
 
 
 state 152
 
-    (63) for2 -> ID ASSGN ID . for2
-    (63) for2 -> . ID ASSGN ID for2
-    (64) for2 -> . empty
-    (81) empty -> .
+    (60) do-while -> DO LEFTKEY est RIGHTKEY WHILE . LEFTPAR while2 RIGHTPAR
 
-    ID              shift and go to state 116
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    LEFTPAR         shift and go to state 165
 
-    for2                           shift and go to state 164
-    empty                          shift and go to state 117
 
 state 153
 
-    (77) output -> WRITE LEFTPAR output2 QUOTE exp . QUOTE RIGHTPAR SEMICOLON
+    (84) input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .
 
-    QUOTE           shift and go to state 165
+    IF              reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    DECLARE         reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    READ            reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    WRITE           reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    ID              reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    FUNCTION        reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    WHILE           reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    FOR             reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    DO              reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
+    RIGHTKEY        reduce using rule 84 (input -> READ LEFTPAR ID RIGHTPAR SEMICOLON .)
 
 
 state 154
 
-    (35) declareRecursivoLocal -> type ID altaVarLocal declare2Local . declare3Local SEMICOLON declareRecursivoLocal
-    (37) declare3Local -> . COMMA ID altaVarLocal declare3Local
-    (41) declare3Local -> . empty
-    (81) empty -> .
+    (61) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE . LEFTKEY est RIGHTKEY
 
-    COMMA           shift and go to state 166
-    SEMICOLON       reduce using rule 81 (empty -> .)
+    LEFTKEY         shift and go to state 166
 
-    empty                          shift and go to state 167
-    declare3Local                  shift and go to state 168
 
 state 155
 
-    (36) declare2Local -> array .
+    (69) for3 -> exp . for3
+    (69) for3 -> . exp for3
+    (70) for3 -> . empty
+    (71) exp -> . ID array exp2 SEMICOLON
+    (85) empty -> .
 
-    COMMA           reduce using rule 36 (declare2Local -> array .)
-    SEMICOLON       reduce using rule 36 (declare2Local -> array .)
+    ID              shift and go to state 42
+    SEMICOLON       reduce using rule 85 (empty -> .)
 
+    for3                           shift and go to state 167
+    empty                          shift and go to state 157
+    exp                            shift and go to state 155
 
 state 156
 
-    (40) declare2Local -> empty .
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 . SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+
+    SEMICOLON       shift and go to state 168
+
+
+state 157
+
+    (70) for3 -> empty .
+
+    SEMICOLON       reduce using rule 70 (for3 -> empty .)
+
+
+state 158
+
+    (67) for2 -> ID ASSGN ID . for2
+    (67) for2 -> . ID ASSGN ID for2
+    (68) for2 -> . empty
+    (85) empty -> .
+
+    ID              shift and go to state 120
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    for2                           shift and go to state 169
+    empty                          shift and go to state 121
+
+state 159
+
+    (81) output -> WRITE LEFTPAR output2 QUOTE exp . QUOTE RIGHTPAR SEMICOLON
+
+    QUOTE           shift and go to state 170
+
+
+state 160
+
+    (36) assignmentDecl -> ASSGN NUMBER . assignmentDecl2
+    (37) assignmentDecl2 -> . empty
+    (85) empty -> .
+
+    LEFTBRACK       reduce using rule 85 (empty -> .)
+    COMMA           reduce using rule 85 (empty -> .)
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    assignmentDecl2                shift and go to state 171
+    empty                          shift and go to state 172
+
+state 161
+
+    (35) declareRecursivoLocal -> type ID assignmentDecl altaVarLocal . declare2Local declare3Local SEMICOLON declareRecursivoLocal
+    (39) declare2Local -> . array
+    (43) declare2Local -> . empty
+    (22) array -> . LEFTBRACK exp RIGHTBRACK array
+    (23) array -> . empty
+    (85) empty -> .
+
+    LEFTBRACK       shift and go to state 35
+    COMMA           reduce using rule 85 (empty -> .)
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    declare2Local                  shift and go to state 173
+    array                          shift and go to state 174
+    empty                          shift and go to state 175
+
+state 162
+
+    (54) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY . est RIGHTKEY ELSE est RIGHTKEY
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
+
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 176
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    empty                          shift and go to state 72
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
+
+state 163
+
+    (79) arithmeticExp -> ID EQ ID arithmeticOp ID . arithmeticExp
+    (79) arithmeticExp -> . ID EQ ID arithmeticOp ID arithmeticExp
+    (80) arithmeticExp -> . empty
+    (85) empty -> .
+
+    ID              shift and go to state 84
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    arithmeticExp                  shift and go to state 177
+    empty                          shift and go to state 85
+
+state 164
+
+    (15) funct3 -> COMMA funct type ID . funct3
+    (15) funct3 -> . COMMA funct type ID funct3
+    (17) funct3 -> . empty
+    (85) empty -> .
+
+    COMMA           shift and go to state 112
+    RIGHTPAR        reduce using rule 85 (empty -> .)
+
+    funct3                         shift and go to state 178
+    empty                          shift and go to state 113
+
+state 165
+
+    (60) do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR . while2 RIGHTPAR
+    (62) while2 -> . exp while2
+    (63) while2 -> . empty
+    (71) exp -> . ID array exp2 SEMICOLON
+    (85) empty -> .
+
+    ID              shift and go to state 42
+    RIGHTPAR        reduce using rule 85 (empty -> .)
+
+    while2                         shift and go to state 179
+    exp                            shift and go to state 117
+    empty                          shift and go to state 118
+
+state 166
+
+    (61) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY . est RIGHTKEY
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
+
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 180
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
+
+state 167
+
+    (69) for3 -> exp for3 .
+
+    SEMICOLON       reduce using rule 69 (for3 -> exp for3 .)
+
+
+state 168
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON . ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+
+    ID              shift and go to state 181
+
+
+state 169
+
+    (67) for2 -> ID ASSGN ID for2 .
+
+    SEMICOLON       reduce using rule 67 (for2 -> ID ASSGN ID for2 .)
+
+
+state 170
+
+    (81) output -> WRITE LEFTPAR output2 QUOTE exp QUOTE . RIGHTPAR SEMICOLON
+
+    RIGHTPAR        shift and go to state 182
+
+
+state 171
+
+    (36) assignmentDecl -> ASSGN NUMBER assignmentDecl2 .
+
+    LEFTBRACK       reduce using rule 36 (assignmentDecl -> ASSGN NUMBER assignmentDecl2 .)
+    COMMA           reduce using rule 36 (assignmentDecl -> ASSGN NUMBER assignmentDecl2 .)
+    SEMICOLON       reduce using rule 36 (assignmentDecl -> ASSGN NUMBER assignmentDecl2 .)
+
+
+state 172
+
+    (37) assignmentDecl2 -> empty .
+
+    LEFTBRACK       reduce using rule 37 (assignmentDecl2 -> empty .)
+    COMMA           reduce using rule 37 (assignmentDecl2 -> empty .)
+    SEMICOLON       reduce using rule 37 (assignmentDecl2 -> empty .)
+
+
+state 173
+
+    (35) declareRecursivoLocal -> type ID assignmentDecl altaVarLocal declare2Local . declare3Local SEMICOLON declareRecursivoLocal
+    (40) declare3Local -> . COMMA ID assignmentDecl altaVarLocal declare3Local
+    (44) declare3Local -> . empty
+    (85) empty -> .
+
+    COMMA           shift and go to state 183
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    empty                          shift and go to state 184
+    declare3Local                  shift and go to state 185
+
+state 174
+
+    (39) declare2Local -> array .
+
+    COMMA           reduce using rule 39 (declare2Local -> array .)
+    SEMICOLON       reduce using rule 39 (declare2Local -> array .)
+
+
+state 175
+
+    (43) declare2Local -> empty .
     (23) array -> empty .
 
   ! reduce/reduce conflict for COMMA resolved using rule 23 (array -> empty .)
@@ -1803,501 +2610,552 @@ state 156
     COMMA           reduce using rule 23 (array -> empty .)
     SEMICOLON       reduce using rule 23 (array -> empty .)
 
-  ! COMMA           [ reduce using rule 40 (declare2Local -> empty .) ]
-  ! SEMICOLON       [ reduce using rule 40 (declare2Local -> empty .) ]
-
-
-state 157
-
-    (50) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY . est RIGHTKEY ELSE est RIGHTKEY
-    (32) est -> . conditional
-    (33) est -> . declareLocal
-    (43) est -> . cycles
-    (44) est -> . input
-    (45) est -> . output
-    (46) est -> . assignment
-    (47) est -> . funct
-    (48) est -> . empty
-    (50) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-    (34) declareLocal -> . DECLARE declareRecursivoLocal
-    (39) declareLocal -> . empty
-    (53) cycles -> . while
-    (54) cycles -> . for
-    (55) cycles -> . do-while
-    (80) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
-    (77) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (49) assignment -> . ID ASSGN ID SEMICOLON
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-    (57) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (60) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (56) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
-
-    IF              shift and go to state 71
-    DECLARE         shift and go to state 70
-    READ            shift and go to state 59
-    WRITE           shift and go to state 68
-    ID              shift and go to state 69
-    FUNCTION        shift and go to state 22
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    WHILE           shift and go to state 61
-    FOR             shift and go to state 66
-    DO              shift and go to state 57
-
-    funct                          shift and go to state 58
-    conditional                    shift and go to state 60
-    do-while                       shift and go to state 62
-    est                            shift and go to state 169
-    for                            shift and go to state 64
-    input                          shift and go to state 65
-    empty                          shift and go to state 74
-    assignment                     shift and go to state 67
-    cycles                         shift and go to state 72
-    while                          shift and go to state 73
-    output                         shift and go to state 75
-    declareLocal                   shift and go to state 76
-
-state 158
-
-    (75) arithmeticExp -> ID EQ ID arithmeticOp ID . arithmeticExp
-    (75) arithmeticExp -> . ID EQ ID arithmeticOp ID arithmeticExp
-    (76) arithmeticExp -> . empty
-    (81) empty -> .
-
-    ID              shift and go to state 86
-    SEMICOLON       reduce using rule 81 (empty -> .)
-
-    arithmeticExp                  shift and go to state 170
-    empty                          shift and go to state 87
-
-state 159
-
-    (14) funct3 -> COMMA funct type ID . funct3
-    (14) funct3 -> . COMMA funct type ID funct3
-    (16) funct3 -> . empty
-    (81) empty -> .
-
-    COMMA           shift and go to state 108
-    RIGHTPAR        reduce using rule 81 (empty -> .)
-
-    funct3                         shift and go to state 171
-    empty                          shift and go to state 109
-
-state 160
-
-    (56) do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR . while2 RIGHTPAR
-    (58) while2 -> . exp while2
-    (59) while2 -> . empty
-    (67) exp -> . ID array exp2 SEMICOLON
-    (81) empty -> .
-
-    ID              shift and go to state 44
-    RIGHTPAR        reduce using rule 81 (empty -> .)
-
-    while2                         shift and go to state 172
-    exp                            shift and go to state 113
-    empty                          shift and go to state 114
-
-state 161
-
-    (57) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY . est RIGHTKEY
-    (32) est -> . conditional
-    (33) est -> . declareLocal
-    (43) est -> . cycles
-    (44) est -> . input
-    (45) est -> . output
-    (46) est -> . assignment
-    (47) est -> . funct
-    (48) est -> . empty
-    (50) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-    (34) declareLocal -> . DECLARE declareRecursivoLocal
-    (39) declareLocal -> . empty
-    (53) cycles -> . while
-    (54) cycles -> . for
-    (55) cycles -> . do-while
-    (80) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
-    (77) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (49) assignment -> . ID ASSGN ID SEMICOLON
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-    (57) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (60) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (56) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
-
-    IF              shift and go to state 71
-    DECLARE         shift and go to state 70
-    READ            shift and go to state 59
-    WRITE           shift and go to state 68
-    ID              shift and go to state 69
-    FUNCTION        shift and go to state 22
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    WHILE           shift and go to state 61
-    FOR             shift and go to state 66
-    DO              shift and go to state 57
-
-    funct                          shift and go to state 58
-    conditional                    shift and go to state 60
-    do-while                       shift and go to state 62
-    est                            shift and go to state 173
-    for                            shift and go to state 64
-    input                          shift and go to state 65
-    assignment                     shift and go to state 67
-    cycles                         shift and go to state 72
-    while                          shift and go to state 73
-    empty                          shift and go to state 74
-    output                         shift and go to state 75
-    declareLocal                   shift and go to state 76
-
-state 162
-
-    (65) for3 -> exp for3 .
-
-    SEMICOLON       reduce using rule 65 (for3 -> exp for3 .)
-
-
-state 163
-
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON . ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-
-    ID              shift and go to state 174
-
-
-state 164
-
-    (63) for2 -> ID ASSGN ID for2 .
-
-    SEMICOLON       reduce using rule 63 (for2 -> ID ASSGN ID for2 .)
-
-
-state 165
-
-    (77) output -> WRITE LEFTPAR output2 QUOTE exp QUOTE . RIGHTPAR SEMICOLON
-
-    RIGHTPAR        shift and go to state 175
-
-
-state 166
-
-    (37) declare3Local -> COMMA . ID altaVarLocal declare3Local
-
-    ID              shift and go to state 176
-
-
-state 167
-
-    (41) declare3Local -> empty .
-
-    SEMICOLON       reduce using rule 41 (declare3Local -> empty .)
-
-
-state 168
-
-    (35) declareRecursivoLocal -> type ID altaVarLocal declare2Local declare3Local . SEMICOLON declareRecursivoLocal
-
-    SEMICOLON       shift and go to state 177
-
-
-state 169
-
-    (50) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est . RIGHTKEY ELSE est RIGHTKEY
-
-    RIGHTKEY        shift and go to state 178
-
-
-state 170
-
-    (75) arithmeticExp -> ID EQ ID arithmeticOp ID arithmeticExp .
-
-    SEMICOLON       reduce using rule 75 (arithmeticExp -> ID EQ ID arithmeticOp ID arithmeticExp .)
-
-
-state 171
-
-    (14) funct3 -> COMMA funct type ID funct3 .
-
-    RIGHTPAR        reduce using rule 14 (funct3 -> COMMA funct type ID funct3 .)
-
-
-state 172
-
-    (56) do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 . RIGHTPAR
-
-    RIGHTPAR        shift and go to state 179
-
-
-state 173
-
-    (57) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est . RIGHTKEY
-
-    RIGHTKEY        shift and go to state 180
-
-
-state 174
-
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID . arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (61) arithmeticOp -> . SUM
-    (62) arithmeticOp -> . MINUS
-
-    SUM             shift and go to state 142
-    MINUS           shift and go to state 143
-
-    arithmeticOp                   shift and go to state 181
-
-state 175
-
-    (77) output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR . SEMICOLON
-
-    SEMICOLON       shift and go to state 182
+  ! COMMA           [ reduce using rule 43 (declare2Local -> empty .) ]
+  ! SEMICOLON       [ reduce using rule 43 (declare2Local -> empty .) ]
 
 
 state 176
 
-    (37) declare3Local -> COMMA ID . altaVarLocal declare3Local
-    (42) altaVarLocal -> .
+    (54) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est . RIGHTKEY ELSE est RIGHTKEY
 
-    COMMA           reduce using rule 42 (altaVarLocal -> .)
-    SEMICOLON       reduce using rule 42 (altaVarLocal -> .)
+    RIGHTKEY        shift and go to state 186
 
-    altaVarLocal                   shift and go to state 183
 
 state 177
 
-    (35) declareRecursivoLocal -> type ID altaVarLocal declare2Local declare3Local SEMICOLON . declareRecursivoLocal
-    (35) declareRecursivoLocal -> . type ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
-    (38) declareRecursivoLocal -> . empty
+    (79) arithmeticExp -> ID EQ ID arithmeticOp ID arithmeticExp .
+
+    SEMICOLON       reduce using rule 79 (arithmeticExp -> ID EQ ID arithmeticOp ID arithmeticExp .)
+
+
+state 178
+
+    (15) funct3 -> COMMA funct type ID funct3 .
+
+    RIGHTPAR        reduce using rule 15 (funct3 -> COMMA funct type ID funct3 .)
+
+
+state 179
+
+    (60) do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 . RIGHTPAR
+
+    RIGHTPAR        shift and go to state 187
+
+
+state 180
+
+    (61) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est . RIGHTKEY
+
+    RIGHTKEY        shift and go to state 188
+
+
+state 181
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID . arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (65) arithmeticOp -> . SUM
+    (66) arithmeticOp -> . MINUS
+
+    SUM             shift and go to state 148
+    MINUS           shift and go to state 149
+
+    arithmeticOp                   shift and go to state 189
+
+state 182
+
+    (81) output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR . SEMICOLON
+
+    SEMICOLON       shift and go to state 190
+
+
+state 183
+
+    (40) declare3Local -> COMMA . ID assignmentDecl altaVarLocal declare3Local
+
+    ID              shift and go to state 191
+
+
+state 184
+
+    (44) declare3Local -> empty .
+
+    SEMICOLON       reduce using rule 44 (declare3Local -> empty .)
+
+
+state 185
+
+    (35) declareRecursivoLocal -> type ID assignmentDecl altaVarLocal declare2Local declare3Local . SEMICOLON declareRecursivoLocal
+
+    SEMICOLON       shift and go to state 192
+
+
+state 186
+
+    (54) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY . ELSE est RIGHTKEY
+
+    ELSE            shift and go to state 193
+
+
+state 187
+
+    (60) do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .
+
+    IF              reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    DECLARE         reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    READ            reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    WRITE           reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    ID              reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    FUNCTION        reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    WHILE           reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    FOR             reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    DO              reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+    RIGHTKEY        reduce using rule 60 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
+
+
+state 188
+
+    (61) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .
+
+    IF              reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    DECLARE         reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    READ            reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    WRITE           reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    ID              reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    FUNCTION        reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    WHILE           reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    FOR             reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    DO              reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+    RIGHTKEY        reduce using rule 61 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
+
+
+state 189
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp . arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (65) arithmeticOp -> . SUM
+    (66) arithmeticOp -> . MINUS
+
+    SUM             shift and go to state 148
+    MINUS           shift and go to state 149
+
+    arithmeticOp                   shift and go to state 194
+
+state 190
+
+    (81) output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .
+
+    IF              reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    DECLARE         reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    READ            reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    WRITE           reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    ID              reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    FUNCTION        reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    WHILE           reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    FOR             reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    DO              reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+    RIGHTKEY        reduce using rule 81 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
+
+
+state 191
+
+    (40) declare3Local -> COMMA ID . assignmentDecl altaVarLocal declare3Local
+    (36) assignmentDecl -> . ASSGN NUMBER assignmentDecl2
+    (38) assignmentDecl -> . empty
+    (85) empty -> .
+
+    ASSGN           shift and go to state 142
+    COMMA           reduce using rule 85 (empty -> .)
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    assignmentDecl                 shift and go to state 195
+    empty                          shift and go to state 144
+
+state 192
+
+    (35) declareRecursivoLocal -> type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON . declareRecursivoLocal
+    (35) declareRecursivoLocal -> . type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal
+    (41) declareRecursivoLocal -> . empty
     (24) type -> . type2
-    (81) empty -> .
+    (85) empty -> .
     (25) type2 -> . INT
     (26) type2 -> . FLOAT
     (27) type2 -> . STRING
     (28) type2 -> . BOOL
     (29) type2 -> . VOID
 
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    INT             shift and go to state 14
-    FLOAT           shift and go to state 16
-    STRING          shift and go to state 13
-    BOOL            shift and go to state 17
-    VOID            shift and go to state 15
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    INT             shift and go to state 12
+    FLOAT           shift and go to state 14
+    STRING          shift and go to state 11
+    BOOL            shift and go to state 15
+    VOID            shift and go to state 13
 
-    declareRecursivoLocal          shift and go to state 184
-    type2                          shift and go to state 21
-    type                           shift and go to state 100
-    empty                          shift and go to state 101
-
-state 178
-
-    (50) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY . ELSE est RIGHTKEY
-
-    ELSE            shift and go to state 185
-
-
-state 179
-
-    (56) do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .
-
-    RIGHTKEY        reduce using rule 56 (do-while -> DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR .)
-
-
-state 180
-
-    (57) while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .
-
-    RIGHTKEY        reduce using rule 57 (while -> WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY .)
-
-
-state 181
-
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp . arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (61) arithmeticOp -> . SUM
-    (62) arithmeticOp -> . MINUS
-
-    SUM             shift and go to state 142
-    MINUS           shift and go to state 143
-
-    arithmeticOp                   shift and go to state 186
-
-state 182
-
-    (77) output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .
-
-    RIGHTKEY        reduce using rule 77 (output -> WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON .)
-
-
-state 183
-
-    (37) declare3Local -> COMMA ID altaVarLocal . declare3Local
-    (37) declare3Local -> . COMMA ID altaVarLocal declare3Local
-    (41) declare3Local -> . empty
-    (81) empty -> .
-
-    COMMA           shift and go to state 166
-    SEMICOLON       reduce using rule 81 (empty -> .)
-
-    empty                          shift and go to state 167
-    declare3Local                  shift and go to state 187
-
-state 184
-
-    (35) declareRecursivoLocal -> type ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal .
-
-    RIGHTKEY        reduce using rule 35 (declareRecursivoLocal -> type ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal .)
-
-
-state 185
-
-    (50) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE . est RIGHTKEY
-    (32) est -> . conditional
-    (33) est -> . declareLocal
-    (43) est -> . cycles
-    (44) est -> . input
-    (45) est -> . output
-    (46) est -> . assignment
-    (47) est -> . funct
-    (48) est -> . empty
-    (50) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-    (34) declareLocal -> . DECLARE declareRecursivoLocal
-    (39) declareLocal -> . empty
-    (53) cycles -> . while
-    (54) cycles -> . for
-    (55) cycles -> . do-while
-    (80) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
-    (77) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (49) assignment -> . ID ASSGN ID SEMICOLON
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-    (57) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (60) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (56) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
-
-    IF              shift and go to state 71
-    DECLARE         shift and go to state 70
-    READ            shift and go to state 59
-    WRITE           shift and go to state 68
-    ID              shift and go to state 69
-    FUNCTION        shift and go to state 22
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    WHILE           shift and go to state 61
-    FOR             shift and go to state 66
-    DO              shift and go to state 57
-
-    funct                          shift and go to state 58
-    conditional                    shift and go to state 60
-    do-while                       shift and go to state 62
-    est                            shift and go to state 188
-    for                            shift and go to state 64
-    input                          shift and go to state 65
-    empty                          shift and go to state 74
-    assignment                     shift and go to state 67
-    cycles                         shift and go to state 72
-    while                          shift and go to state 73
-    output                         shift and go to state 75
-    declareLocal                   shift and go to state 76
-
-state 186
-
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp . RIGHTPAR LEFTKEY est RIGHTKEY
-
-    RIGHTPAR        shift and go to state 189
-
-
-state 187
-
-    (37) declare3Local -> COMMA ID altaVarLocal declare3Local .
-
-    SEMICOLON       reduce using rule 37 (declare3Local -> COMMA ID altaVarLocal declare3Local .)
-
-
-state 188
-
-    (50) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est . RIGHTKEY
-
-    RIGHTKEY        shift and go to state 190
-
-
-state 189
-
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR . LEFTKEY est RIGHTKEY
-
-    LEFTKEY         shift and go to state 191
-
-
-state 190
-
-    (50) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .
-
-    RIGHTKEY        reduce using rule 50 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
-
-
-state 191
-
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY . est RIGHTKEY
-    (32) est -> . conditional
-    (33) est -> . declareLocal
-    (43) est -> . cycles
-    (44) est -> . input
-    (45) est -> . output
-    (46) est -> . assignment
-    (47) est -> . funct
-    (48) est -> . empty
-    (50) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
-    (34) declareLocal -> . DECLARE declareRecursivoLocal
-    (39) declareLocal -> . empty
-    (53) cycles -> . while
-    (54) cycles -> . for
-    (55) cycles -> . do-while
-    (80) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
-    (77) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
-    (49) assignment -> . ID ASSGN ID SEMICOLON
-    (11) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
-    (81) empty -> .
-    (57) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
-    (60) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
-    (56) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
-
-    IF              shift and go to state 71
-    DECLARE         shift and go to state 70
-    READ            shift and go to state 59
-    WRITE           shift and go to state 68
-    ID              shift and go to state 69
-    FUNCTION        shift and go to state 22
-    RIGHTKEY        reduce using rule 81 (empty -> .)
-    WHILE           shift and go to state 61
-    FOR             shift and go to state 66
-    DO              shift and go to state 57
-
-    funct                          shift and go to state 58
-    conditional                    shift and go to state 60
-    do-while                       shift and go to state 62
-    est                            shift and go to state 192
-    for                            shift and go to state 64
-    input                          shift and go to state 65
-    assignment                     shift and go to state 67
-    declareLocal                   shift and go to state 76
-    while                          shift and go to state 73
-    empty                          shift and go to state 74
-    output                         shift and go to state 75
-    cycles                         shift and go to state 72
-
-state 192
-
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est . RIGHTKEY
-
-    RIGHTKEY        shift and go to state 193
-
+    declareRecursivoLocal          shift and go to state 196
+    type2                          shift and go to state 19
+    type                           shift and go to state 102
+    empty                          shift and go to state 103
 
 state 193
 
-    (60) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .
+    (54) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE . est RIGHTKEY
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
 
-    RIGHTKEY        reduce using rule 60 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
+
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 197
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    empty                          shift and go to state 72
+    assignment                     shift and go to state 65
+    cycles                         shift and go to state 70
+    while                          shift and go to state 71
+    output                         shift and go to state 73
+    declareLocal                   shift and go to state 74
+
+state 194
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp . RIGHTPAR LEFTKEY est RIGHTKEY
+
+    RIGHTPAR        shift and go to state 198
+
+
+state 195
+
+    (40) declare3Local -> COMMA ID assignmentDecl . altaVarLocal declare3Local
+    (45) altaVarLocal -> .
+
+    COMMA           reduce using rule 45 (altaVarLocal -> .)
+    SEMICOLON       reduce using rule 45 (altaVarLocal -> .)
+
+    altaVarLocal                   shift and go to state 199
+
+state 196
+
+    (35) declareRecursivoLocal -> type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal .
+
+    RIGHTKEY        reduce using rule 35 (declareRecursivoLocal -> type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal .)
+
+
+state 197
+
+    (54) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est . RIGHTKEY
+
+    RIGHTKEY        shift and go to state 200
+
+
+state 198
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR . LEFTKEY est RIGHTKEY
+
+    LEFTKEY         shift and go to state 201
+
+
+state 199
+
+    (40) declare3Local -> COMMA ID assignmentDecl altaVarLocal . declare3Local
+    (40) declare3Local -> . COMMA ID assignmentDecl altaVarLocal declare3Local
+    (44) declare3Local -> . empty
+    (85) empty -> .
+
+    COMMA           shift and go to state 183
+    SEMICOLON       reduce using rule 85 (empty -> .)
+
+    empty                          shift and go to state 184
+    declare3Local                  shift and go to state 202
+
+state 200
+
+    (54) conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .
+
+    IF              reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    DECLARE         reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    READ            reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    WRITE           reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    ID              reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    FUNCTION        reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    WHILE           reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    FOR             reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    DO              reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+    RIGHTKEY        reduce using rule 54 (conditional -> IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY .)
+
+
+state 201
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY . est RIGHTKEY
+    (32) est -> . conditional est
+    (33) est -> . declareLocal
+    (46) est -> . cycles est
+    (47) est -> . input est
+    (48) est -> . output est
+    (49) est -> . assignment est
+    (50) est -> . funct est
+    (51) est -> . empty
+    (54) conditional -> . IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY
+    (34) declareLocal -> . DECLARE declareRecursivoLocal
+    (42) declareLocal -> . empty
+    (57) cycles -> . while
+    (58) cycles -> . for
+    (59) cycles -> . do-while
+    (84) input -> . READ LEFTPAR ID RIGHTPAR SEMICOLON
+    (81) output -> . WRITE LEFTPAR output2 QUOTE exp QUOTE RIGHTPAR SEMICOLON
+    (52) assignment -> . ID ASSGN NUMBER SEMICOLON
+    (53) assignment -> . empty
+    (12) funct -> . FUNCTION type ID altaModulo LEFTPAR funct2 RIGHTPAR LEFTKEY est RIGHTKEY
+    (85) empty -> .
+    (61) while -> . WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY
+    (64) for -> . FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY
+    (60) do-while -> . DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR
+
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for DECLARE resolved as shift
+  ! shift/reduce conflict for READ resolved as shift
+  ! shift/reduce conflict for WRITE resolved as shift
+  ! shift/reduce conflict for ID resolved as shift
+  ! shift/reduce conflict for FUNCTION resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for DO resolved as shift
+    IF              shift and go to state 69
+    DECLARE         shift and go to state 68
+    READ            shift and go to state 57
+    WRITE           shift and go to state 66
+    ID              shift and go to state 67
+    FUNCTION        shift and go to state 20
+    RIGHTKEY        reduce using rule 85 (empty -> .)
+    WHILE           shift and go to state 59
+    FOR             shift and go to state 64
+    DO              shift and go to state 55
+
+  ! IF              [ reduce using rule 85 (empty -> .) ]
+  ! DECLARE         [ reduce using rule 85 (empty -> .) ]
+  ! READ            [ reduce using rule 85 (empty -> .) ]
+  ! WRITE           [ reduce using rule 85 (empty -> .) ]
+  ! ID              [ reduce using rule 85 (empty -> .) ]
+  ! FUNCTION        [ reduce using rule 85 (empty -> .) ]
+  ! WHILE           [ reduce using rule 85 (empty -> .) ]
+  ! FOR             [ reduce using rule 85 (empty -> .) ]
+  ! DO              [ reduce using rule 85 (empty -> .) ]
+
+    funct                          shift and go to state 56
+    conditional                    shift and go to state 58
+    do-while                       shift and go to state 60
+    est                            shift and go to state 203
+    for                            shift and go to state 62
+    input                          shift and go to state 63
+    assignment                     shift and go to state 65
+    declareLocal                   shift and go to state 74
+    while                          shift and go to state 71
+    empty                          shift and go to state 72
+    output                         shift and go to state 73
+    cycles                         shift and go to state 70
+
+state 202
+
+    (40) declare3Local -> COMMA ID assignmentDecl altaVarLocal declare3Local .
+
+    SEMICOLON       reduce using rule 40 (declare3Local -> COMMA ID assignmentDecl altaVarLocal declare3Local .)
+
+
+state 203
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est . RIGHTKEY
+
+    RIGHTKEY        shift and go to state 204
+
+
+state 204
+
+    (64) for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .
+
+    IF              reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    DECLARE         reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    READ            reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    WRITE           reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    ID              reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    FUNCTION        reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    WHILE           reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    FOR             reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    DO              reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
+    RIGHTKEY        reduce using rule 64 (for -> FOR LEFTPAR for2 SEMICOLON for3 SEMICOLON ID arithmeticOp arithmeticOp RIGHTPAR LEFTKEY est RIGHTKEY .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: reduce/reduce conflict in state 74 resolved using rule (declareLocal -> empty)
-WARNING: rejected rule (est -> empty) in state 74
-WARNING: reduce/reduce conflict in state 156 resolved using rule (array -> empty)
-WARNING: rejected rule (declare2Local -> empty) in state 156
+WARNING: shift/reduce conflict for IF in state 47 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 47 resolved as shift
+WARNING: shift/reduce conflict for READ in state 47 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 47 resolved as shift
+WARNING: shift/reduce conflict for ID in state 47 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 47 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 47 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 47 resolved as shift
+WARNING: shift/reduce conflict for DO in state 47 resolved as shift
+WARNING: shift/reduce conflict for IF in state 56 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 56 resolved as shift
+WARNING: shift/reduce conflict for READ in state 56 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 56 resolved as shift
+WARNING: shift/reduce conflict for ID in state 56 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 56 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 56 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 56 resolved as shift
+WARNING: shift/reduce conflict for DO in state 56 resolved as shift
+WARNING: shift/reduce conflict for IF in state 58 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 58 resolved as shift
+WARNING: shift/reduce conflict for READ in state 58 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 58 resolved as shift
+WARNING: shift/reduce conflict for ID in state 58 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 58 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 58 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 58 resolved as shift
+WARNING: shift/reduce conflict for DO in state 58 resolved as shift
+WARNING: shift/reduce conflict for IF in state 63 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 63 resolved as shift
+WARNING: shift/reduce conflict for READ in state 63 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 63 resolved as shift
+WARNING: shift/reduce conflict for ID in state 63 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 63 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 63 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 63 resolved as shift
+WARNING: shift/reduce conflict for DO in state 63 resolved as shift
+WARNING: shift/reduce conflict for IF in state 65 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 65 resolved as shift
+WARNING: shift/reduce conflict for READ in state 65 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 65 resolved as shift
+WARNING: shift/reduce conflict for ID in state 65 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 65 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 65 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 65 resolved as shift
+WARNING: shift/reduce conflict for DO in state 65 resolved as shift
+WARNING: shift/reduce conflict for IF in state 70 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 70 resolved as shift
+WARNING: shift/reduce conflict for READ in state 70 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 70 resolved as shift
+WARNING: shift/reduce conflict for ID in state 70 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 70 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 70 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 70 resolved as shift
+WARNING: shift/reduce conflict for DO in state 70 resolved as shift
+WARNING: shift/reduce conflict for IF in state 73 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 73 resolved as shift
+WARNING: shift/reduce conflict for READ in state 73 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 73 resolved as shift
+WARNING: shift/reduce conflict for ID in state 73 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 73 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 73 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 73 resolved as shift
+WARNING: shift/reduce conflict for DO in state 73 resolved as shift
+WARNING: shift/reduce conflict for IF in state 90 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 90 resolved as shift
+WARNING: shift/reduce conflict for READ in state 90 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 90 resolved as shift
+WARNING: shift/reduce conflict for ID in state 90 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 90 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 90 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 90 resolved as shift
+WARNING: shift/reduce conflict for DO in state 90 resolved as shift
+WARNING: shift/reduce conflict for IF in state 110 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 110 resolved as shift
+WARNING: shift/reduce conflict for READ in state 110 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 110 resolved as shift
+WARNING: shift/reduce conflict for ID in state 110 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 110 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 110 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 110 resolved as shift
+WARNING: shift/reduce conflict for DO in state 110 resolved as shift
+WARNING: shift/reduce conflict for IF in state 162 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 162 resolved as shift
+WARNING: shift/reduce conflict for READ in state 162 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 162 resolved as shift
+WARNING: shift/reduce conflict for ID in state 162 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 162 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 162 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 162 resolved as shift
+WARNING: shift/reduce conflict for DO in state 162 resolved as shift
+WARNING: shift/reduce conflict for IF in state 166 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 166 resolved as shift
+WARNING: shift/reduce conflict for READ in state 166 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 166 resolved as shift
+WARNING: shift/reduce conflict for ID in state 166 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 166 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 166 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 166 resolved as shift
+WARNING: shift/reduce conflict for DO in state 166 resolved as shift
+WARNING: shift/reduce conflict for IF in state 193 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 193 resolved as shift
+WARNING: shift/reduce conflict for READ in state 193 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 193 resolved as shift
+WARNING: shift/reduce conflict for ID in state 193 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 193 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 193 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 193 resolved as shift
+WARNING: shift/reduce conflict for DO in state 193 resolved as shift
+WARNING: shift/reduce conflict for IF in state 201 resolved as shift
+WARNING: shift/reduce conflict for DECLARE in state 201 resolved as shift
+WARNING: shift/reduce conflict for READ in state 201 resolved as shift
+WARNING: shift/reduce conflict for WRITE in state 201 resolved as shift
+WARNING: shift/reduce conflict for ID in state 201 resolved as shift
+WARNING: shift/reduce conflict for FUNCTION in state 201 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 201 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 201 resolved as shift
+WARNING: shift/reduce conflict for DO in state 201 resolved as shift
+WARNING: reduce/reduce conflict in state 9 resolved using rule (program2 -> empty)
+WARNING: rejected rule (declare -> empty) in state 9
+WARNING: reduce/reduce conflict in state 72 resolved using rule (declareLocal -> empty)
+WARNING: rejected rule (est -> empty) in state 72
+WARNING: reduce/reduce conflict in state 72 resolved using rule (declareLocal -> empty)
+WARNING: rejected rule (assignment -> empty) in state 72
+WARNING: reduce/reduce conflict in state 175 resolved using rule (array -> empty)
+WARNING: rejected rule (declare2Local -> empty) in state 175
 WARNING: Rule (est -> empty) is never reduced
 WARNING: Rule (declare2Local -> empty) is never reduced

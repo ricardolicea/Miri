@@ -43,18 +43,18 @@ tipo = ""
 cuad = Cuadruplo("", "", "", "")
 
 def p_program(p):
-    '''program : PROGRAM createDirProc ID altaPrograma SEMICOLON program2  goToMainQuad cuerpo END SEMICOLON''' 
-    print("program")
+    '''program : PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON''' 
+    print "program" 
 
-def p_createDirProc(p):
-    '''createDirProc : '''
+
 
 def p_goToMainQuad(p):
     '''goToMainQuad : '''
+    print "go to Main Quad"
     goToMainQuad()
 
 def p_altaPrograma(p):
-    '''altaPrograma : empty'''
+    '''altaPrograma : '''
     global nombrePrograma
     global dirProc
     nombrePrograma = p[-1]
@@ -66,17 +66,20 @@ def p_altaPrograma(p):
 
 def p_program2(p):
     '''program2 : declare program3'''
-    print("program2")
+    print "program2"
 
 
-# def p_program2Empty(p):
-#     '''program2 : empty'''
-#     #p[0] = null()
-#     print("program2 empty)")
+def p_program2Empty(p):
+    '''program2 : empty'''
+    print "program2 empty"
 
 def p_declare(p):
     '''declare : DECLARE declareRecursivo '''
-    print("declare")
+    print "declare"
+
+def p_declareEmpty(p):
+    '''declare : empty'''
+    print "declareEmpty"
 
 def p_declareRecursivo(p):
     '''declareRecursivo : type ID altaVarGlobal declare2 declare3 SEMICOLON declareRecursivo'''
@@ -95,7 +98,7 @@ def p_declare3(p):
 
 def p_program3(p):
     '''program3 : funct program3'''
-    print("program3")
+    print "program3"
 
 def p_funct(p):
     '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY est RIGHTKEY'''
@@ -155,9 +158,7 @@ def p_declareResursivoEmpty(p):
     '''declareRecursivo : empty'''
     print "declare Recursivo Empty"
 
-def p_declareEmpty(p):
-    '''declare : empty'''
-    print "declareEmpty"
+
 
 
 
@@ -200,7 +201,7 @@ def p_type2String(p):
     '''type2 : STRING'''
     global tipo 
     tipo = p[1]
-    print("type2STRING")
+    print "type2STRING" 
 
 def p_type2Bool(p):
     '''type2 : BOOL'''
@@ -212,11 +213,11 @@ def p_type2Void(p):
     '''type2 : VOID'''
     global tipo 
     tipo = p[1]
-    print("type2VOID")
+    print "type2VOID"
 
 def p_cuerpo(p):
     '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain  est RIGHTKEY'''
-    print("cuerpo")
+    print "cuerpo"
 
 def p_altaModuloMain(p):
     '''altaModuloMain : '''
@@ -224,16 +225,16 @@ def p_altaModuloMain(p):
     global dirProc
     global nombreModulo
     nombreModulo = "main"
-    print "-------" + str(nombreModulo)
+    #print "-------" + str(nombreModulo)
     dirProc[nombreModulo] = {'Tipo': "Main", 'Vars': {}}
    # print dirProc
 
 def p_est(p):
-    '''est : conditional'''
+    '''est : conditional est '''
     print("estCONDITIONAL")
 
 def p_estVars(p):
-    '''est : declareLocal'''
+    '''est : declareLocal '''
     print "est Vars"
 
 def p_declareLocal(p):
@@ -241,15 +242,29 @@ def p_declareLocal(p):
     print("declare")
 
 def p_declareRecursivoLocal(p):
-    '''declareRecursivoLocal : type ID altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal'''
+    '''declareRecursivoLocal : type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal'''
     print "declareRecursivo"
+
+def p_assignmentDeclare(p):
+    '''assignmentDecl : ASSGN NUMBER assignmentDecl2'''
+    print "Assignment en un declare"
+
+def p_assignmentDeclare2(p):
+    '''assignmentDecl2 : DOT NUMBER'''
+    print "assignment in declare 2"
+
+def p_assignmentDeclare2(p):
+    '''assignmentDecl2 : empty'''
+
+def p_assignmentDeclareEmpty(p):
+    '''assignmentDecl : empty'''
 
 def p_declare2Local(p):
     '''declare2Local : array'''
     print("declare2")
 
 def p_declare3Local(p):
-    '''declare3Local : COMMA  ID altaVarLocal declare3Local '''
+    '''declare3Local : COMMA ID assignmentDecl altaVarLocal declare3Local '''
     print("declare3")
 
 def p_declareResursivoEmptyLocal(p):
@@ -258,7 +273,7 @@ def p_declareResursivoEmptyLocal(p):
 
 def p_declareEmptyLocal(p):
     '''declareLocal : empty'''
-    print "declareEmpty"
+    print "declareEmptyLocal"
 
 
 def p_declar2EmptyLocal(p):
@@ -280,23 +295,23 @@ def p_altaVarLocal(p):
     #print nombrePrograma + nombreModulo +  " " + str(dirProc)
 
 def p_estCycle(p):
-    '''est : cycles'''
+    '''est : cycles est'''
     print("estCYLE")
 
 def p_estRead(p):
-    '''est : input'''
+    '''est : input est'''
     print("estREAD")
 
 def p_estWrite(p):
-    '''est : output'''
+    '''est : output est'''
     print("estWRITE")
 
 def p_estAassignment(p):
-    '''est : assignment'''
+    '''est : assignment est'''
     print("estASSIGNMENT")
 
 def p_estFunct(p):
-    '''est : funct'''
+    '''est : funct est'''
     print("estFUNCT")
 
 def p_estEmpty(p):
@@ -304,8 +319,11 @@ def p_estEmpty(p):
     print "estEmpty"
 
 def p_assignment(p):
-    '''assignment : ID ASSGN ID SEMICOLON'''
+    '''assignment : ID ASSGN NUMBER SEMICOLON'''
     print("assignment")
+
+def p_assignmentEmpty(p):
+    '''assignment : empty'''
 
 def p_conditional(p):
     '''conditional : IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY ELSE est RIGHTKEY'''
@@ -441,7 +459,7 @@ def p_input(p):
 
 def p_empty(p):
     '''empty :'''
-    print "Empty"
+    #print "Empty"
     pass
 
 def p_error(p):
@@ -476,9 +494,9 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
-#directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
+directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
 #directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
@@ -495,5 +513,5 @@ result = yacc.parse(cadena)
 #traducir(result)
 
 
-print result
+#print result
 #print dirProc

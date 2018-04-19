@@ -107,7 +107,7 @@ def t_COMMENT(t):
 #Funcion para definir la expresion regular de un error. Saca a pantalla
 #el mensaje de un carater ilegal(no aceptado por el lenguaje)
 def t_error(t):
-    print "caracter ilegal '%s'" % t.value[0]
+    print " caracter ilegal '%s'" % t.value[0]
     t.lexer.skip(1)
 
 #Funcion para buscar los archivos de prueba. Su proposito es para debugging

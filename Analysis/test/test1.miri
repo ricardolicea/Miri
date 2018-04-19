@@ -15,8 +15,10 @@ funct float multp(){
 }
 main(){
     declare
-    int iX, iY;
-    float fZ;
+    int iX = 0, iY = 5;
+    float fZ = 123;
+
+    iX = 2;
 
 }
 end;
