@@ -245,16 +245,14 @@ def p_declareRecursivoLocal(p):
     '''declareRecursivoLocal : type ID assignmentDecl altaVarLocal declare2Local declare3Local SEMICOLON declareRecursivoLocal'''
     print "declareRecursivo"
 
-def p_assignmentDeclare(p):
-    '''assignmentDecl : ASSGN NUMBER assignmentDecl2'''
-    print "Assignment en un declare"
+def p_assignmentDeclareFloat(p):
+    '''assignmentDecl : ASSGN FLOATNUMB '''
+    print "Assignment en un declare con float"
 
-def p_assignmentDeclare2(p):
-    '''assignmentDecl2 : DOT NUMBER'''
-    print "assignment in declare 2"
+# def p_assignmentDeclare(p):
+#      '''assignmentDecl : ASSGN INTEGER '''
+#      print "Assignment en un declare"
 
-def p_assignmentDeclare2(p):
-    '''assignmentDecl2 : empty'''
 
 def p_assignmentDeclareEmpty(p):
     '''assignmentDecl : empty'''
@@ -351,7 +349,7 @@ def p_cyclesDoWhile(p):
 
 def p_doWhile(p):
     '''do-while : DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR'''
-    p[0] = doWhile(p[3], p[7], "do-while")
+    
 
 def p_whileClass(p):
     '''while : WHILE LEFTPAR while2 RIGHTPAR WHILE LEFTKEY est RIGHTKEY'''
@@ -494,9 +492,9 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
-directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
+#directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
 #directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
