@@ -37,5 +37,4 @@ def goToMainQuad():
     print generaCuad.res
     pushCuad(generaCuad)
     pSaltos.push(0)
-    print (pSaltos.peek)
     

@@ -1,24 +1,33 @@
 program patito;
 
 declare
-int iA, iB;
-float fA;
+float fResult;
 
-funct int suma(){
-    declare 
-    int iResu;
-    float fFacto;
-}
-funct float multp(){
-    declare 
-    float fResu;
-}
-main(){
+funct int suma(int iX, int iY){
     declare
-    int iX = 0, iY = 5;
-    float fZ = 123;
+    int iResultado;
 
-    iX = 2;
+    iResultado = iX + iY;
+    return iResultado;
+}
 
+funct float divide(int iX, int iY){
+    fResult = iX/iY;
+    return fResult;
+}
+
+main(){
+    declare 
+    int iX, iY, iSuma = 0;
+    float fDivide = 0.0;
+
+    read(iX);
+    read(iY);
+
+    iSuma = suma(iX, iY);
+    fDivide = divide(iX, iY);
+
+    write(iA);
+    write("divide");
 }
 end;

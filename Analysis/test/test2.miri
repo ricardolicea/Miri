@@ -1,7 +1,25 @@
 program patito;
-main(){
+
+declare
+float fResult;
+
+funct int suma(int iX, int iY){
     declare
- 
-    float fZ = 2.0;
+    int iResultado;
+
+    iResultado = iX + iY;
+    return iResultado;
 }
-end;
+
+
+
+main(){
+    declare 
+    int iX, iY, iSuma = 0;
+    float fDivide = 0.0;
+
+
+    
+
+   
+}
