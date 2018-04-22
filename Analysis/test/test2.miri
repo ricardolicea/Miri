@@ -11,23 +11,15 @@ funct int suma(int iX, int iY){
     return iResultado;
 }
 
-funct float divide(int iX, int iY){
-    fResult = iX/iY;
-    return fResult;
-}
+
 
 main(){
     declare 
     int iX, iY, iSuma = 0;
     float fDivide = 0.0;
 
-    read(iX);
-    read(iY);
 
-    iSuma = suma(iX, iY);
-    fDivide = divide(iX, iY);
+    
 
-    write(iA);
-    write("divide");
+   
 }
-end;

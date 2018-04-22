@@ -9,8 +9,8 @@ import sys
 
 
 #Tokens 
-tokens = ('END','DECLARE','INT','FLOAT','STRING','BOOL','VOID','MAIN','IF','ELSE','DO','WHILE','FOR','WRITE','READ','FUNCTION', 'PROGRAM','ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
-    'COLON', 'SEMICOLON', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
+tokens = ('END','RETURN','INTEGER', 'DECLARE','INT','FLOAT','STRING','BOOL','VOID','MAIN','IF','ELSE','DO','WHILE','FOR','WRITE','READ','FUNCTION', 'PROGRAM','ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
+    'COLON', 'SEMICOLON','FLOATNUMB', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
     'SUM', 'OR','AND', 'LEFTBRACK','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
 )
 reservadas = {
@@ -28,8 +28,8 @@ reservadas = {
     'funct' : 'FUNCTION',
     'arch' : 'ARCH',
     'circle' :  'CIRCLE',
-    'square' : 'SQUARE',
     'and' : 'AND',
+    'square' : 'SQUARE',
     'or' :  'OR',
     'return' : 'RETURN',
     'paint' : 'PAINT',
@@ -49,6 +49,7 @@ reservadas = {
 #Tokens definidos
 
 #t_SPACE = r'\D'
+
 t_ignore = ' \t'
 t_ASSGN = r'='
 t_COMMA = r','
@@ -72,8 +73,7 @@ t_EQ = r'=='
 t_NOTEQ = r'!='
 t_GRTREQ = r'>='
 t_LESSEQ = r'<='
-t_AND = r'&&'
-t_OR = r'\|\|'
+
 
 
 
@@ -90,10 +90,21 @@ def t_newline(t):
     
 
 #Funcion para definir la expresion regular de un numero INT
-def t_NUMBER(t):
-    r'\d+'
+def t_INTEGER(t):
+  r'(?:0[xX]?)?\d+'
+  # Conversion a int de Python
+  if t.value.startswith(('0x','0X')):
+    t.value = int(t.value,16)              
+  elif t.value.startswith('0'):
+    t.value = int(t.value,8)
+  else:
     t.value = int(t.value)
-    return t
+  return t
+
+# def t_FLOATNUMB(t):
+#   r'(?:(?:\d*\.\d+|\d+\.\d*)(?:[eE][-+]?\d+)?)|(?:\d+[eE][-+]?\d+)'
+#   t.value = float(t.value)               # Conversion a float de Python
+#   return t
 
 #Funcion para definir la expresion regular de un BOOL
 def t_BOOL(t):
@@ -107,7 +118,7 @@ def t_COMMENT(t):
 #Funcion para definir la expresion regular de un error. Saca a pantalla
 #el mensaje de un carater ilegal(no aceptado por el lenguaje)
 def t_error(t):
-    print "caracter ilegal '%s'" % t.value[0]
+    print " caracter ilegal '%s'" % t.value[0]
     t.lexer.skip(1)
 
 #Funcion para buscar los archivos de prueba. Su proposito es para debugging
