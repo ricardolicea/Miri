@@ -37,4 +37,15 @@ def goToMainQuad():
     print generaCuad.res
     pushCuad(generaCuad)
     pSaltos.push(0)
+
+def quadAssign(p):
+    global pilaO
+    global pTipos
+
+    pilaO.push(p)
+    print "------------------------------"
+    print pilaO.peek()
+
+
+
     

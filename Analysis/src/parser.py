@@ -253,7 +253,7 @@ def p_declareRecursivoLocal(p):
     print "declareRecursivo"
 
 def p_assignmentDeclareFloat(p):
-    '''assignmentDecl : ASSGN number '''
+    '''assignmentDecl : ASSGN exp '''
     print "="
 
 def p_number(p):
@@ -298,8 +298,12 @@ def p_altaVarLocal(p):
     print nombreModulo +  " " + str(dirProc)
 
 def p_assignment(p):
-    '''assignment : ID ASSGN exp SEMICOLON'''
+    '''assignment : ID quad1 ASSGN exp SEMICOLON'''
     print "ID = EXP" 
+
+def p_quad1(p):
+    '''quad1 : '''
+    quadAssign(p[-1])
 
 def p_assignmentFUNCT(p):
     '''assignment : ID ASSGN llamadaAFunct SEMICOLON'''
@@ -516,7 +520,7 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
 #directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
