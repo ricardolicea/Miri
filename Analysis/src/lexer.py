@@ -26,10 +26,9 @@ reservadas = {
     'write' : 'WRITE',
     'read' : 'READ',
     'funct' : 'FUNCTION',
-    'arch' : 'ARCH',
-    'circle' :  'CIRCLE',
+    'circulo' :  'CIRCLE',
     'and' : 'AND',
-    'square' : 'SQUARE',
+    'cuadro' : 'SQUARE',
     'or' :  'OR',
     'return' : 'RETURN',
     'paint' : 'PAINT',
@@ -37,7 +36,11 @@ reservadas = {
     'float' : 'FLOAT',
     'int' : 'INT', 
     'string' : 'STRING',
-    'void' : 'VOID'
+    'void' : 'VOID',
+    'linea' : 'LINE',
+    'rectangulo' : 'RECTANGLE',
+    'triangulo' : 'TRIANGLE'
+
 }
 
 
