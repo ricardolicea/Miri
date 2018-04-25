@@ -2,13 +2,13 @@
 from structs import *
 import sys
 
-pilaO = Stack()
-pOper = Stack()
+pilaOperandos = Stack()
+pOperadores = Stack()
 pTipos = Stack()
 pSaltos = Stack()
 pEjecucion = Stack()
 pDimensionada = Stack()
-
+vPolaco = Queue()
 cuadruplos = []
 contSaltos = 0
 
@@ -25,27 +25,78 @@ def pushCuad(cuadruplo):
 
     cuadruplos.append(cuadruplo)
     contSaltos += 1
+   
     
     
+def checkOper(p):
+    if(p == '+' or p == r'\-' or p == r'\*' or p == r'/' or p == r'\='):
+        return True
+    else:
+        return False
 
 def goToMainQuad():
     global pSaltos
     generaCuad = Cuadruplo("GOTO", "", "", "")
-    print generaCuad.op
-    print generaCuad.opdoIzq
-    print generaCuad.opdoDer
-    print generaCuad.res
     pushCuad(generaCuad)
     pSaltos.push(0)
+    
 
-def quadAssign(p):
-    global pilaO
+def quadAssign(p1, p2):
+    global pilaOperandos
     global pTipos
+    global pOperadores
 
-    pilaO.push(p)
-    print "------------------------------"
-    print pilaO.peek()
+    if(checkOper(p1)):
+        pOperadores.push(p1)
+    else:
+        pilaOperandos.push(p1)
+    
+    if(checkOper(p2)):
+       pilaOperandos.push(p2)
+    else:
+        pOperadores.push(p2)
+    
 
+def quadExp(p1):
+    global pilaOperandos
+    global pTipos
+    global pOperadores
 
+    if(checkOper(p1)):
+        pOperadores.push(p1)
+    else:
+        pilaOperandos.push(p1)
 
     
+
+
+def quadOper(p1):
+    global pilaOperandos
+    global pTipos
+    global pOperadores
+
+    if(checkOper(p1)):
+        pOperadores.push(p1)
+    else:
+        pilaOperandos.push(p1)
+
+
+def generaCuadruplo():
+    global pilaOperandos
+    global pTipos
+    global pOperadores
+    global cuadruplos
+
+    if(not(pOperadores.size()==0 or pilaOperandos.size() == 0)):
+        operador = pOperadores.pop()
+        operDer = pilaOperandos.pop()
+        operIzq = pilaOperandos.pop()
+        # print "Operador"
+        # print operador
+        # print "izq"
+        # print operIzq
+        # print "der"
+        # print operDer
+
+        generaCuad = Cuadruplo(operador, operDer, operIzq, "")
+        pushCuad(generaCuad)

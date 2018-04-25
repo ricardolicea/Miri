@@ -1,33 +1,20 @@
 program patito;
+declare 
+int iZ;
+float dW;
 
-declare
-float fResult;
-
-funct int suma(int iX, int iY){
-    declare
-    int iResultado;
-
-    iResultado = iX + iY;
-    return iResultado;
-}
-
-funct float divide(int iX, int iY){
-    fResult = iX/iY;
-    return fResult;
+funct int iSuma(int iX){
+    iZ = 1;
+    iX = iZ;
+    dW = 2;
+    dY = 3;
 }
 
 main(){
-    declare 
-    int iX, iY, iSuma = 0;
-    float fDivide = 0.0;
-
-    read(iX);
-    read(iY);
-
-    iSuma = suma(iX, iY);
-    fDivide = divide(iX, iY);
-
-    write(iA);
-    write("divide");
+    declare
+    int iA, iB, iC;
+    
+    iA = iB + iC;
+    iZ = suma();
 }
 end;

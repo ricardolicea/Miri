@@ -7,6 +7,8 @@ from lexer import tokens
 from sys import stdin
 # from semantico import *
 from cuadruplos import *
+from tablas import * 
+
 
 
 # precedence = (
@@ -47,7 +49,7 @@ def p_program(p):
    
 def p_goToMainQuad(p):
     '''goToMainQuad : '''
-    print "go to Main Quad"
+    #print "go to Main Quad"
     goToMainQuad()
 
 def p_altaPrograma(p):
@@ -57,8 +59,8 @@ def p_altaPrograma(p):
     nombrePrograma = p[-1]
     dirProc[nombrePrograma] = {}
     dirProc[nombrePrograma] = {'Tipo': 'programa', 'Vars': {}}  
-    print "DIRECTORIO DE PROCEDIMIENTOS VACIO" 
-    print dirProc
+    #print "DIRECTORIO DE PROCEDIMIENTOS VACIO" 
+    #print dirProc
     
 def p_program2(p):
     '''program2 : declare program3'''
@@ -68,36 +70,36 @@ def p_program2Empty(p):
     
 def p_declare(p):
     '''declare : DECLARE declareRecursivo '''
-    print "declare"
+    #print "declare"
 
 def p_declareEmpty(p):
     '''declare : empty'''
    
 def p_declareRecursivo(p):
     '''declareRecursivo : type ID altaVarGlobal assignmentDecl declare2 declare3 SEMICOLON declareRecursivo'''
-    print "ID"
+    #print "ID"
 
 def p_declare2(p):
     '''declare2 : array'''
     
 def p_declare3(p):
     '''declare3 : COMMA  ID altaVarGlobal declare3 '''
-    print ", ID"
+    #print ", ID"
 
 def p_program3(p):
     '''program3 : funct program3'''
     
 def p_funct(p):
     '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY est functReturn RIGHTKEY'''
-    print "FUNCTION ID"
+    #print "FUNCTION ID"
 
 def p_functReturn(p):
     '''functReturn : RETURN NUMBER SEMICOLON'''
-    print "RETURN NUMBER"
+    #print "RETURN NUMBER"
 
 def p_functReturnID(p):
     '''functReturn : RETURN ID SEMICOLON'''
-    print "RETURN ID"
+    #print "RETURN ID"
 
 def p_functReturnEmpty(p):
     '''functReturn : empty'''
@@ -108,18 +110,19 @@ def p_altaModulo(p):
     global dirProc
     global nombreModulo
     nombreModulo = p[-1]
-    print "-------" + str(nombreModulo)
+    
+    #print "-------" + str(nombreModulo)
     dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}}
-    print "DIRECTORIO DE PROCEDIMIENTOS CON MODULOS"
-    print dirProc
+    #print "DIRECTORIO DE PROCEDIMIENTOS CON MODULOS"
+    #print dirProc
 
 def p_funct2(p):
     '''funct2 : type ID altaVarLocal funct3'''
-    print "ID"
+    #print "ID"
 
 def p_funct3(p):
     '''funct3 : COMMA type ID  altaVarLocal funct3'''
-    print ", ID"
+    #print ", ID"
 
 def p_funct2Empty(p):
     '''funct2 : empty'''
@@ -135,9 +138,10 @@ def p_altaVarGlobal(p):
     global dirProc
     global tipo
     nombreVar = p[-1]
-    dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global"}
-    print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES GLOBALES"
-    print nombreModulo +  " " + str(dirProc)
+    direccion = set_dir_global(tipo,1)
+    dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global", 'Dir': direccion}
+    #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES GLOBALES"
+    #print nombreModulo +  " " + str(dirProc)
    
 def p_declareResursivoEmpty(p):
     '''declareRecursivo : empty'''
@@ -147,7 +151,7 @@ def p_declare3Empty(p):
     
 def p_array(p):
     '''array : LEFTBRACK exp RIGHTBRACK array'''
-    print "[]"
+    #print "[]"
 
 def p_arrayEmpty(p):
     '''array : empty'''
@@ -159,35 +163,35 @@ def p_type2(p):
     '''type2 : INT'''
     global tipo 
     tipo = p[1]
-    print "INT"
+    #print "INT"
 
 def p_type2Float(p):
     '''type2 : FLOAT'''
     global tipo 
     tipo = p[1]
-    print "FLOAT"
+    #print "FLOAT"
 
 def p_type2String(p):
     '''type2 : STRING'''
     global tipo 
     tipo = p[1]
-    print "STRING" 
+    #print "STRING" 
 
 def p_type2Bool(p):
     '''type2 : BOOL'''
     global tipo 
     tipo = p[1]
-    print "BOOL"
+    #print "BOOL"
 
 def p_type2Void(p):
     '''type2 : VOID'''
     global tipo 
     tipo = p[1]
-    print "VOID"
+    #print "VOID"
 
 def p_cuerpo(p):
     '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY'''
-    print "MAIN()"
+    #print "MAIN()"
 
 def p_altaModuloMain(p):
     '''altaModuloMain : '''
@@ -196,8 +200,8 @@ def p_altaModuloMain(p):
     global nombreModulo
     nombreModulo = "main"
     dirProc[nombreModulo] = {'Tipo': "Main", 'Vars': {}}
-    print "DIRECTORIO DE PROCEDIMIENTOS CON MODULO MAIN"
-    print dirProc
+    #print "DIRECTORIO DE PROCEDIMIENTOS CON MODULO MAIN"
+    #print dirProc
 
 def p_est(p):
     '''est : conditional est '''
@@ -225,18 +229,18 @@ def p_estEmpty(p):
     
 def p_llamadaAFunct(p):
     '''llamadaAFunct : ID LEFTPAR llamadaAFunct2 RIGHTPAR'''
-    print "FUNCT()"
+    #print "FUNCT()"
 
 def p_llamadaAFunctEmpty(p):
     '''llamadaAFunct : empty'''
 
 def p_llamadaAFunct2(p):
     '''llamadaAFunct2 : ID llamadaAFunct3'''
-    print "FUNCT(ID)" 
+    #print "FUNCT(ID)" 
 
 def p_llamadaAFunct3(p):
     '''llamadaAFunct3 : COMMA ID'''
-    print "FUCNT(ID,ID)"
+    #print "FUCNT(ID,ID)"
 
 def p_llamadaAFunct3Empty(p):
   '''llamadaAFunct3 : empty'''
@@ -246,23 +250,23 @@ def p_llamadaAFunct2Empty(p):
     
 def p_declareLocal(p):
     '''declareLocal : DECLARE declareRecursivoLocal '''
-    print "declare" 
+    #print "declare" 
 
 def p_declareRecursivoLocal(p):
     '''declareRecursivoLocal : type ID altaVarLocal assignmentDecl declare2Local declare3Local SEMICOLON declareRecursivoLocal'''
-    print "declareRecursivo"
+    #print "declareRecursivo"
 
-def p_assignmentDeclareFloat(p):
+def p_assignmentDeclare(p):
     '''assignmentDecl : ASSGN exp '''
-    print "="
+    #print "="
 
 def p_number(p):
     '''number : INTEGER number2'''
-    print "INT"
+    #print "INT"
 
 def p_number2(p):
     '''number2 : DOT INTEGER'''
-    print "INT . INT"
+    #print "INT . INT"
 
 def p_number2Empty(p):
     '''number2 : empty'''
@@ -292,33 +296,74 @@ def p_altaVarLocal(p):
     '''altaVarLocal : '''
     global dirProc
     global tipo
+    global nombreModulo
     nombreVar = p[-1]
-    dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local"}
-    print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
-    print nombreModulo +  " " + str(dirProc)
+    direccion = set_dir_local(tipo,1)
+    dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion}
+    #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
+    #print nombreModulo +  " " + str(dirProc)
 
 def p_assignment(p):
-    '''assignment : ID quad1 ASSGN exp SEMICOLON'''
-    print "ID = EXP" 
+    '''assignment : ID ASSGN exp SEMICOLON'''
+    var = p[1]
+    global nombrePrograma
+    #Buscar variable en el modulo
+    try:
+        temp_dir = dirProc[nombreModulo]['Vars'][var]['Dir']
+        temp_tipoVar = dirProc[nombreModulo]['Vars'][var]['TipoVar']
+   #Buscar variable en globales
+    except KeyError as key:
+        try:
+            temp_dir = dirProc[nombrePrograma]['Vars'][var]['Dir']
+            temp_tipoVar = dirProc[nombrePrograma]['Vars'][var]['TipoVar']
+        except KeyError as key:
+            print "Variable no %s esta declarada" % key
+            sys.exit()
+    print var
+    print "Tipo"
+    print temp_tipoVar
+    print "Direccion"
+    print temp_dir
+    quadAssign(p[1], p[3])
+    #print "ID = EXP" 
 
-def p_quad1(p):
-    '''quad1 : '''
-    quadAssign(p[-1])
+
 
 def p_assignmentFUNCT(p):
     '''assignment : ID ASSGN llamadaAFunct SEMICOLON'''
-    print "ID = FUNCT()" 
+    var = p[1]
+    global nombrePrograma
+    #Buscar variable en el modulo
+    try:
+        temp_dir = dirProc[nombreModulo]['Vars'][var]['Dir']
+        temp_tipoVar = dirProc[nombreModulo]['Vars'][var]['TipoVar']
+   #Buscar variable en globales
+    except KeyError as key:
+        try:
+            temp_dir = dirProc[nombrePrograma]['Vars'][var]['Dir']
+            temp_tipoVar = dirProc[nombrePrograma]['Vars'][var]['TipoVar']
+        except KeyError as key:
+            print "Variable no %s esta declarada" %key
+            sys.exit()
+    print var
+    print "Tipo"
+    print temp_tipoVar
+    print "Direccion"
+    print temp_dir
+    quadAssign(p[1], p[3])
+    #print "ID = EXP" 
+    #print "ID = FUNCT()" 
 
 def p_assignmentEmpty(p):
     '''assignment : empty'''
 
 def p_conditional(p):
     '''conditional : IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY conditionalElse '''
-    print "IF(){ }"
+    #print "IF(){ }"
 
 def p_conditionalElse(p):
     '''conditionalElse : ELSE LEFTKEY est RIGHTKEY'''
-    print "ELSE { }"
+    #print "ELSE { }"
 
 def p_conditionalElseEmpty(p):
     '''conditionalElse : empty'''
@@ -355,15 +400,15 @@ def p_while2Empty(p):
     
 def p_forClass(p):
     '''for : FOR LEFTPAR for2 SEMICOLON for4 SEMICOLON parte3For RIGHTPAR LEFTKEY est RIGHTKEY'''
-    print " FOR"
+    #print " FOR"
 
 def p_for2(p):
     '''for2 : ID ASSGN number for3'''
-    print "FOR(ID = NUMBER)" 
+    #print "FOR(ID = NUMBER)" 
 
 def p_for3(p):
     '''for3 : COMMA for2'''
-    print "FOR(ID = NUMBER, ID = NUMBER)" 
+    #print "FOR(ID = NUMBER, ID = NUMBER)" 
 
 def p_for3Empty(p):
     '''for3 : empty'''
@@ -373,11 +418,11 @@ def p_for4(p):
 
 def p_parte3ForSUM(p):
     '''parte3For : ID SUM SUM'''
-    print "ID++"
+    #print "ID++"
 
 def p_parte3ForMINUS(p):
     '''parte3For : ID MINUS MINUS'''
-    print "ID--"
+    #print "ID--"
 
 def p_expFor(p):
     '''expFor : ID expFor2'''
@@ -387,91 +432,129 @@ def p_expForNumber(p):
 
 def p_expFor2(p):
     '''expFor2 : LESS expFor'''
-    print "<"
+    #print "<"
 
 def p_exprFor2Grtr(p):
     '''expFor2 : GRTR expFor'''
-    print ">"
+    #print ">"
 
 def p_expFor2Equal(p):
     '''expFor2 : EQ expFor'''
-    print "=="
+    #print "=="
 
 def p_expFor2NotEq(p):
     '''expFor2 : NOTEQ expFor'''
-    print "!="
+    #print "!="
 
 def p_expFor2And(p):
     '''expFor2 : AND expFor'''
-    print "AND"
+    #print "AND"
 
 def p_expFor2OR(p):
     '''expFor2 : OR expFor'''
-    print "OR"
+    #print "OR"
 
 def p_expFor2Empty(p):
     '''expFor2 : empty'''
    
 def p_exp(p):
-   '''exp : ID exp2'''
-   print "ID"
+    '''exp : ID exp2 generaCuad'''
+    var = p[1]
+    global nombreModulo
+    #Buscar variable en el modulo
+    try:
+        temp_dir = dirProc[nombreModulo]['Vars'][var]['Dir']
+        temp_tipoVar = dirProc[nombreModulo]['Vars'][var]['TipoVar']
+   #Buscar variable en globales
+    except KeyError as key:
+        try:
+            temp_dir = dirProc[nombrePrograma]['Vars'][var]['Dir']
+            temp_tipoVar = dirProc[nombrePrograma]['Vars'][var]['TipoVar']
+        except KeyError as key:
+            print "Variable no %s esta declarada" % key
+            sys.exit()
+    print var
+    print "Tipo"
+    print temp_tipoVar
+    print "Direccion"
+    print temp_dir
+    quadAssign(p[1], p[3])
+    #print "ID = EXP" 
+    quadExp(p[1])
+    #print "ID"
+
+
+def p_generaCuad(p):
+    '''generaCuad : '''
+    generaCuadruplo()
 
 def p_expNUMERO(p):
-    '''exp : number exp2'''
+    '''exp : number meteNum exp2'''
+    
+def p_meteNum(p):
+    '''meteNum : '''    
+    quadExp(p[-1])
 
 def p_expVACIA(p):
     '''exp : empty'''
 
 def p_exp2(p):
     '''exp2 : LESS exp'''
-    print "<"
+    #print "<"
 
 def p_expr2Grtr(p):
     '''exp2 : GRTR exp'''
-    print ">"
+    #print ">"
 
 def p_exp2Equal(p):
     '''exp2 : EQ exp'''
-    print "=="
+    #print "=="
 
 def p_exp2NotEq(p):
     '''exp2 : NOTEQ exp'''
-    print "!="
+    #print "!="
 
 def p_exp2And(p):
     '''exp2 : AND exp'''
-    print "AND"
+    #print "AND"
 
 def p_exp2OR(p):
     '''exp2 : OR exp'''
-    print "OR"
+    #print "OR"
 
 def p_exp2SUM(p):
-    '''exp2 : SUM exp'''
-    print "+"
+    '''exp2 : SUM meteOper exp'''
+   
+    #print "+"
+
+def p_meteOper(p):
+    '''meteOper : '''
+    quadOper(p[-1])
 
 def p_exp2MINUS(p):
-    '''exp2 : MINUS exp'''
-    print "-"
+    '''exp2 : MINUS meteOper exp'''
+    #print "-"
 
 def p_exp2MULTP(p):
-    '''exp2 : MULTP exp'''
-    print "*"
+    '''exp2 : MULTP meteOper exp'''
+    #print "*"
 
 def p_exp2DIVIDE(p):
-    '''exp2 : DIVIDE exp'''
-    print "/"
+    '''exp2 : DIVIDE meteOper exp'''
+    #print "/"
 
 def p_exp2Empty(p):
     '''exp2 : empty'''
+    
+    
    
 def p_output(p): 
     '''output : WRITE LEFTPAR output2 RIGHTPAR SEMICOLON'''
-    print "WRITE()"
+    #print "WRITE()"
 
 def p_output2(p):
     '''output2 : ID output2'''
-    print "WRITE(ID)"
+    #print "WRITE(ID)"
 
 def p_output2Quotes(p):
     '''output2 : QUOTE ID QUOTE output2'''
@@ -481,11 +564,11 @@ def p_output2Empty(p):
     
 def p_input(p):
     '''input : READ LEFTPAR ID RIGHTPAR SEMICOLON'''
-    print "READ(ID)" 
+    #print "READ(ID)" 
 
 def p_empty(p):
     '''empty :'''
-    #print "Empty"
+    ##print "Empty"
     pass
 
 def p_error(p):
