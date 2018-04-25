@@ -1,4 +1,5 @@
-# direcciones para variables globales
+# coding=utf-8
+# rango de direcciones para variables globales
 
 memGlobalInt = 1
 memGlobalIntInicio = 1
@@ -9,7 +10,7 @@ memGlobalBoolInicio = 2000
 memGlobalString = 3000
 memGlobalStringInicio = 3000
 
-#direcciones para variables locales
+#rango de direcciones para variables locales
 memLocalInt = 4000
 memLocalIntInicio = 4000
 memLocalFloat = 5000
@@ -19,7 +20,7 @@ memLocalBoolInicio = 6000
 memLocalString = 7000
 memLocalStringInicio = 7000
 
-#Direcciones para variables temporales
+#rango de irecciones para variables temporales
 memIntTemp = 8000
 memIntTempInicio = 8000
 memFloatTemp = 9000
@@ -31,36 +32,8 @@ memStringTempInicio = 11000
 
 
 
-# '''
-# 	=======================================================================
-# 	Reinicar contadores de direcciones de memoria de variables y constantes
-# 	========================================================================
-# '''
-# def resetMemoriaLocal():
-# 	global memLocalInt
-# 	global memLocalFloat
-# 	global memLocalBool
-# 	global memLocalString
-# 	global memIntTemp
-# 	global memFloatTemp
-# 	global memBoolTemp
-# 	global memStringTemp
-# 	memLocalInt = memLocalIntInicio
-# 	memLocalFloat = memLocalFloatInicio
-# 	memLocalBool = memLocalBoolInicio
-# 	memLocalString = memLocalStringInicio 
-# 	memIntTemp = memIntTempInicio
-# 	memFloatTemp = memFloatTempInicio
-# 	memBoolTemp = memBoolTempInicio
-# 	memStringTemp = memStringTempInicio
 
-
-'''
-	========================================================================
-	Asigna direccion de memoria a una variable global de acuerdo a su tipo
-	========================================================================
-'''
-
+#Funcion para asignar una dirección de memoria a una variable global en base a su tipo
 def set_dir_global(tipo, cant):
 	global memGlobalInt
 	global memGlobalFloat
@@ -83,11 +56,8 @@ def set_dir_global(tipo, cant):
 	return assignedDir
 
 
-'''
-	========================================================================
-	Asigna direccion de memoria a una variable local de acuerdo a su tipo
-	========================================================================
-'''
+
+#Función para asignar una dirección de mmeoria a una variable local en base a su tipo
 def set_dir_local(tipo, cant):
 	global memLocalInt
 	global memLocalFloat
@@ -109,11 +79,9 @@ def set_dir_local(tipo, cant):
 		memLocalString += cant
 	return assignedDir
 
-'''
-	=====================================================================
-	Genera direccion para el temporal de una operacion para un cuadruplo
-	======================================================================
-'''
+
+#Función para generar una dirección de memoria para un temporal de operaciones en los cuadruplos, 
+#en base a su tipo
 def set_dir_temp(tipoTemp):
 	global memIntTemp
 	global memFloatTemp
@@ -145,12 +113,9 @@ def get_Total_Temp_Bool():
 
 def get_Total_Temp_String():
 	return memStringTemp - memStringTempInicio
-'''
-	=================================================================
-	Regresa variable correspondiente a funcion y direccion de memoria
-	=================================================================
-'''
+
+#Funcion que regresa la variable correspondiente a función y dirección de memoria
 def get_var(proc, dire):
-	for var, varelems in dirproc[proc]['Vars'].iteritems():
+	for var, varelems in dirProc[proc]['Vars'].iteritems():
 		if varelems['Dir'] == dire:
 			return var

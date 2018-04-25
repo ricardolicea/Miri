@@ -131,14 +131,19 @@ Rule 114   output2 -> QUOTE ID QUOTE output2
 Rule 115   output2 -> empty
 Rule 116   input -> READ LEFTPAR ID RIGHTPAR SEMICOLON
 Rule 117   empty -> <empty>
+Rule 118   circulo -> LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON
+Rule 119   cuadro -> LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON
+Rule 120   triangulo -> LEFTPAR INTEGER COMMA INTEGER COMMA INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON
+Rule 121   linea -> LEFTPAR INTEGER COMMA STRING COMMA INTEGER COMMA INTEGER COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON
+Rule 122   rectangulo -> LEFTPAR INTEGER COMMA INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON
 
 Terminals, with rules where they appear
 
 AND                  : 92 104
 ASSGN                : 51 63 64 80
-BOOL                 : 31
+BOOL                 : 31 118 119 120 122
 COLON                : 
-COMMA                : 10 18 46 57 81
+COMMA                : 10 18 46 57 81 118 118 118 118 119 119 119 119 120 120 120 120 120 120 120 121 121 121 121 121 122 122 122 122 122 122
 CYCLE                : 
 DECLARE              : 6 49
 DIVIDE               : 110
@@ -156,10 +161,10 @@ GRTREQ               :
 ID                   : 1 8 10 12 14 17 18 43 45 46 50 57 63 64 80 84 85 86 95 113 114 116
 IF                   : 66
 INT                  : 28
-INTEGER              : 52 53
+INTEGER              : 52 53 118 118 118 119 119 119 120 120 120 120 120 120 121 121 121 121 121 122 122 122 122 122
 LEFTBRACK            : 25
 LEFTKEY              : 12 33 66 67 75 76 79
-LEFTPAR              : 12 33 43 66 75 76 79 112 116
+LEFTPAR              : 12 33 43 66 75 76 79 112 116 118 119 120 121 122
 LESS                 : 88 100
 LESSEQ               : 
 MAIN                 : 33
@@ -174,10 +179,10 @@ READ                 : 116
 RETURN               : 13 14
 RIGHTBRACK           : 25
 RIGHTKEY             : 12 33 66 67 75 76 79
-RIGHTPAR             : 12 33 43 66 75 76 79 112 116
-SEMICOLON            : 1 1 8 13 14 50 63 64 79 79 112 116
+RIGHTPAR             : 12 33 43 66 75 76 79 112 116 118 119 120 121 122
+SEMICOLON            : 1 1 8 13 14 50 63 64 79 79 112 116 118 119 120 121 122
 SPACE                : 
-STRING               : 30
+STRING               : 30 118 119 120 121 122
 SUM                  : 84 84 106
 TYPE                 : 
 VOID                 : 32
@@ -196,9 +201,11 @@ altaVarLocal         : 17 18 50 57
 array                : 9 25 56
 assignment           : 40
 assignmentDecl       : 8 50 57
+circulo              : 
 conditional          : 35
 conditional2         : 66 69
 conditionalElse      : 66
+cuadro               : 
 cuerpo               : 1
 cycles               : 37
 declare              : 4
@@ -227,6 +234,7 @@ functReturn          : 12
 generaCuad           : 95
 goToMainQuad         : 1
 input                : 38
+linea                : 
 llamadaAFunct        : 41 64
 llamadaAFunct2       : 43
 llamadaAFunct3       : 45
@@ -240,6 +248,8 @@ parte3For            : 79
 program              : 0
 program2             : 1
 program3             : 4 11
+rectangulo           : 
+triangulo            : 
 type                 : 8 12 17 18 50
 type2                : 27
 while                : 71

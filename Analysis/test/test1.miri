@@ -1,20 +1,11 @@
 program patito;
-declare 
-int iZ;
-float dW;
 
-funct int iSuma(int iX){
-    iZ = 1;
-    iX = iZ;
-    dW = 2;
-    dY = 3;
-}
 
 main(){
     declare
     int iA, iB, iC;
     
     iA = iB + iC;
-    iZ = suma();
+   
 }
 end;

@@ -41,7 +41,7 @@ def goToMainQuad():
     pSaltos.push(0)
     
 
-def quadAssign(p1, p2):
+def quadAssign(p1, p2, tipo):
     global pilaOperandos
     global pTipos
     global pOperadores
@@ -50,14 +50,16 @@ def quadAssign(p1, p2):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
+        pTipos.push(tipo)
     
     if(checkOper(p2)):
-       pilaOperandos.push(p2)
+       pOperadores.push(p2)
     else:
-        pOperadores.push(p2)
+        pilaOperandos.push(p2)
+        pTipos.push(tipo)
     
 
-def quadExp(p1):
+def quadExp(p1, tipo):
     global pilaOperandos
     global pTipos
     global pOperadores
@@ -66,6 +68,7 @@ def quadExp(p1):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
+        pTipos.push(tipo)
 
     
 
@@ -79,6 +82,7 @@ def quadOper(p1):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
+        
 
 
 def generaCuadruplo():
@@ -89,14 +93,23 @@ def generaCuadruplo():
 
     if(not(pOperadores.size()==0 or pilaOperandos.size() == 0)):
         operador = pOperadores.pop()
-        operDer = pilaOperandos.pop()
         operIzq = pilaOperandos.pop()
-        # print "Operador"
-        # print operador
-        # print "izq"
-        # print operIzq
-        # print "der"
-        # print operDer
-
+        operDer = pilaOperandos.pop()
+        tipoIzq = pTipos.pop()
+        tipoDer = pTipos.pop()
+        
+        print "------------------------------"
+        print "Operador"
+        print operador
+        print "izq"
+        print operIzq
+        print "tipoIzq"
+        print tipoIzq
+        print "der"
+        print operDer
+        print "tipoDer"
+        print tipoDer
+        print "------------------------------"
+        
         generaCuad = Cuadruplo(operador, operDer, operIzq, "")
         pushCuad(generaCuad)

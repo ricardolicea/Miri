@@ -324,7 +324,7 @@ def p_assignment(p):
     print temp_tipoVar
     print "Direccion"
     print temp_dir
-    quadAssign(p[1], p[3])
+    quadAssign(p[1], p[2], tipo)
     #print "ID = EXP" 
 
 
@@ -350,7 +350,7 @@ def p_assignmentFUNCT(p):
     print temp_tipoVar
     print "Direccion"
     print temp_dir
-    quadAssign(p[1], p[3])
+    quadAssign(p[1], p[2], tipo)
     #print "ID = EXP" 
     #print "ID = FUNCT()" 
 
@@ -478,9 +478,8 @@ def p_exp(p):
     print temp_tipoVar
     print "Direccion"
     print temp_dir
-    quadAssign(p[1], p[3])
     #print "ID = EXP" 
-    quadExp(p[1])
+    quadExp(p[1], tipo)
     #print "ID"
 
 
@@ -492,8 +491,10 @@ def p_expNUMERO(p):
     '''exp : number meteNum exp2'''
     
 def p_meteNum(p):
-    '''meteNum : '''    
-    quadExp(p[-1])
+    '''meteNum : '''
+    global tipo
+    tipo = "int"
+    quadExp(str(p[-1]),tipo )
 
 def p_expVACIA(p):
     '''exp : empty'''
@@ -640,3 +641,5 @@ result = yacc.parse(cadena)
 
 #print result
 #print dirProc
+print pilaOperandos.getElements()
+print pOperadores.getElements()
