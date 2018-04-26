@@ -1,5 +1,7 @@
 #from parser import *
 from structs import *
+from cuboSemantico import *
+from tablas import *
 import sys
 
 pilaOperandos = Stack()
@@ -26,10 +28,10 @@ def pushCuad(cuadruplo):
     cuadruplos.append(cuadruplo)
     contSaltos += 1
    
-    
+    #
     
 def checkOper(p):
-    if(p == '+' or p == r'\-' or p == r'\*' or p == r'/' or p == r'\='):
+    if( p == '+' or p == r'-' or p == r'*' or p == r'/' or p == r'='):
         return True
     else:
         return False
@@ -41,7 +43,7 @@ def goToMainQuad():
     pSaltos.push(0)
     
 
-def quadAssign(p1, p2):
+def quadAssign(p1, p2, tipo):
     global pilaOperandos
     global pTipos
     global pOperadores
@@ -50,14 +52,16 @@ def quadAssign(p1, p2):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
+        pTipos.push(tipo)
     
     if(checkOper(p2)):
-       pilaOperandos.push(p2)
+       pOperadores.push(p2)
     else:
-        pOperadores.push(p2)
+        pilaOperandos.push(p2)
+        pTipos.push(tipo)
     
 
-def quadExp(p1):
+def quadExp(p1, tipo):
     global pilaOperandos
     global pTipos
     global pOperadores
@@ -66,6 +70,7 @@ def quadExp(p1):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
+        pTipos.push(tipo)
 
     
 
@@ -79,6 +84,7 @@ def quadOper(p1):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
+        
 
 
 def generaCuadruplo():
@@ -87,16 +93,32 @@ def generaCuadruplo():
     global pOperadores
     global cuadruplos
 
-    if(not(pOperadores.size()==0 or pilaOperandos.size() == 0)):
+    
+    if(not(pOperadores.isEmpty() or pilaOperandos.isEmpty())):
         operador = pOperadores.pop()
         operDer = pilaOperandos.pop()
         operIzq = pilaOperandos.pop()
-        # print "Operador"
-        # print operador
-        # print "izq"
-        # print operIzq
-        # print "der"
-        # print operDer
-
-        generaCuad = Cuadruplo(operador, operDer, operIzq, "")
-        pushCuad(generaCuad)
+        if not(operador == r'='):
+            tipoIzq = pTipos.pop()
+            tipoDer = pTipos.pop()
+            tipoAnsw = cuboSemantico[tipoIzq][tipoDer][operador]
+        
+            if(tipoAnsw != "Error"):
+                temp = set_dir_temp(tipoAnsw)
+                generaCuad = Cuadruplo(operador, operIzq, operDer, temp)
+                pushCuad(generaCuad)
+                pilaOperandos.push(temp)
+                pTipos.push(tipoAnsw)
+                print tipoAnsw
+                print "------------------------------"
+                print "(" + str(operador) + "," + str(operIzq) + "," + str(operDer) + "," + str(temp) +")" 
+                print "------------------------------"
+            else:
+                sys.exit("No se puede realizar la operacion")
+        else:
+            generaCuad = Cuadruplo(operador, operDer, None, operIzq)
+            pushCuad(generaCuad)
+            print "------------------------------"
+            print "(" + str(operador) + "," + str(operDer) + ", Null" +  "," + str(operIzq) +")" 
+            print "------------------------------"
+        
