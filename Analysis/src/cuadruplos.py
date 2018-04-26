@@ -1,5 +1,7 @@
 #from parser import *
 from structs import *
+from cuboSemantico import *
+from tablas import *
 import sys
 
 pilaOperandos = Stack()
@@ -26,10 +28,10 @@ def pushCuad(cuadruplo):
     cuadruplos.append(cuadruplo)
     contSaltos += 1
    
-    
+    #
     
 def checkOper(p):
-    if(p == '+' or p == r'\-' or p == r'\*' or p == r'/' or p == r'\='):
+    if( p == '+' or p == r'-' or p == r'*' or p == r'/' or p == r'='):
         return True
     else:
         return False
@@ -91,25 +93,32 @@ def generaCuadruplo():
     global pOperadores
     global cuadruplos
 
-    if(not(pOperadores.size()==0 or pilaOperandos.size() == 0)):
+    
+    if(not(pOperadores.isEmpty() or pilaOperandos.isEmpty())):
         operador = pOperadores.pop()
-        operIzq = pilaOperandos.pop()
         operDer = pilaOperandos.pop()
-        tipoIzq = pTipos.pop()
-        tipoDer = pTipos.pop()
+        operIzq = pilaOperandos.pop()
+        if not(operador == r'='):
+            tipoIzq = pTipos.pop()
+            tipoDer = pTipos.pop()
+            tipoAnsw = cuboSemantico[tipoIzq][tipoDer][operador]
         
-        print "------------------------------"
-        print "Operador"
-        print operador
-        print "izq"
-        print operIzq
-        print "tipoIzq"
-        print tipoIzq
-        print "der"
-        print operDer
-        print "tipoDer"
-        print tipoDer
-        print "------------------------------"
+            if(tipoAnsw != "Error"):
+                temp = set_dir_temp(tipoAnsw)
+                generaCuad = Cuadruplo(operador, operIzq, operDer, temp)
+                pushCuad(generaCuad)
+                pilaOperandos.push(temp)
+                pTipos.push(tipoAnsw)
+                print tipoAnsw
+                print "------------------------------"
+                print "(" + str(operador) + "," + str(operIzq) + "," + str(operDer) + "," + str(temp) +")" 
+                print "------------------------------"
+            else:
+                sys.exit("No se puede realizar la operacion")
+        else:
+            generaCuad = Cuadruplo(operador, operDer, None, operIzq)
+            pushCuad(generaCuad)
+            print "------------------------------"
+            print "(" + str(operador) + "," + str(operDer) + ", Null" +  "," + str(operIzq) +")" 
+            print "------------------------------"
         
-        generaCuad = Cuadruplo(operador, operDer, operIzq, "")
-        pushCuad(generaCuad)

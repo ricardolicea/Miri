@@ -304,34 +304,21 @@ def p_altaVarLocal(p):
     #print nombreModulo +  " " + str(dirProc)
 
 def p_assignment(p):
-    '''assignment : ID ASSGN exp SEMICOLON'''
-    var = p[1]
-    global nombrePrograma
-    #Buscar variable en el modulo
-    try:
-        temp_dir = dirProc[nombreModulo]['Vars'][var]['Dir']
-        temp_tipoVar = dirProc[nombreModulo]['Vars'][var]['TipoVar']
-   #Buscar variable en globales
-    except KeyError as key:
-        try:
-            temp_dir = dirProc[nombrePrograma]['Vars'][var]['Dir']
-            temp_tipoVar = dirProc[nombrePrograma]['Vars'][var]['TipoVar']
-        except KeyError as key:
-            print "Variable no %s esta declarada" % key
-            sys.exit()
-    print var
-    print "Tipo"
-    print temp_tipoVar
-    print "Direccion"
-    print temp_dir
-    quadAssign(p[1], p[2], tipo)
+    '''assignment : ID ASSGN meteVar exp SEMICOLON'''
     #print "ID = EXP" 
 
 
 
 def p_assignmentFUNCT(p):
-    '''assignment : ID ASSGN llamadaAFunct SEMICOLON'''
-    var = p[1]
+    '''assignment : ID ASSGN meteVar llamadaAFunct SEMICOLON'''
+    
+    #print "ID = EXP" 
+    #print "ID = FUNCT()" 
+
+def p_meteVar(p):
+    '''meteVar : '''
+    var = p[-2]
+    eq = p[-1]
     global nombrePrograma
     #Buscar variable en el modulo
     try:
@@ -345,14 +332,10 @@ def p_assignmentFUNCT(p):
         except KeyError as key:
             print "Variable no %s esta declarada" %key
             sys.exit()
-    print var
-    print "Tipo"
-    print temp_tipoVar
-    print "Direccion"
-    print temp_dir
-    quadAssign(p[1], p[2], tipo)
-    #print "ID = EXP" 
-    #print "ID = FUNCT()" 
+    print "==============================="
+    print "Var= " + str(var) + "  Tipo= " + str(temp_tipoVar) + "  Dir= " + str(temp_dir)
+    print "==============================="
+    quadAssign(eq, var, temp_tipoVar)
 
 def p_assignmentEmpty(p):
     '''assignment : empty'''
@@ -458,8 +441,13 @@ def p_expFor2Empty(p):
     '''expFor2 : empty'''
    
 def p_exp(p):
-    '''exp : ID exp2 generaCuad'''
-    var = p[1]
+    '''exp : ID meteExp exp2 generaCuad'''
+    #print "ID"
+
+def p_meteExp(p):
+    '''meteExp : '''
+    var = p[-1]
+
     global nombreModulo
     #Buscar variable en el modulo
     try:
@@ -473,15 +461,11 @@ def p_exp(p):
         except KeyError as key:
             print "Variable no %s esta declarada" % key
             sys.exit()
-    print var
-    print "Tipo"
-    print temp_tipoVar
-    print "Direccion"
-    print temp_dir
+    print "==============================="
+    print "Var= " + str(var) + "  Tipo= " + str(temp_tipoVar) + "  Dir= " + str(temp_dir)
+    print "==============================="
     #print "ID = EXP" 
-    quadExp(p[1], tipo)
-    #print "ID"
-
+    quadExp(var, tipo)
 
 def p_generaCuad(p):
     '''generaCuad : '''
@@ -494,7 +478,8 @@ def p_meteNum(p):
     '''meteNum : '''
     global tipo
     tipo = "int"
-    quadExp(str(p[-1]),tipo )
+    num = p[-1]
+    quadExp(num,tipo )
 
 def p_expVACIA(p):
     '''exp : empty'''
@@ -641,5 +626,6 @@ result = yacc.parse(cadena)
 
 #print result
 #print dirProc
+print cuadruplos
 print pilaOperandos.getElements()
 print pOperadores.getElements()

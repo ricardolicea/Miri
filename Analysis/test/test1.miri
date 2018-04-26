@@ -3,9 +3,11 @@ program patito;
 
 main(){
     declare
-    int iA, iB, iC;
+    int iA, iB, iC, iD;
     
-    iA = iB + iC;
-   
+    iA = iB * iC;
+    iB = iC - iD;
+    iA = iC / iB;
+    iD = iB + iC;
 }
 end;
