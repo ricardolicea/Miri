@@ -304,10 +304,8 @@ def p_altaVarLocal(p):
     #print nombreModulo +  " " + str(dirProc)
 
 def p_assignment(p):
-    '''assignment : ID ASSGN meteVar exp SEMICOLON'''
+    '''assignment : ID ASSGN meteVar exp generaCuad SEMICOLON'''
     #print "ID = EXP" 
-
-
 
 def p_assignmentFUNCT(p):
     '''assignment : ID ASSGN meteVar llamadaAFunct SEMICOLON'''
@@ -439,11 +437,21 @@ def p_expFor2OR(p):
 
 def p_expFor2Empty(p):
     '''expFor2 : empty'''
-   
+   #AQUI ESTABA EL GENERACUAD AL FINAL
 def p_exp(p):
-    '''exp : ID meteExp exp2 generaCuad'''
+    '''exp : ID meteExp exp2'''
     #print "ID"
 
+def p_expPar(p):
+    '''exp : LEFTPAR metePar exp RIGHTPAR exp2 generaCuad'''
+
+def p_metePar(p):
+    '''metePar : '''
+    metePar(p[-1])
+
+def p_sacaPar(p):
+    '''sacaPar : '''
+    sacaPar()
 def p_meteExp(p):
     '''meteExp : '''
     var = p[-1]
@@ -472,8 +480,9 @@ def p_generaCuad(p):
     generaCuadruplo()
 
 def p_expNUMERO(p):
-    '''exp : number meteNum exp2'''
+    '''exp : number meteNum  exp2'''
     
+
 def p_meteNum(p):
     '''meteNum : '''
     global tipo
@@ -508,10 +517,12 @@ def p_exp2OR(p):
     '''exp2 : OR exp'''
     #print "OR"
 
+
 def p_exp2SUM(p):
     '''exp2 : SUM meteOper exp'''
    
     #print "+"
+
 
 def p_meteOper(p):
     '''meteOper : '''

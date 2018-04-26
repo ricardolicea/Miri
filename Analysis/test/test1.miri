@@ -5,9 +5,6 @@ main(){
     declare
     int iA, iB, iC, iD;
     
-    iA = iB * iC;
-    iB = iC - iD;
-    iA = iC / iB;
-    iD = iB + iC;
+    iA = iB * (iC / iD) + (iA - iB) + (iA*iB)/(iC*iD);
 }
 end;

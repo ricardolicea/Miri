@@ -13,6 +13,7 @@ pDimensionada = Stack()
 vPolaco = Queue()
 cuadruplos = []
 contSaltos = 0
+posPar = 0
 
 class Cuadruplo:
     def __init__(self, operador, operandoIzq, operandoDer, temp):
@@ -31,7 +32,7 @@ def pushCuad(cuadruplo):
     #
     
 def checkOper(p):
-    if( p == '+' or p == r'-' or p == r'*' or p == r'/' or p == r'='):
+    if( p == '+' or p == r'(' or p == r')' or p == r'-' or p == r'*' or p == r'/' or p == r'='):
         return True
     else:
         return False
@@ -66,26 +67,46 @@ def quadExp(p1, tipo):
     global pTipos
     global pOperadores
 
+
     if(checkOper(p1)):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
         pTipos.push(tipo)
 
+    if not(pOperadores.peek() == r'\(' or p1 == r'\)'):
+        if(pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
+            generaCuadruplo()
+        if(pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
+            generaCuadruplo()
     
+    #
 
+def metePar(p1):
+    global posPar
+    posPar = pOperadores.size()
+    pOperadores.push(p1)
 
 def quadOper(p1):
     global pilaOperandos
     global pTipos
     global pOperadores
 
+    if (pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
+        generaCuadruplo() 
+        if (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
+            generaCuadruplo()
+    
     if(checkOper(p1)):
         pOperadores.push(p1)
     else:
         pilaOperandos.push(p1)
-        
+    
+    
+    
 
+def sacaPar():
+    cuadruplos.pop()
 
 def generaCuadruplo():
     global pilaOperandos
@@ -109,6 +130,8 @@ def generaCuadruplo():
                 pushCuad(generaCuad)
                 pilaOperandos.push(temp)
                 pTipos.push(tipoAnsw)
+                if pOperadores.peek() == r'(':
+                    pOperadores.pop()
                 print tipoAnsw
                 print "------------------------------"
                 print "(" + str(operador) + "," + str(operIzq) + "," + str(operDer) + "," + str(temp) +")" 
