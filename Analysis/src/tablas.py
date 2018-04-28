@@ -1,4 +1,12 @@
 # coding=utf-8
+
+#Diccionarios de memoria
+
+DicMemoria = {'Global': {}, 'Local': {}, 'Temp': {}, 'Const': {} } 
+DicMemoria['Global'] = {'Int':{}, 'Float': {}, 'Bool': {}, 'String': {}}
+DicMemoria['Global']['Int'] = {'Pos': pos, 'Dir': self.dir, 'Value': val}
+
+
 # rango de direcciones para variables globales
 
 memGlobalInt = 1
@@ -30,8 +38,65 @@ memBoolTempInicio = 10000
 memStringTemp = 11000
 memStringTempInicio = 11000
 
+#Rango de direcciones para constantes
+memConstInt = 12000
+memConstIntInicio = 12000
+memConstFloat = 13000
+memConstFloatInicio = 13000
+memConstBool = 14000
+memConstBoolInicio = 14000
+memConstString = 15000
+memConstStringInicio = 15000
+
+def setValueGlobal(dir,value)
+	if dir < memGlobalFloatInicio
+	
 
 
+
+
+
+
+def getTypeGlobal(dir):
+	if dir < memGlobalFloatInicio:
+		return 'int'
+	elif dir < memGlobalBoolInicio:
+		return 'float'
+	elif dir < memGlobalStringInicio:
+		return 'bool'
+	else:
+		return 'string'
+
+def getTypeLocal(dir):
+	if dir < memLocalFloatInicio:
+		return 'int'
+	elif dir < memLocalBoolInicio:
+		return 'float'
+	elif dir < memLocalStringInicio:
+		return 'bool'
+	else:
+		return 'string'
+
+def getTypeTemp(dir):
+	if dir < memFloatTempInicio:
+		return 'int'
+	elif dir < memBoolTempInicio:
+		return 'float'
+	elif dir < memStringTempInicio:
+		return 'bool'
+	else:
+		return 'string'
+
+def getTypeConst(dir):
+	if dir < memConstFloatInicio:
+		return 'int'
+	elif dir < memConstBoolInicio:
+		return 'float'
+	elif dir < memConstStringInicio:
+		return 'bool'
+	else:
+		return 'string'
+	
 
 #Funcion para asignar una dirección de memoria a una variable global en base a su tipo
 def set_dir_global(tipo, cant):
@@ -101,6 +166,28 @@ def set_dir_temp(tipoTemp):
 		memStringTemp +=1
 		dirTemp = memStringTemp
 	return dirTemp
+
+#Funcion para generar una direccion de memoria para una constante 
+def set_dir_const(tipo,cant):
+	global memConstBool
+	global memConstFloat
+	global memConstInt
+	global memConstString
+
+	assignedDir = None
+	
+	if tipo == 'int':
+		assignedDir = memConstInt
+		memConstInt += cant
+	elif tipo == 'bool':
+		assignedDir = memConstBool
+		memConstBool += cant 
+	elif tipo == 'float':
+		assignedDir = memConstFloat
+		memConstFloat += cant 
+	elif tipo == 'string':
+		assignedDir = memConstString
+		memConstString += cant 
 
 def get_Total_Temp_Int():
 	return memIntTemp - memIntTempInicio
