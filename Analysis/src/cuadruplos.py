@@ -135,10 +135,8 @@ def gotoF():
     pSaltos.push(contSaltos)
     generaCuad = Cuadruplo("GOTOF",dirExp, None, None)
     pushCuad(generaCuad)
-    print "------------------------------"
-    print "(GOTOF," + str(dirExp) + ", Null,___)" 
-    print "------------------------------"
-    print "PILA SALTOS ULTIMO: " + str(pSaltos.peek())
+    
+    
 
 def gotoCuad():
     global contSaltos
@@ -167,6 +165,25 @@ def llenaGoto():
     cuad = cuadruplos[tempSaltos]
     cuad.temp = contSaltos
     cuadruplos[tempSaltos] = cuad
+
+def meteSalto():
+    pSaltos.push(contSaltos)
+
+def llenaCuadF():
+    tempDir = pSaltos.pop()
+    cuad = cuadruplos[tempDir]
+    cuad.temp = contSaltos
+    cuadruplos[tempDir] = cuad
+
+def gotoVCuad():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+   
+    tempDir = pSaltos.pop()
+    generaCuad = Cuadruplo("GOTOV", pilaOperandos.pop(), None, tempDir)
+    pushCuad(generaCuad)
 
 def llenaMain():
     global contSaltos

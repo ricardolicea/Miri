@@ -384,11 +384,23 @@ def p_cyclesDoWhile(p):
     '''cycles : do-while'''
     
 def p_doWhile(p):
-    '''do-while : DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR '''
+    '''do-while : DO meteSalto LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR gotoVCuad '''
     
+def p_gotoVCuad(p):
+    '''gotoVCuad : '''
+    gotoVCuad()
+
+def p_meteSalto(p):
+    '''meteSalto : '''
+    meteSalto()
+
 def p_whileClass(p):
-    '''while : WHILE LEFTPAR while2 RIGHTPAR LEFTKEY est RIGHTKEY'''
+    '''while : WHILE LEFTPAR while2 RIGHTPAR gotoFCuad LEFTKEY est RIGHTKEY llenaCuadF '''
     
+def p_llenaCuadF(p):
+    '''llenaCuadF : '''
+    llenaCuadF()
+
 def p_while2(p):
     '''while2 : exp while2'''
     

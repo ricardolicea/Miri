@@ -6,12 +6,11 @@ main(){
     int iA, iB, iC, iD;
     bool bA, bB;
 
-    if(iA > iB){
-        iA = iB + iC;
-    } else {
-        iD = iB * iC;
+    iA = iB + iC;
+    while(iA < iB){
+        iB = iC * iD;
     }
-    iA = iA + iB;
+    iA = iB / iD;
 }
 end;
 
