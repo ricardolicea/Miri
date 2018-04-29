@@ -626,7 +626,7 @@ result = yacc.parse(cadena)
 
 #print result
 print "99999999999999999999"
-print len(dirProc['patito']['Vars'])
+print dirProc
 print "99999999999999999999"
 print cuadruplos
 print pilaOperandos.getElements()
