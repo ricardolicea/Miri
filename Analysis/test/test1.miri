@@ -4,7 +4,15 @@ program patito;
 main(){
     declare
     int iA, iB, iC, iD;
-    
-    iA = iB * (iC / iD) + (iA - iB) + (iA*iB)/(iC*iD);
+    bool bA, bB;
+
+    if(iA > iB){
+        iA = iB + iC;
+    } else {
+        iD = iB * iC;
+    }
+    iA = iA + iB;
 }
 end;
+
+

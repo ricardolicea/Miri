@@ -14,6 +14,7 @@ vPolaco = Queue()
 cuadruplos = []
 contSaltos = 0
 posPar = 0
+tempSaltos = 0
 
 class Cuadruplo:
     def __init__(self, operador, operandoIzq, operandoDer, temp):
@@ -32,7 +33,9 @@ def pushCuad(cuadruplo):
     #
     
 def checkOper(p):
-    if( p == '+' or p == r'(' or p == r')' or p == r'-' or p == r'*' or p == r'/' or p == r'='):
+    if( p == '+' or p == r'(' or p == r')' or p == r'-' or p == r'*' or p == r'/' or p == r'='
+        or p == r'>' or p == r'<' or p == r'>=' or p == r'<=' or p == r'==' or p == r'!='
+        or p == 'and' or p == 'or'):
         return True
     else:
         return False
@@ -74,17 +77,22 @@ def quadExp(p1, tipo):
         pilaOperandos.push(p1)
         pTipos.push(tipo)
 
-    if not(pOperadores.peek() == r'\(' or p1 == r'\)'):
-        if(pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
-            generaCuadruplo()
-        if(pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
-            generaCuadruplo()
+    if not(pOperadores.isEmpty()):
+        if not(pOperadores.peek() == r'(' or p1 == r')'):
+            if(pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
+                generaCuadruplo()
+            elif(pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
+                generaCuadruplo()
+            elif(pOperadores.peek() == r'<' or pOperadores.peek() == r'>' or
+                pOperadores.peek() == r'<=' or pOperadores.peek() == r'>='
+                or pOperadores.peek() == r'==' or pOperadores.peek() == r'!='):
+                generaCuadruplo()
+            elif(pOperadores.peek() == 'and' or pOperadores.peek() == 'or'):
+                generaCuadruplo()
     
     #
 
 def metePar(p1):
-    global posPar
-    posPar = pOperadores.size()
     pOperadores.push(p1)
 
 def quadOper(p1):
@@ -92,21 +100,86 @@ def quadOper(p1):
     global pTipos
     global pOperadores
 
-    if (pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
-        generaCuadruplo() 
-        if (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
-            generaCuadruplo()
+
+    if not (pOperadores.isEmpty()):
+        if not(pOperadores.peek() == r'(' or p1 == r')'):
+            if(pOperadores.peek() == r'>' or pOperadores.peek() == r'<' or pOperadores.peek() == r'>=' or pOperadores.peek() == r'<=' or pOperadores.peek() == r'==' or pOperadores.peek() == r'!='):
+                generaCuadruplo()
+            elif(pOperadores.peek() == "and" or pOperadores.peek() == "or"):
+                generaCuadruplo()
+            elif (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
+                generaCuadruplo() 
+            elif (pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
+                generaCuadruplo()
     
-    if(checkOper(p1)):
-        pOperadores.push(p1)
-    else:
-        pilaOperandos.push(p1)
+    pOperadores.push(p1)
+    # if(checkOper(p1)):
+    #     pOperadores.push(p1)
+    # else:
+    #     pilaOperandos.push(p1)
     
-    
+    # if (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
+    #     generaCuadruplo()
     
 
 def sacaPar():
-    cuadruplos.pop()
+    pOperadores.pop()
+
+def gotoF():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+    
+    dirExp = pilaOperandos.pop()
+    pSaltos.push(contSaltos)
+    generaCuad = Cuadruplo("GOTOF",dirExp, None, None)
+    pushCuad(generaCuad)
+    print "------------------------------"
+    print "(GOTOF," + str(dirExp) + ", Null,___)" 
+    print "------------------------------"
+    print "PILA SALTOS ULTIMO: " + str(pSaltos.peek())
+
+def gotoCuad():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+    global tempSaltos
+
+    tempSaltos = pSaltos.pop()
+    generaCuad = Cuadruplo("GOTO",None, None, None)
+    pSaltos.push(contSaltos)
+    pushCuad(generaCuad)
+
+    cuad = cuadruplos[tempSaltos]
+    cuad.temp = contSaltos
+    cuadruplos[tempSaltos] = cuad
+
+def llenaGoto():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+    global tempSaltos
+
+    tempSaltos = pSaltos.pop()
+    cuad = cuadruplos[tempSaltos]
+    cuad.temp = contSaltos
+    cuadruplos[tempSaltos] = cuad
+
+def llenaMain():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+    global tempSaltos
+
+    cuad = cuadruplos[0]
+    cuad.temp = contSaltos
+    cuadruplos[0] = cuad
+
+
 
 def generaCuadruplo():
     global pilaOperandos
@@ -130,9 +203,8 @@ def generaCuadruplo():
                 pushCuad(generaCuad)
                 pilaOperandos.push(temp)
                 pTipos.push(tipoAnsw)
-                if pOperadores.peek() == r'(':
-                    pOperadores.pop()
-                print tipoAnsw
+                # if pOperadores.peek() == r'(':
+                #     pOperadores.pop()
                 print "------------------------------"
                 print "(" + str(operador) + "," + str(operIzq) + "," + str(operDer) + "," + str(temp) +")" 
                 print "------------------------------"
