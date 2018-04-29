@@ -32,7 +32,7 @@ from tablas import *
 #     ('left', 'MULTP', 'DIVIDE'),
 #     ('left', 'LEFTPAR', 'RIGHTPAR')
 
-# )
+#  )
 
 
 dirProc = {}
@@ -190,8 +190,12 @@ def p_type2Void(p):
     #print "VOID"
 
 def p_cuerpo(p):
-    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY altaModuloMain est RIGHTKEY'''
+    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY llenaMain altaModuloMain est RIGHTKEY'''
     #print "MAIN()"
+
+def p_llenaMain(p):
+    '''llenaMain : '''
+    llenaMain()
 
 def p_altaModuloMain(p):
     '''altaModuloMain : '''
@@ -300,14 +304,12 @@ def p_altaVarLocal(p):
     nombreVar = p[-1]
     direccion = set_dir_local(tipo,1)
     dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion}
-    #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
+    print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
     #print nombreModulo +  " " + str(dirProc)
 
 def p_assignment(p):
-    '''assignment : ID ASSGN meteVar exp SEMICOLON'''
+    '''assignment : ID ASSGN meteVar exp generaCuad SEMICOLON'''
     #print "ID = EXP" 
-
-
 
 def p_assignmentFUNCT(p):
     '''assignment : ID ASSGN meteVar llamadaAFunct SEMICOLON'''
@@ -332,21 +334,33 @@ def p_meteVar(p):
         except KeyError as key:
             print "Variable no %s esta declarada" %key
             sys.exit()
-    print "==============================="
-    print "Var= " + str(var) + "  Tipo= " + str(temp_tipoVar) + "  Dir= " + str(temp_dir)
-    print "==============================="
+    # print "==============================="
+    # print "Var= " + str(var) + "  Tipo= " + str(temp_tipoVar) + "  Dir= " + str(temp_dir)
+    # print "==============================="
     quadAssign(eq, var, temp_tipoVar)
 
 def p_assignmentEmpty(p):
     '''assignment : empty'''
 
 def p_conditional(p):
-    '''conditional : IF LEFTPAR conditional2 RIGHTPAR LEFTKEY est RIGHTKEY conditionalElse '''
+    '''conditional : IF LEFTPAR conditional2 RIGHTPAR gotoFCuad LEFTKEY est RIGHTKEY gotoCuad conditionalElse '''
     #print "IF(){ }"
 
+def p_gotoFCuad(p):
+    '''gotoFCuad : '''
+    gotoF()
+
+def p_goToCuad(p):
+    '''gotoCuad : '''
+    gotoCuad()
+
 def p_conditionalElse(p):
-    '''conditionalElse : ELSE LEFTKEY est RIGHTKEY'''
+    '''conditionalElse : ELSE LEFTKEY est RIGHTKEY llenaGoto'''
     #print "ELSE { }"
+
+def p_llenaGoto(p):
+    '''llenaGoto : '''
+    llenaGoto()
 
 def p_conditionalElseEmpty(p):
     '''conditionalElse : empty'''
@@ -370,11 +384,23 @@ def p_cyclesDoWhile(p):
     '''cycles : do-while'''
     
 def p_doWhile(p):
-    '''do-while : DO LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR '''
+    '''do-while : DO meteSalto LEFTKEY est RIGHTKEY WHILE LEFTPAR while2 RIGHTPAR gotoVCuad '''
     
+def p_gotoVCuad(p):
+    '''gotoVCuad : '''
+    gotoVCuad()
+
+def p_meteSalto(p):
+    '''meteSalto : '''
+    meteSalto()
+
 def p_whileClass(p):
-    '''while : WHILE LEFTPAR while2 RIGHTPAR LEFTKEY est RIGHTKEY'''
+    '''while : WHILE LEFTPAR while2 RIGHTPAR gotoFCuad LEFTKEY est RIGHTKEY llenaCuadF '''
     
+def p_llenaCuadF(p):
+    '''llenaCuadF : '''
+    llenaCuadF()
+
 def p_while2(p):
     '''while2 : exp while2'''
     
@@ -439,10 +465,21 @@ def p_expFor2OR(p):
 
 def p_expFor2Empty(p):
     '''expFor2 : empty'''
-   
+   #AQUI ESTABA EL GENERACUAD AL FINAL
 def p_exp(p):
-    '''exp : ID meteExp exp2 generaCuad'''
+    '''exp : ID meteExp exp2'''
     #print "ID"
+
+def p_expPar(p):
+    '''exp : LEFTPAR metePar exp RIGHTPAR sacaPar exp2 generaCuad'''
+
+def p_metePar(p):
+    '''metePar : '''
+    metePar(p[-1])
+
+def p_sacaPar(p):
+    '''sacaPar : '''
+    sacaPar()
 
 def p_meteExp(p):
     '''meteExp : '''
@@ -461,57 +498,61 @@ def p_meteExp(p):
         except KeyError as key:
             print "Variable no %s esta declarada" % key
             sys.exit()
-    print "==============================="
-    print "Var= " + str(var) + "  Tipo= " + str(temp_tipoVar) + "  Dir= " + str(temp_dir)
-    print "==============================="
-    #print "ID = EXP" 
-    quadExp(var, tipo)
+    # print "==============================="
+    # print "Var= " + str(var) + "  Tipo= " + str(temp_tipoVar) + "  Dir= " + str(temp_dir)
+    # print "==============================="
+    # print "ID = EXP" 
+    quadExp(var, temp_tipoVar)
 
 def p_generaCuad(p):
     '''generaCuad : '''
     generaCuadruplo()
 
 def p_expNUMERO(p):
-    '''exp : number meteNum exp2'''
+    '''exp : number meteNum  exp2'''
     
+
 def p_meteNum(p):
     '''meteNum : '''
     global tipo
     tipo = "int"
     num = p[-1]
+    print num
     quadExp(num,tipo )
 
 def p_expVACIA(p):
     '''exp : empty'''
 
 def p_exp2(p):
-    '''exp2 : LESS exp'''
+    '''exp2 : LESS meteOper exp'''
     #print "<"
 
 def p_expr2Grtr(p):
-    '''exp2 : GRTR exp'''
+    '''exp2 : GRTR meteOper exp'''
     #print ">"
 
 def p_exp2Equal(p):
-    '''exp2 : EQ exp'''
+    '''exp2 : EQ meteOper exp'''
     #print "=="
 
 def p_exp2NotEq(p):
-    '''exp2 : NOTEQ exp'''
+    '''exp2 : NOTEQ meteOper exp'''
     #print "!="
 
 def p_exp2And(p):
-    '''exp2 : AND exp'''
+    '''exp2 : AND meteOper exp'''
     #print "AND"
 
 def p_exp2OR(p):
-    '''exp2 : OR exp'''
+    '''exp2 : OR meteOper exp'''
     #print "OR"
+
 
 def p_exp2SUM(p):
     '''exp2 : SUM meteOper exp'''
    
     #print "+"
+
 
 def p_meteOper(p):
     '''meteOper : '''
@@ -626,6 +667,6 @@ result = yacc.parse(cadena)
 
 #print result
 #print dirProc
-print cuadruplos
 print pilaOperandos.getElements()
 print pOperadores.getElements()
+print cuadruplos
