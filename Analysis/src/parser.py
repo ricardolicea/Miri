@@ -7,7 +7,7 @@ from lexer import tokens
 from sys import stdin
 # from semantico import *
 from cuadruplos import *
-from tablas import * 
+from MemoriaV import * 
 
 
 

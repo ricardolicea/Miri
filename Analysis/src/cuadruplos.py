@@ -1,7 +1,7 @@
 #from parser import *
 from structs import *
 from cuboSemantico import *
-from tablas import *
+from MemoriaV import *
 import sys
 
 pilaOperandos = Stack()
