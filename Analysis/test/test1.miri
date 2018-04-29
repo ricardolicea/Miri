@@ -1,6 +1,5 @@
 program patito;
 
-
 main(){
     declare
     int iA, iB, iC, iD;
