@@ -248,7 +248,7 @@ def set_dir_temp(tipoTemp):
     elif tipoTemp == "bool":
         memBoolTemp += 1
         dirTemp = memBoolTemp
-    elif tipoTemp == "String":
+    elif tipoTemp == "string":
         memStringTemp += 1
         dirTemp = memStringTemp
     return dirTemp

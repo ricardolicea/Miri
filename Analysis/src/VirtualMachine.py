@@ -1,8 +1,15 @@
 from cuadruplos import *
-from parser import *
 from structs import * 
 from tablas import *
+from turtle import *
 import sys
+
+
+
+
+
+
+
 
 
 
