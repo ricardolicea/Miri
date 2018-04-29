@@ -74,10 +74,6 @@ def setValueLocal(dir,value):
 		else:
 			VecStringLocal.append(value)
 
-setValueLocal(5001,10)
-setValueLocal(5002,3)
-setValueLocal(5001,39)
-
 def getValueGlobal(dir):
 	if dir < 2000:
 		return VecIntGlobal[dir-1000]
@@ -152,10 +148,6 @@ def setValueTemporal(dir,value):
 			VecStringTempp[dir-12000-1] = value
 		else:
 			VecStringTemp.append(value)
-
-setValueTemporal(10001,15)
-setValueTemporal(10002,6)
-setValueTemporal(10001,100)
 
 def getTypeGlobal(dir):
     if dir < memGlobalFloatInicio:
