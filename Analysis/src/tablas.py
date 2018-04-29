@@ -74,7 +74,35 @@ def setValueLocal(dir,value):
 		else:
 			VecStringLocal.append(value)
 
+def getValueGlobal(dir):
+	if dir < 2000:
+		return VecIntGlobal[dir-1000]
+	elif dir < 3000:
+		return VecFloatGlobal[dir-2000]
+	elif dir < 4000:
+		return VecBoolGlobal[dir-3000]
+	else:
+		return VecStringGlobal[dir-4000]
 
+def getValueTemp():
+	if dir < 10000:
+		return VecIntTemp[dir-9000]
+	elif dir < 11000:
+		return VecFloatTemp[dir-10000]
+	elif dir < 12000:
+		return VecBoolTemp[dir-11000]
+	else:
+		return VecStringTemp[dir-12000]
+
+def getValueLocal():
+	if dir < 10000:
+		return VecIntLocal[dir-9000]
+	elif dir < 11000:
+		return VecFloatLocal[dir-10000]
+	elif dir < 12000:
+		return VecBoolLocal[dir-11000]
+	else:
+		return VecStringLocal[dir-12000]
 
 def setValueGlobal(dir,value):
 
@@ -121,13 +149,6 @@ def setValueTemporal(dir,value):
 		else:
 			VecStringTemp.append(value)
 
-
-
-
-	
-
-
-
 def getTypeGlobal(dir):
     if dir < memGlobalFloatInicio:
         return 'int'
@@ -137,7 +158,6 @@ def getTypeGlobal(dir):
         return 'bool'
     else:
         return 'string'
-
 
 def getTypeLocal(dir):
     if dir < memLocalFloatInicio:
@@ -159,8 +179,6 @@ def getTypeTemp(dir):
         return 'bool'
     else:
         return 'string'
-
-
 
 # Funcion para asignar una dirección de memoria a una variable global en base a su tipo
 
@@ -215,7 +233,6 @@ def set_dir_local(tipo, cant):
 # Función para generar una dirección de memoria para un temporal de operaciones en los cuadruplos,
 # en base a su tipo
 
-
 def set_dir_temp(tipoTemp):
     global memIntTemp
     global memFloatTemp
@@ -236,7 +253,6 @@ def set_dir_temp(tipoTemp):
         dirTemp = memStringTemp
     return dirTemp
 
-
 def get_Total_Temp_Int():
     return memIntTemp - memIntTempInicio
 
@@ -251,7 +267,6 @@ def get_Total_Temp_Bool():
 
 def get_Total_Temp_String():
     return memStringTemp - memStringTempInicio
-
 
 # Funcion que regresa la variable correspondiente a función y dirección de memoria
 def get_var(proc, dire):
