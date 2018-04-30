@@ -1,22 +1,14 @@
 program patito;
 
-declare
-int iA, iB;
-float fA;
 
-funct int suma(){
-    declare 
-    int iResu;
-    float fFacto;
-}
-funct float multp(){
-    declare 
-    float fResu;
-}
 main(){
     declare
-    int iX, iY;
-    float fZ;
+    int iA, iB, iC, iCont;
 
+    for(iCont = 0; iCont < 10; iCont++){
+        iA = iB + iC;
+    }
 }
 end;
+
+
