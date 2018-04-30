@@ -666,14 +666,10 @@ result = yacc.parse(cadena)
 
 
 #print result
-<<<<<<< HEAD
 print "99999999999999999999"
 print dirProc
 print "99999999999999999999"
 print cuadruplos
-=======
-#print dirProc
->>>>>>> master
 print pilaOperandos.getElements()
 print pOperadores.getElements()
 print cuadruplos
