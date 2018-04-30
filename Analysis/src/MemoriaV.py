@@ -84,7 +84,7 @@ def getValueGlobal(dir):
 	else:
 		return VecStringGlobal[dir-4000]
 
-def getValueTemp():
+def getValueTemp(dir):
 	if dir < 10000:
 		return VecIntTemp[dir-9000]
 	elif dir < 11000:
@@ -94,7 +94,7 @@ def getValueTemp():
 	else:
 		return VecStringTemp[dir-12000]
 
-def getValueLocal():
+def getValueLocal(dir):
 	if dir < 10000:
 		return VecIntLocal[dir-9000]
 	elif dir < 11000:
