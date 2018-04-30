@@ -6,10 +6,14 @@ program patito;
 main(){
     declare
     int iA, iB, iC, iD;
-    
-    iA = iB * iC;
-    iB = iC - iD;
-    iA = iC / iB;
-    iD = iB + iC;
+    bool bA, bB;
+
+    iA = iB + iC;
+    while(iA < iB){
+        iB = iC * iD;
+    }
+    iA = iB / iD;
 }
 end;
+
+
