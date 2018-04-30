@@ -43,6 +43,7 @@ auxVarsDir = {}
 varsList = {}
 tipo = ""
 cuad = Cuadruplo("", "", "", "")
+Modulos = []
 
 def p_program(p):
     '''program : goToMainQuad PROGRAM ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
@@ -120,6 +121,7 @@ def p_altaModulo(p):
     
     #print "-------" + str(nombreModulo)
     dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}}
+    Modulos.append(nombreModulo)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON MODULOS"
     #print dirProc
 
@@ -147,6 +149,7 @@ def p_altaVarGlobal(p):
     nombreVar = p[-1]
     direccion = set_dir_global(tipo,1)
     dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global", 'Dir': direccion}
+    setValueGlobal(direccion,None)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES GLOBALES"
     #print nombreModulo +  " " + str(dirProc)
    
@@ -322,6 +325,7 @@ def p_altaVarLocal(p):
     nombreVar = p[-1]
     direccion = set_dir_local(tipo,1)
     dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion}
+    setValueLocal(direccion,None)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
     #print nombreModulo +  " " + str(dirProc)
 
@@ -704,7 +708,11 @@ result = yacc.parse(cadena)
 
 
 #print result
-#print dirProc
+print dirProc
 print pilaOperandos.getElements()
 print pOperadores.getElements()
 print cuadruplos
+print "---------------"
+# print dirProc['iSuma']['Vars']['iRes']['Dir']
+
+
