@@ -13,11 +13,7 @@ main(){
     declare
     int iA, iB, iRespuesta;
 
-<<<<<<< HEAD
-    iRespuesta = iFunct(iA+iB);
-=======
     iRespuesta = iA - iB;
->>>>>>> MiguelNueva
     
 }
 end;
