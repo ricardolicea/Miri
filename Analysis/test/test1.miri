@@ -3,14 +3,11 @@ program patito;
 
 main(){
     declare
-    int iA, iB, iC, iD;
-    bool bA, bB;
+    int iA, iB, iC, iCont;
 
-    iA = iB + iC;
-    while(iA < iB){
-        iB = iC * iD;
+    for(iCont = 0; iCont < 10; iCont++){
+        iA = iB + iC;
     }
-    iA = iB / iD;
 }
 end;
 

@@ -175,6 +175,17 @@ def llenaCuadF():
     cuad.temp = contSaltos
     cuadruplos[tempDir] = cuad
 
+def cuadFor(p1, p2):
+    global pOperadores
+    global pilaOperandos
+    global cuadruplos
+    if p1 == r'=':
+        pOperadores.push(p1)
+        pilaOperandos.push(p2)
+    else:
+        pOperadores.push(p2)
+        pilaOperandos.push(p2)
+
 def gotoVCuad():
     global contSaltos
     global pSaltos
@@ -196,7 +207,9 @@ def llenaMain():
     cuad.temp = contSaltos
     cuadruplos[0] = cuad
 
-
+def meteID(p1):
+    global pilaOperandos
+    pilaOperandos.push(p1)
 
 def generaCuadruplo():
     global pilaOperandos

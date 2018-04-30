@@ -265,15 +265,15 @@ def p_assignmentDeclare(p):
     #print "="
 
 def p_number(p):
-    '''number : INTEGER number2'''
+    '''number : INTEGER meteNum'''
     #print "INT"
 
-def p_number2(p):
-    '''number2 : DOT INTEGER'''
-    #print "INT . INT"
+def p_numberFloat(p):
+    '''number : FLOAT meteNum'''
 
-def p_number2Empty(p):
-    '''number2 : empty'''
+def p_numberEmpty(p):
+    '''number : empty'''
+
 
 def p_assignmentDeclareEmpty(p):
     '''assignmentDecl : empty'''
@@ -412,9 +412,12 @@ def p_forClass(p):
     #print " FOR"
 
 def p_for2(p):
-    '''for2 : ID ASSGN number for3'''
+    '''for2 : ID ASSGN cuadFor number generaCuad for3'''
     #print "FOR(ID = NUMBER)" 
 
+def p_cuadFor(p):
+    '''cuadFor : '''
+    cuadFor(p[-1], p[-2])
 def p_for3(p):
     '''for3 : COMMA for2'''
     #print "FOR(ID = NUMBER, ID = NUMBER)" 
@@ -426,42 +429,56 @@ def p_for4(p):
     '''for4 : expFor'''
 
 def p_parte3ForSUM(p):
-    '''parte3For : ID SUM SUM'''
+    '''parte3For : ID meteID ACTINCR meteOper'''
     #print "ID++"
 
+def p_meteID(p):
+    '''meteID : '''
+    meteID(p[-1])
+
 def p_parte3ForMINUS(p):
-    '''parte3For : ID MINUS MINUS'''
+    '''parte3For : ID meteID ACTDECR meteOper'''
     #print "ID--"
 
+def p_parte3ForINCRVAL(p):
+    '''parte3For : ID meteID ACTINCRVALOR meteOper'''
+    #print "ID--"
+
+def p_parte3ForMINUS(p):
+    '''parte3For : ID meteID ACTDECRVALOR meteOper'''
+    #print "ID--"
 def p_expFor(p):
-    '''expFor : ID expFor2'''
+    '''expFor : ID meteExp expFor2'''
 
 def p_expForNumber(p):
     '''expFor : number'''
 
 def p_expFor2(p):
-    '''expFor2 : LESS expFor'''
+    '''expFor2 : LESS meteOper expFor'''
     #print "<"
 
 def p_exprFor2Grtr(p):
-    '''expFor2 : GRTR expFor'''
+    '''expFor2 : GRTR meteOper expFor'''
     #print ">"
 
 def p_expFor2Equal(p):
-    '''expFor2 : EQ expFor'''
+    '''expFor2 : EQ meteOper expFor'''
     #print "=="
 
 def p_expFor2NotEq(p):
-    '''expFor2 : NOTEQ expFor'''
+    '''expFor2 : NOTEQ meteOper expFor'''
     #print "!="
 
 def p_expFor2And(p):
-    '''expFor2 : AND expFor'''
+    '''expFor2 : AND meteOper expFor'''
     #print "AND"
 
 def p_expFor2OR(p):
-    '''expFor2 : OR expFor'''
+    '''expFor2 : OR meteOper expFor'''
     #print "OR"
+
+def p_expForActCont(p):
+    '''expFor2 : '''
 
 def p_expFor2Empty(p):
     '''expFor2 : empty'''
@@ -509,7 +526,7 @@ def p_generaCuad(p):
     generaCuadruplo()
 
 def p_expNUMERO(p):
-    '''exp : number meteNum  exp2'''
+    '''exp : number exp2'''
     
 
 def p_meteNum(p):
