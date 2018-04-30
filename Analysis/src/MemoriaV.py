@@ -52,6 +52,14 @@ memBoolTempInicio = 11000
 memStringTemp = 12000
 memStringTempInicio = 12000
 
+
+def getScope(dir):
+    if dir >= 1000 and dir <= 4999:
+        return 'global'
+    elif dir >= 5000 and dir <= 8999:
+        return 'local'
+    else:
+        return 'temp'
 def setValueLocal(dir,value):
 	if dir < 6000:
 		if len(VecIntLocal) > dir - 5000:
@@ -95,14 +103,14 @@ def getValueTemp(dir):
 		return VecStringTemp[dir-12000]
 
 def getValueLocal(dir):
-	if dir < 10000:
-		return VecIntLocal[dir-9000]
-	elif dir < 11000:
-		return VecFloatLocal[dir-10000]
-	elif dir < 12000:
-		return VecBoolLocal[dir-11000]
+	if dir < 6000:
+		return VecIntLocal[dir-5000]
+	elif dir < 7000:
+		return VecFloatLocal[dir-6000]
+	elif dir < 8000:
+		return VecBoolLocal[dir-7000]
 	else:
-		return VecStringLocal[dir-12000]
+		return VecStringLocal[dir-8000]
 
 def setValueGlobal(dir,value):
 
