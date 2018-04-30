@@ -712,7 +712,6 @@ print dirProc
 print pilaOperandos.getElements()
 print pOperadores.getElements()
 print cuadruplos
-print "---------------"
-# print dirProc['iSuma']['Vars']['iRes']['Dir']
 
+# print dirProc['iSuma']['Vars']['iRes']['Dir']
 
