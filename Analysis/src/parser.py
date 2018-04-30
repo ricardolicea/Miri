@@ -695,7 +695,7 @@ test = directorio + archivo
 fp = codecs.open(test,"r","utf-8")
 cadena  = fp.read()
 fp.close()
-
+#ME LA PELAS
 yacc.yacc()
 result = yacc.parse(cadena)
 
