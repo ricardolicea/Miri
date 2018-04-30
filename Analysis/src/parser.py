@@ -43,9 +43,10 @@ auxVarsDir = {}
 varsList = {}
 tipo = ""
 cuad = Cuadruplo("", "", "", "")
+Modulos = []
 
 def p_program(p):
-    '''program : PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON''' 
+    '''program : goToMainQuad PROGRAM ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
    
 def p_goToMainQuad(p):
     '''goToMainQuad : '''
@@ -113,6 +114,7 @@ def p_altaModulo(p):
     
     #print "-------" + str(nombreModulo)
     dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}}
+    Modulos.append(nombreModulo)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON MODULOS"
     #print dirProc
 
@@ -140,6 +142,7 @@ def p_altaVarGlobal(p):
     nombreVar = p[-1]
     direccion = set_dir_global(tipo,1)
     dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global", 'Dir': direccion}
+    setValueGlobal(direccion,None)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES GLOBALES"
     #print nombreModulo +  " " + str(dirProc)
    
@@ -304,6 +307,7 @@ def p_altaVarLocal(p):
     nombreVar = p[-1]
     direccion = set_dir_local(tipo,1)
     dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion}
+    setValueLocal(direccion,None)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
     #print nombreModulo +  " " + str(dirProc)
 
@@ -663,11 +667,11 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
 #directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
-#directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
+directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
@@ -683,7 +687,11 @@ result = yacc.parse(cadena)
 
 
 #print result
-#print dirProc
+print dirProc
 print pilaOperandos.getElements()
 print pOperadores.getElements()
 print cuadruplos
+print "---------------"
+# print dirProc['iSuma']['Vars']['iRes']['Dir']
+
+

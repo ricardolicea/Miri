@@ -204,7 +204,7 @@ def llenaMain():
     global tempSaltos
 
     cuad = cuadruplos[0]
-    cuad.temp = contSaltos
+    cuad.res = contSaltos
     cuadruplos[0] = cuad
 
 def meteID(p1):

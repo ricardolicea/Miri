@@ -13,7 +13,7 @@ main(){
     declare
     int iA, iB, iRespuesta;
 
-    iRespuesta = iA + iB;
+    iRespuesta = iA - iB;
     
 }
 end;
