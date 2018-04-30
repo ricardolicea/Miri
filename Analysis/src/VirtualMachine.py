@@ -1,13 +1,10 @@
 # coding=utf-8
-
 from cuadruplos import *
 from TurtleGraf import *
 from MemoriaV import *
 from parser import *
 import sys
 
-dP = dirProc
-cuad = cuadruplos
 
 def MaquinaVirtual():
     # Aqui ponemos todos los metodos que se necesiten para ejecutar todo
@@ -28,8 +25,49 @@ def MaquinaVirtual():
     # PRIMERO HACER OPERACIONES ARITMETICAS LUEGO PENSAR EN LO DEMAAS.
     None
 
-def GuardarMemoria():
-    dirProc
+
+def operacionAritemtica():
+    cuadActual = 0
+    cuadMain = cuadruplos[0].res
+
+    for c in cuadruplos:
+
+def OpAssign():
+
+    for c in cuadruplos:
+        if c.op == '=':
+           d = getValueTemp(c.opdoIzq)
+        for i in Modulos
+            dire = dirProc[i]['Vars'][c.res]['Dir']
+        t = getScope(dire)
+        if t == 'local':
+            setValueLocal(dire,d)
+        elif t == 'global'
+            setValueGlobal(dire,d)
+
+
+
+        
+
+    
+
+
+        
+
+    
+
+    
+
+            
+
+
+
+
+
+        
+  
+
+            
 
 
 
