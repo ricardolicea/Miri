@@ -1,11 +1,11 @@
 program patito;
 
 
-funct int iSuma(int iA, int iB){
+funct int iFunct(int iA){
     declare
     int iRes;
 
-    iRes = iA + iB;
+    iRes = iA;
     return iRes;
 }
 
@@ -13,7 +13,7 @@ main(){
     declare
     int iA, iB, iRespuesta;
 
-    iRespuesta = iA + iB;
+    iRespuesta = iFunct(iA+iB);
     
 }
 end;
