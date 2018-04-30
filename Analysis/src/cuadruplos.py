@@ -154,6 +154,10 @@ def gotoCuad():
     cuad.temp = contSaltos
     cuadruplos[tempSaltos] = cuad
 
+def cuadERA(p1):
+    generaCuad = Cuadruplo('ERA', None, None, p1)
+    pushCuad(generaCuad)
+
 def llenaGoto():
     global contSaltos
     global pSaltos
@@ -204,12 +208,32 @@ def llenaMain():
     global tempSaltos
 
     cuad = cuadruplos[0]
-    cuad.temp = contSaltos
+    cuad.res = contSaltos
     cuadruplos[0] = cuad
 
 def meteID(p1):
     global pilaOperandos
     pilaOperandos.push(p1)
+
+def quadParam():
+    global pilaOperandos
+    generaCuad = Cuadruplo("PARAM", pilaOperandos.pop(), None, "PAR1")
+    pushCuad(generaCuad)
+
+def generaRet(p):
+    generaCuad = Cuadruplo("RETURN", p, None, None)
+    pushCuad(generaCuad)
+def guardaSalto():
+    pSaltos.push(contSaltos)
+def gosubCuad(p):
+    global pOperadores
+    global pilaOperandos
+
+    generaCuad = Cuadruplo("GOSUB", None, None, pSaltos.pop())
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo(pOperadores.pop(),p, None, pilaOperandos.pop())
+    pushCuad(generaCuad)
+    print cuadruplos
 
 def generaCuadruplo():
     global pilaOperandos

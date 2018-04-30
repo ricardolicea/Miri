@@ -45,7 +45,7 @@ tipo = ""
 cuad = Cuadruplo("", "", "", "")
 
 def p_program(p):
-    '''program : PROGRAM ID altaPrograma SEMICOLON program2 goToMainQuad cuerpo END SEMICOLON''' 
+    '''program : goToMainQuad PROGRAM ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
    
 def p_goToMainQuad(p):
     '''goToMainQuad : '''
@@ -90,16 +90,23 @@ def p_program3(p):
     '''program3 : funct program3'''
     
 def p_funct(p):
-    '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY est functReturn RIGHTKEY'''
+    '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY guardaSalto est functReturn RIGHTKEY'''
     #print "FUNCTION ID"
 
+def p_guardaSalto(p):
+    '''guardaSalto : '''
+    guardaSalto()
 def p_functReturn(p):
-    '''functReturn : RETURN NUMBER SEMICOLON'''
+    '''functReturn : RETURN NUMBER generaRet SEMICOLON'''
     #print "RETURN NUMBER"
 
 def p_functReturnID(p):
-    '''functReturn : RETURN ID SEMICOLON'''
+    '''functReturn : RETURN ID generaRet SEMICOLON'''
     #print "RETURN ID"
+
+def p_generaRet(p):
+    '''generaRet : '''
+    generaRet(p[-1])
 
 def p_functReturnEmpty(p):
     '''functReturn : empty'''
@@ -232,18 +239,29 @@ def p_estEmpty(p):
     '''est : empty'''
     
 def p_llamadaAFunct(p):
-    '''llamadaAFunct : ID LEFTPAR llamadaAFunct2 RIGHTPAR'''
+    '''llamadaAFunct :  ID cuadERA LEFTPAR llamadaAFunct2 cuadParam gosubCuad  RIGHTPAR'''
     #print "FUNCT()"
+def p_cuadERA(p):
+    '''cuadERA : '''
+    cuadERA(p[-1])
+
+def p_cuadParam(p):
+    '''cuadParam : '''
+    quadParam()
+
+def p_gosubCuad(p):
+    '''gosubCuad : '''
+    gosubCuad(p[-5])
 
 def p_llamadaAFunctEmpty(p):
     '''llamadaAFunct : empty'''
 
 def p_llamadaAFunct2(p):
-    '''llamadaAFunct2 : ID llamadaAFunct3'''
+    '''llamadaAFunct2 : exp llamadaAFunct3'''
     #print "FUNCT(ID)" 
 
 def p_llamadaAFunct3(p):
-    '''llamadaAFunct3 : COMMA ID'''
+    '''llamadaAFunct3 : COMMA llamadaAFunct2'''
     #print "FUCNT(ID,ID)"
 
 def p_llamadaAFunct3Empty(p):
@@ -316,6 +334,9 @@ def p_assignmentFUNCT(p):
     
     #print "ID = EXP" 
     #print "ID = FUNCT()" 
+# def p_generaCuadFunct(p):
+#     '''generaCuadFunct : '''
+#     generaCuadFunct(p[-4])
 
 def p_meteVar(p):
     '''meteVar : '''
