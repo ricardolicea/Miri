@@ -55,22 +55,22 @@ memStringTempInicio = 12000
 def setValueLocal(dir,value):
 	if dir < 6000:
 		if len(VecIntLocal) > dir - 5000:
-			VecIntLocal[dir-5000-1] = value
+			VecIntLocal[dir-5000] = value
 		else:
 			VecIntLocal.append(value)
 	elif dir < 7000:
 		if len(VecFloatLocal) > dir - 6000:
-			VecFloatLocal[dir-6000-1] = value
+			VecFloatLocal[dir-6000] = value
 		else:
 			VecFloatLocal.append(value)
 	elif dir < 8000:
 		if len(VecBoolLocal) > dir - 7000:
-			VecBoolLocal[dir -7000-1] = value
+			VecBoolLocal[dir -7000] = value
 		else:
 			VecBoolLocal.append(value)
 	else:
 		if len(VecStringLocal) > dir - 8000:
-			VecStringLocal[dir-8000-1] = value
+			VecStringLocal[dir-8000] = value
 		else:
 			VecStringLocal.append(value)
 
@@ -108,44 +108,44 @@ def setValueGlobal(dir,value):
 
 	if dir < 2000:
 		if len(VecIntGlobal) > dir - 1000:
-			VecIntGlobal[dir-1000-1] = value
+			VecIntGlobal[dir-1000] = value
 		else:
 			VecIntGlobal.append(value)
 	elif dir < 3000:
 		if len(VecFloatGlobal) > dir - 2000:
-			VecFloatGlobal[dir-2000-1] = value
+			VecFloatGlobal[dir-2000] = value
 		else:
 			VecFloatGlobal.append(value)
 	elif dir < 4000:
 		if len(VecBoolGlobal) > dir - 3000:
-			VecBoolGlobal[dir -3000-1] = value
+			VecBoolGlobal[dir -3000] = value
 		else:
 			VecBoolGlobal.append(value)
 	else:
 		if len(VecStringGlobal) > dir - 4000:
-			VecStringGlobal[dir-4000-1] = value
+			VecStringGlobal[dir-4000] = value
 		else:
 			VecStringGlobal.append(value)
 
 def setValueTemporal(dir,value):
 	if dir < 10000:
 		if len(VecIntTemp) > dir - 9000:	
-			VecIntTemp[dir-9000-1] = value
+			VecIntTemp[dir-9000] = value
 		else:
 			VecIntTemp.append(value)
 	elif dir < 11000:
 		if len(VecFloatTemp) > dir -10000:
-			VecFloatTemp[dir - 10000-1] = value
+			VecFloatTemp[dir - 10000] = value
 		else:
 			VecFloatTemp.append(value)
 	elif dir < 12000:
 		if len(VecBoolTemp) > dir - 11000:
-			VecBoolTemp[dir - 1100-1] = value
+			VecBoolTemp[dir - 11000] = value
 		else:
 			VecBoolTemp.append(value)
 	else:
 		if len(VecStringTemp) > dir - 12000:
-			VecStringTempp[dir-12000-1] = value
+			VecStringTempp[dir-12000] = value
 		else:
 			VecStringTemp.append(value)
 
@@ -240,18 +240,18 @@ def set_dir_temp(tipoTemp):
     global memStringTemp
 
     if tipoTemp == "int":
+        assignedTemp = memIntTemp
         memIntTemp += 1
-        dirTemp = memIntTemp
     elif tipoTemp == "float":
+        assignedTemp = memFloatTemp
         memFloatTemp += 1
-        dirTemp = memFloatTemp
     elif tipoTemp == "bool":
-        memBoolTemp += 1
-        dirTemp = memBoolTemp
+       assignedTemp = memBoolTemp
+       memBoolTemp += 1
     elif tipoTemp == "string":
+        assignedTemp = memStringTemp
         memStringTemp += 1
-        dirTemp = memStringTemp
-    return dirTemp
+    return assignedTemp
 
 def get_Total_Temp_Int():
     return memIntTemp - memIntTempInicio
