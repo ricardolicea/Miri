@@ -304,7 +304,7 @@ def p_altaVarLocal(p):
     nombreVar = p[-1]
     direccion = set_dir_local(tipo,1)
     dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion}
-    print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
+    #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
     #print nombreModulo +  " " + str(dirProc)
 
 def p_assignment(p):
@@ -377,8 +377,8 @@ def p_cycles(p):
 def p_cyclesEmpty(p):
     '''cycles : empty'''
     
-def p_cyclesFor(p):
-    '''cycles : for'''
+# def p_cyclesFor(p):
+#     '''cycles : for'''
     
 def p_cyclesDoWhile(p):
     '''cycles : do-while'''
@@ -407,81 +407,81 @@ def p_while2(p):
 def p_while2Empty(p):
     '''while2 : empty'''
     
-def p_forClass(p):
-    '''for : FOR LEFTPAR for2 SEMICOLON for4 SEMICOLON parte3For RIGHTPAR LEFTKEY est RIGHTKEY'''
-    #print " FOR"
+# def p_forClass(p):
+#     '''for : FOR LEFTPAR for2 SEMICOLON for4 SEMICOLON parte3For RIGHTPAR LEFTKEY est RIGHTKEY'''
+#     #print " FOR"
 
-def p_for2(p):
-    '''for2 : ID ASSGN cuadFor number generaCuad for3'''
-    #print "FOR(ID = NUMBER)" 
+# def p_for2(p):
+#     '''for2 : ID ASSGN cuadFor number generaCuad for3'''
+#     #print "FOR(ID = NUMBER)" 
 
-def p_cuadFor(p):
-    '''cuadFor : '''
-    cuadFor(p[-1], p[-2])
-def p_for3(p):
-    '''for3 : COMMA for2'''
-    #print "FOR(ID = NUMBER, ID = NUMBER)" 
+# def p_cuadFor(p):
+#     '''cuadFor : '''
+#     cuadFor(p[-1], p[-2])
+# def p_for3(p):
+#     '''for3 : COMMA for2'''
+#     #print "FOR(ID = NUMBER, ID = NUMBER)" 
 
-def p_for3Empty(p):
-    '''for3 : empty'''
+# def p_for3Empty(p):
+#     '''for3 : empty'''
 
-def p_for4(p):
-    '''for4 : expFor'''
+# def p_for4(p):
+#     '''for4 : expFor'''
 
-def p_parte3ForSUM(p):
-    '''parte3For : ID meteID ACTINCR meteOper'''
-    #print "ID++"
+# def p_parte3ForSUM(p):
+#     '''parte3For : ID meteID ACTINCR meteOper'''
+#     #print "ID++"
 
-def p_meteID(p):
-    '''meteID : '''
-    meteID(p[-1])
+# def p_meteID(p):
+#     '''meteID : '''
+#     meteID(p[-1])
 
-def p_parte3ForMINUS(p):
-    '''parte3For : ID meteID ACTDECR meteOper'''
-    #print "ID--"
+# def p_parte3ForMINUS(p):
+#     '''parte3For : ID meteID ACTDECR meteOper'''
+#     #print "ID--"
 
-def p_parte3ForINCRVAL(p):
-    '''parte3For : ID meteID ACTINCRVALOR meteOper'''
-    #print "ID--"
+# def p_parte3ForINCRVAL(p):
+#     '''parte3For : ID meteID ACTINCRVALOR meteOper'''
+#     #print "ID--"
 
-def p_parte3ForMINUS(p):
-    '''parte3For : ID meteID ACTDECRVALOR meteOper'''
-    #print "ID--"
-def p_expFor(p):
-    '''expFor : ID meteExp expFor2'''
+# def p_parte3ForMINUS(p):
+#     '''parte3For : ID meteID ACTDECRVALOR meteOper'''
+#     #print "ID--"
+# def p_expFor(p):
+#     '''expFor : ID meteExp expFor2'''
 
-def p_expForNumber(p):
-    '''expFor : number'''
+# def p_expForNumber(p):
+#     '''expFor : number'''
 
-def p_expFor2(p):
-    '''expFor2 : LESS meteOper expFor'''
-    #print "<"
+# def p_expFor2(p):
+#     '''expFor2 : LESS meteOper expFor'''
+#     #print "<"
 
-def p_exprFor2Grtr(p):
-    '''expFor2 : GRTR meteOper expFor'''
-    #print ">"
+# def p_exprFor2Grtr(p):
+#     '''expFor2 : GRTR meteOper expFor'''
+#     #print ">"
 
-def p_expFor2Equal(p):
-    '''expFor2 : EQ meteOper expFor'''
-    #print "=="
+# def p_expFor2Equal(p):
+#     '''expFor2 : EQ meteOper expFor'''
+#     #print "=="
 
-def p_expFor2NotEq(p):
-    '''expFor2 : NOTEQ meteOper expFor'''
-    #print "!="
+# def p_expFor2NotEq(p):
+#     '''expFor2 : NOTEQ meteOper expFor'''
+#     #print "!="
 
-def p_expFor2And(p):
-    '''expFor2 : AND meteOper expFor'''
-    #print "AND"
+# def p_expFor2And(p):
+#     '''expFor2 : AND meteOper expFor'''
+#     #print "AND"
 
-def p_expFor2OR(p):
-    '''expFor2 : OR meteOper expFor'''
-    #print "OR"
+# def p_expFor2OR(p):
+#     '''expFor2 : OR meteOper expFor'''
+#     #print "OR"
 
-def p_expForActCont(p):
-    '''expFor2 : '''
+# def p_expForActCont(p):
+#     '''expFor2 : '''
 
-def p_expFor2Empty(p):
-    '''expFor2 : empty'''
+# def p_expFor2Empty(p):
+#     '''expFor2 : empty'''
    #AQUI ESTABA EL GENERACUAD AL FINAL
 def p_exp(p):
     '''exp : ID meteExp exp2'''
@@ -663,11 +663,11 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
 #directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
-directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
+#directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
@@ -683,14 +683,7 @@ result = yacc.parse(cadena)
 
 
 #print result
-<<<<<<< HEAD
-print "99999999999999999999"
-print dirProc
-print "99999999999999999999"
-print cuadruplos
-=======
 #print dirProc
->>>>>>> master
 print pilaOperandos.getElements()
 print pOperadores.getElements()
 print cuadruplos

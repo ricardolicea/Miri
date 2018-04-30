@@ -1,15 +1,20 @@
 program patito;
 
 
+funct int iSuma(int iA, int iB){
+    declare
+    int iRes;
 
+    iRes = iA + iB;
+    return iRes;
+}
 
 main(){
     declare
-    int iA, iB, iC, iCont;
+    int iA, iB, iRespuesta;
 
-    for(iCont = 0; iCont < 10; iCont++){
-        iA = iB + iC;
-    }
+    iRespuesta = iA + iB;
+    
 }
 end;
 
