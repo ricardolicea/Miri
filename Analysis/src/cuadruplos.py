@@ -29,6 +29,7 @@ def pushCuad(cuadruplo):
 
     cuadruplos.append(cuadruplo)
     contSaltos += 1
+    print contSaltos
    
     
     
@@ -143,18 +144,11 @@ def gotoF():
     generaCuad = Cuadruplo("GOTOF",dirExp, None, None)
     pushCuad(generaCuad)
     
-<<<<<<< HEAD
-def endProc():
-    generaCuad = Cuadruplo("ENDPROC",None, None, None)
-    pushCuad(generaCuad)  
-
-=======
     
 def endproc():
     generaCuad = Cuadruplo("ENDPROC",None, None, None)
     pushCuad(generaCuad)
     
->>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
 def gotoCuad():
     global contSaltos
     global pSaltos
@@ -264,15 +258,22 @@ def quadParam():
     pushCuad(generaCuad)
 
 def generaRet(p):
+    global contSaltos
+    contSaltos -= 1
     generaCuad = Cuadruplo("RETURN", p, None, None)
     pushCuad(generaCuad)
+
 def guardaSalto():
     pSaltos.push(contSaltos)
+
 def gosubCuad(p):
     global pOperadores
     global pilaOperandos
+    global ultimoSalto
 
-    generaCuad = Cuadruplo("GOSUB", None, None, pSaltos.pop())
+    salto = pSaltos.pop()
+    generaCuad = Cuadruplo("GOSUB", None, None, salto)
+    pSaltos.push(salto)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo(pOperadores.pop(),p, None, pilaOperandos.pop())
     pushCuad(generaCuad)
@@ -296,6 +297,7 @@ def generaCuadruplo():
         
             if(tipoAnsw != "Error"):
                 temp = set_dir_temp(tipoAnsw)
+                temp = "(" + str(temp)
                 generaCuad = Cuadruplo(operador, operIzq, operDer, temp)
                 pushCuad(generaCuad)
                 pilaOperandos.push(temp)
