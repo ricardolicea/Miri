@@ -52,6 +52,35 @@ memBoolTempInicio = 11000
 memStringTemp = 12000
 memStringTempInicio = 12000
 
+def actMemoria(r, tipo, scope):
+  
+    global memGlobalInt 
+    global memGlobalFloat 
+    global memGlobalBool 
+    global memGlobalString 
+    global memLocalInt 
+    global memLocalFloat 
+    global memLocalBool 
+    global memLocalString 
+
+    if scope == 'local':
+        if tipo == 'int':
+            memLocalInt += (int(r) - 1)
+        if tipo == 'float':
+            memLocalFloat += (int(r) - 1)
+        if tipo == 'bool':
+            memLocalBool += (int(r) - 1)
+        if tipo == 'string':
+            memLocalString += (int(r) - 1)
+    else:
+        if tipo == 'int':
+            memGlobalInt += (int(r) - 1)
+        if tipo == 'float':
+            memGlobalFloat += (int(r) - 1)
+        if tipo == 'bool':
+            memGlobalBool += (int(r) - 1)
+        if tipo == 'string':
+            memGlobalString += (int(r) - 1)
 
 def getScope(dir):
     if dir >= 1000 and dir <= 4999:

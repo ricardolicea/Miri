@@ -1,19 +1,25 @@
 program patito;
 
+funct int iSuma(int iA, int iB){
+    declare 
+    int iResp;
 
-funct int iFunct(int iA){
-    declare
-    int iRes;
-
-    iRes = iA;
-    return iRes;
+    iResp = iA + iB;
+    return iResp;
 }
 
+
 main(){
-    declare
+    declare 
     int iA, iB, iRespuesta;
 
-    iRespuesta = iA - iB;
+    read(iA);
+    read(iB);
+
+    iRespuesta = iSuma(iA,iB);
+
+    write(iRespuesta);
+    
     
 }
 end;
