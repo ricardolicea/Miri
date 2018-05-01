@@ -30,7 +30,7 @@ def pushCuad(cuadruplo):
     cuadruplos.append(cuadruplo)
     contSaltos += 1
    
-    #
+    
     
 def checkOper(p):
     if( p == '+' or p == r'(' or p == r')' or p == r'-' or p == r'*' or p == r'/' or p == r'='
@@ -143,10 +143,18 @@ def gotoF():
     generaCuad = Cuadruplo("GOTOF",dirExp, None, None)
     pushCuad(generaCuad)
     
+<<<<<<< HEAD
 def endProc():
     generaCuad = Cuadruplo("ENDPROC",None, None, None)
     pushCuad(generaCuad)  
 
+=======
+    
+def endproc():
+    generaCuad = Cuadruplo("ENDPROC",None, None, None)
+    pushCuad(generaCuad)
+    
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
 def gotoCuad():
     global contSaltos
     global pSaltos

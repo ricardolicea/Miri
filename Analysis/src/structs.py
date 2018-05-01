@@ -1,3 +1,5 @@
+Vec = []
+
 class Queue():
 
     """Constructor"""
@@ -62,3 +64,16 @@ class Stack():
     """Regresa el tamano ( numero de elementos) del stack"""
     def size(self):
         return len(self.items)
+
+
+class Direc():
+
+    def __init__(self,var,modulo,direccion):
+        self.var = var
+        self.modulo = modulo
+        self.direccion = direccion
+
+
+def pushInfo(dire):
+    global Vec
+    Vec.append(dire)

@@ -4,23 +4,20 @@ funct int iSuma(int iA, int iB){
     declare 
     int iResp;
 
-    iResp = iA + iB;
-    return iResp;
+funct int iFunct(int iA){
+    declare
+    int iRes;
+    return iRes;
 }
 
 
 main(){
-    declare 
-    int iA, iB, iRespuesta;
+    declare
+    int iC, iD, iRespuesta;
+    iC = 15;
+    iD = 15;
 
-    read(iA);
-    read(iB);
-
-    iRespuesta = iSuma(iA,iB);
-
-    write(iRespuesta);
-    
-    
+    iRespuesta = iFunct(iC / iD);    
 }
 end;
 

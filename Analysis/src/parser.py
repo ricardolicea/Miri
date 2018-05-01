@@ -8,6 +8,9 @@ from sys import stdin
 # from semantico import *
 from cuadruplos import *
 from MemoriaV import * 
+from structs import *
+from VirtualMachine import *
+
 
 
 
@@ -34,7 +37,7 @@ from MemoriaV import *
 
 #  )
 
-
+DiccCopy = []
 dirProc = {}
 nombrePrograma = ""
 nombreModulo = ""
@@ -55,6 +58,13 @@ def p_goToMainQuad(p):
     '''goToMainQuad : '''
     #print "go to Main Quad"
     goToMainQuad()
+
+# def llamaMV(p):
+#     '''llamaMV : '''
+#     global dirProc
+#     print "hola"
+#     MaquinaVirtual(dirProc)
+
 
 def p_altaPrograma(p):
     '''altaPrograma : '''
@@ -154,7 +164,11 @@ def p_program3(p):
     '''program3 : funct program3'''
     
 def p_funct(p):
+<<<<<<< HEAD
     '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY guardaSalto est functReturn  endProc RIGHTKEY'''
+=======
+    '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY guardaSalto est functReturn endproc RIGHTKEY'''
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
     #print "FUNCTION ID"
 
 def p_endProc(p):
@@ -165,6 +179,12 @@ def p_guardaSalto(p):
     '''guardaSalto : '''
     guardaSalto()
 
+<<<<<<< HEAD
+=======
+def p_endproc(p):
+    '''endproc : '''
+    endproc()
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
 def p_functReturn(p):
     '''functReturn : RETURN NUMBER generaRet SEMICOLON'''
     #print "RETURN NUMBER"
@@ -387,11 +407,19 @@ def p_altaVarLocal(p):
     global dirProc
     global tipo
     global nombreModulo
+<<<<<<< HEAD
     global nombreVar
+=======
+    global temporal
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
     nombreVar = p[-1]
     direccion = set_dir_local(tipo,1)
     dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion, 'Dim': None}
     setValueLocal(direccion,None)
+    Info = Direc(nombreVar,nombreModulo,direccion)
+    pushInfo(Info)
+    
+
     #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES LOCALES"
     #print nombreModulo +  " " + str(dirProc)
 
@@ -713,7 +741,11 @@ directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestr
 #directorio de la compu del trabajo
 #directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
+<<<<<<< HEAD
 #directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
+=======
+directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Final/Miri/Analysis/test/'
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
@@ -728,11 +760,14 @@ result = yacc.parse(cadena)
 #traducir(result)
 
 
+MaquinaVirtual(dirProc)
 #print result
 print dirProc
 print pilaOperandos.getElements()
 print pOperadores.getElements()
 print cuadruplos
-
+print "-----------------"
+print VecIntTemp[0]
+print VecIntLocal[0]
 # print dirProc['iSuma']['Vars']['iRes']['Dir']
 

@@ -217,6 +217,18 @@ def getTypeTemp(dir):
     else:
         return 'string'
 
+def fixType(dir,value):
+    if dir >= 1000 and dir <= 1999 or dir >= 5000 and dir <= 5999 or dir >= 9000 and dir <= 9999:
+        return int(value)
+    elif dir >= 2000 and dir <= 2999 or dir >= 6000 and dir <= 6999 or dir >= 10000 and dir <= 10999:
+        return float(value)
+    elif dir >= 3000 and dir <= 3999 or dir >= 7000 and dir <= 7999 or dir >= 11000 and dir <= 11999:
+        return value
+    else:
+        return str(value)
+
+
+
 # Funcion para asignar una dirección de memoria a una variable global en base a su tipo
 
 def set_dir_global(tipo, cant):
