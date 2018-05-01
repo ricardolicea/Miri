@@ -47,6 +47,9 @@ varsList = {}
 tipo = ""
 cuad = Cuadruplo("", "", "", "")
 Modulos = []
+nombreVar = ""
+r = 0
+iContMat = 0
 
 def p_program(p):
     '''program : goToMainQuad PROGRAM ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
@@ -91,8 +94,68 @@ def p_declareRecursivo(p):
     #print "ID"
 
 def p_declare2(p):
-    '''declare2 : array'''
+    '''declare2 : array '''
+
+def p_dim1(p):
+    '''dim1 : '''
+    global dirProc
+    global iContMat
+    var = nombreVar
+    if iContMat == 0:
+        dirProc[nombreModulo]['Vars'][var]['Dim'] = {'lInf' : 0, 'lSup': 0, 'm': 0, 'dim': None}
+    print dirProc
+
+def p_array(p):
+    '''array : dim1 LEFTBRACK exp getTam RIGHTBRACK array'''
+    #print "[]"
+def p_getTam(p):
+    '''getTam : '''
+    global nombreVar
+    global r
+    global iContMat
+    global dirProc
+
+    if iContMat == 1:
+        tam = int(pilaOperandos.pop())
+        r2 = r
+        r = r * (tam - 0 + 1)
+        
+        lInf = dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['lInf']
+        lSup = dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['lSup']
+        m1 = r/(lSup - lInf + 1)
+
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['m'] = m1
+        
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['dim'] = {'lInf' : 0, 'lSup': 0, 'm': 0, 'dim': None}
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['dim']['lInf'] = 0
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['dim']['lSup'] += tam
+        
+        lInf = dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['dim']['lInf']
+        lSup = dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['dim']['lSup']
+        
+        m2 = m1/(lSup - lInf + 1)
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['dim']['m'] = m2
+        tipoArre = dirProc[nombreModulo]['Vars'][nombreVar]['TipoVar']
+        scope = dirProc[nombreModulo]['Vars'][nombreVar]['Scope']
+        r = r - r2
+        actMemoria(r, tipoArre, scope)
+        print memFloatTemp
+        print dirProc
+    else:
+        tam = int(pilaOperandos.pop())
+        r = 1 * (tam - 0 + 1)
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['lInf'] = 0
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['lSup'] += tam
+        dirProc[nombreModulo]['Vars'][nombreVar]['Dim']['m'] = r
+        iContMat += 1
+        
+        tipoArre = dirProc[nombreModulo]['Vars'][nombreVar]['TipoVar']
+        scope = dirProc[nombreModulo]['Vars'][nombreVar]['Scope']
+
+        actMemoria(r, tipoArre, scope)
+        print memFloatTemp
     
+
 def p_declare3(p):
     '''declare3 : COMMA  ID altaVarGlobal declare3 '''
     #print ", ID"
@@ -101,16 +164,27 @@ def p_program3(p):
     '''program3 : funct program3'''
     
 def p_funct(p):
+<<<<<<< HEAD
+    '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY guardaSalto est functReturn  endProc RIGHTKEY'''
+=======
     '''funct : FUNCTION type ID altaModulo LEFTPAR funct2  RIGHTPAR LEFTKEY guardaSalto est functReturn endproc RIGHTKEY'''
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
     #print "FUNCTION ID"
+
+def p_endProc(p):
+    '''endProc : '''
+    endProc()
 
 def p_guardaSalto(p):
     '''guardaSalto : '''
     guardaSalto()
 
+<<<<<<< HEAD
+=======
 def p_endproc(p):
     '''endproc : '''
     endproc()
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
 def p_functReturn(p):
     '''functReturn : RETURN NUMBER generaRet SEMICOLON'''
     #print "RETURN NUMBER"
@@ -162,7 +236,7 @@ def p_altaVarGlobal(p):
     global tipo
     nombreVar = p[-1]
     direccion = set_dir_global(tipo,1)
-    dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global", 'Dir': direccion}
+    dirProc[nombrePrograma]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "global", 'Dir': direccion, 'Dim': None}
     setValueGlobal(direccion,None)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON VARIABLES GLOBALES"
     #print nombreModulo +  " " + str(dirProc)
@@ -173,9 +247,6 @@ def p_declareResursivoEmpty(p):
 def p_declare3Empty(p):
     '''declare3 : empty'''
     
-def p_array(p):
-    '''array : LEFTBRACK exp RIGHTBRACK array'''
-    #print "[]"
 
 def p_arrayEmpty(p):
     '''array : empty'''
@@ -256,7 +327,7 @@ def p_estEmpty(p):
     '''est : empty'''
     
 def p_llamadaAFunct(p):
-    '''llamadaAFunct :  ID cuadERA LEFTPAR llamadaAFunct2 cuadParam gosubCuad  RIGHTPAR'''
+    '''llamadaAFunct :  ID cuadERA LEFTPAR llamadaAFunct2 gosubCuad  generaCuadFunct RIGHTPAR'''
     #print "FUNCT()"
 def p_cuadERA(p):
     '''cuadERA : '''
@@ -274,7 +345,7 @@ def p_llamadaAFunctEmpty(p):
     '''llamadaAFunct : empty'''
 
 def p_llamadaAFunct2(p):
-    '''llamadaAFunct2 : exp llamadaAFunct3'''
+    '''llamadaAFunct2 : exp cuadParam llamadaAFunct3'''
     #print "FUNCT(ID)" 
 
 def p_llamadaAFunct3(p):
@@ -314,10 +385,10 @@ def p_assignmentDeclareEmpty(p):
     '''assignmentDecl : empty'''
 
 def p_declare2Local(p):
-    '''declare2Local : array'''
+    '''declare2Local : array '''
    
 def p_declare3Local(p):
-    '''declare3Local : COMMA ID altaVarLocal assignmentDecl declare3Local '''
+    '''declare3Local : COMMA ID altaVarLocal assignmentDecl declare2Local declare3Local '''
    
 def p_declareResursivoEmptyLocal(p):
     '''declareRecursivoLocal : empty'''
@@ -336,10 +407,14 @@ def p_altaVarLocal(p):
     global dirProc
     global tipo
     global nombreModulo
+<<<<<<< HEAD
+    global nombreVar
+=======
     global temporal
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
     nombreVar = p[-1]
     direccion = set_dir_local(tipo,1)
-    dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion}
+    dirProc[nombreModulo]['Vars'][nombreVar] = {'TipoVar': tipo, 'Scope': "local", 'Dir': direccion, 'Dim': None}
     setValueLocal(direccion,None)
     Info = Direc(nombreVar,nombreModulo,direccion)
     pushInfo(Info)
@@ -357,9 +432,9 @@ def p_assignmentFUNCT(p):
     
     #print "ID = EXP" 
     #print "ID = FUNCT()" 
-# def p_generaCuadFunct(p):
-#     '''generaCuadFunct : '''
-#     generaCuadFunct(p[-4])
+def p_generaCuadFunct(p):
+    '''generaCuadFunct : '''
+    generaCuadFunct(p[-5])
 
 def p_meteVar(p):
     '''meteVar : '''
@@ -451,82 +526,6 @@ def p_while2(p):
 def p_while2Empty(p):
     '''while2 : empty'''
     
-# def p_forClass(p):
-#     '''for : FOR LEFTPAR for2 SEMICOLON for4 SEMICOLON parte3For RIGHTPAR LEFTKEY est RIGHTKEY'''
-#     #print " FOR"
-
-# def p_for2(p):
-#     '''for2 : ID ASSGN cuadFor number generaCuad for3'''
-#     #print "FOR(ID = NUMBER)" 
-
-# def p_cuadFor(p):
-#     '''cuadFor : '''
-#     cuadFor(p[-1], p[-2])
-# def p_for3(p):
-#     '''for3 : COMMA for2'''
-#     #print "FOR(ID = NUMBER, ID = NUMBER)" 
-
-# def p_for3Empty(p):
-#     '''for3 : empty'''
-
-# def p_for4(p):
-#     '''for4 : expFor'''
-
-# def p_parte3ForSUM(p):
-#     '''parte3For : ID meteID ACTINCR meteOper'''
-#     #print "ID++"
-
-# def p_meteID(p):
-#     '''meteID : '''
-#     meteID(p[-1])
-
-# def p_parte3ForMINUS(p):
-#     '''parte3For : ID meteID ACTDECR meteOper'''
-#     #print "ID--"
-
-# def p_parte3ForINCRVAL(p):
-#     '''parte3For : ID meteID ACTINCRVALOR meteOper'''
-#     #print "ID--"
-
-# def p_parte3ForMINUS(p):
-#     '''parte3For : ID meteID ACTDECRVALOR meteOper'''
-#     #print "ID--"
-# def p_expFor(p):
-#     '''expFor : ID meteExp expFor2'''
-
-# def p_expForNumber(p):
-#     '''expFor : number'''
-
-# def p_expFor2(p):
-#     '''expFor2 : LESS meteOper expFor'''
-#     #print "<"
-
-# def p_exprFor2Grtr(p):
-#     '''expFor2 : GRTR meteOper expFor'''
-#     #print ">"
-
-# def p_expFor2Equal(p):
-#     '''expFor2 : EQ meteOper expFor'''
-#     #print "=="
-
-# def p_expFor2NotEq(p):
-#     '''expFor2 : NOTEQ meteOper expFor'''
-#     #print "!="
-
-# def p_expFor2And(p):
-#     '''expFor2 : AND meteOper expFor'''
-#     #print "AND"
-
-# def p_expFor2OR(p):
-#     '''expFor2 : OR meteOper expFor'''
-#     #print "OR"
-
-# def p_expForActCont(p):
-#     '''expFor2 : '''
-
-# def p_expFor2Empty(p):
-#     '''expFor2 : empty'''
-   #AQUI ESTABA EL GENERACUAD AL FINAL
 def p_exp(p):
     '''exp : ID meteExp exp2'''
     #print "ID"
@@ -572,14 +571,27 @@ def p_generaCuad(p):
 def p_expNUMERO(p):
     '''exp : number exp2'''
     
+def p_expArreglo(p):
+    '''exp : arreglo exp2'''
+
+def p_arreglo(p):
+    '''arreglo : ID LEFTBRACK exp cuadVer RIGHTBRACK arreglo '''
+
+def p_cuadVer(p):
+    '''cuadVer : '''
+    lSup = dirProc[nombreModulo]['Vars'][p[-3]]['Dim']['lSup']
+    dire = dirProc[nombreModulo]['Vars'][p[-3]]['Dir']
+    cuadVer(p[-3], lSup, dire)
+
+def p_arregloEmpty(p):
+    '''arreglo : empty'''
 
 def p_meteNum(p):
     '''meteNum : '''
-    global tipo
-    tipo = "int"
+    
     num = p[-1]
     print num
-    quadExp(num,tipo )
+    quadExp(num,"int" )
 
 def p_expVACIA(p):
     '''exp : empty'''
@@ -637,11 +649,20 @@ def p_exp2Empty(p):
     
    
 def p_output(p): 
-    '''output : WRITE LEFTPAR output2 RIGHTPAR SEMICOLON'''
+    '''output : WRITE LEFTPAR output2  RIGHTPAR SEMICOLON'''
     #print "WRITE()"
 
+def p_generaWriteCuad(p):
+    '''generaWriteCuad : '''
+    generaWriteCuad()
+
+
+def p_meteID(p):
+    '''meteID : '''
+    meteID(p[-1])
+
 def p_output2(p):
-    '''output2 : ID output2'''
+    '''output2 : ID meteID generaWriteCuad output2'''
     #print "WRITE(ID)"
 
 def p_output2Quotes(p):
@@ -650,9 +671,14 @@ def p_output2Quotes(p):
 def p_output2Empty(p):
     '''output2 : empty'''
     
+    
 def p_input(p):
-    '''input : READ LEFTPAR ID RIGHTPAR SEMICOLON'''
+    '''input : READ LEFTPAR ID meteID generaReadCuad RIGHTPAR SEMICOLON'''
     #print "READ(ID)" 
+
+def p_generaReadCuad(p):
+    '''generaReadCuad : '''
+    generaReadCuad()
 
 def p_empty(p):
     '''empty :'''
@@ -660,7 +686,11 @@ def p_empty(p):
     pass
 
 def p_circle(p):
-    '''circulo : LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON'''
+    '''circulo : LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON '''
+
+# def p_generaCirculoCuad(p):
+#     '''generaCirculoCuad : '''
+#     generaCirculoCuad
 
 def p_square(p):
     '''cuadro : LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON'''
@@ -707,11 +737,15 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
 #directorio de la compu del trabajo
 #directorio = 'C:/Users/rlicea/Documents/compiladores/Miri/Analysis/test/'
 #directorio de miguel
+<<<<<<< HEAD
+#directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Miri/Analysis/test/'
+=======
 directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Final/Miri/Analysis/test/'
+>>>>>>> 6ba7dd98692a70b015b79c5e424bb81e47449739
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo

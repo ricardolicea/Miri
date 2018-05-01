@@ -1,11 +1,15 @@
 program patito;
 
+funct int iSuma(int iA, int iB){
+    declare 
+    int iResp;
 
 funct int iFunct(int iA){
     declare
     int iRes;
     return iRes;
 }
+
 
 main(){
     declare
