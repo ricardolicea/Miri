@@ -1,6 +1,14 @@
 program salidas;
 
 main(){
-    linea(10, hola, 9, 8, 7, 6);
+
+declare
+int iA, iB, iC;
+iA = 8;
+iB = 8;
+
+iC = iA + iB;
+
+write(iC);
 }
 end;
