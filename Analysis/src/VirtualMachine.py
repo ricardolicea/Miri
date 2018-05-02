@@ -1,3 +1,24 @@
+
+# coding=utf-8
+############################################################
+#Nombre del archivo: VirtualMachine.py
+#Autores: 
+# Ricardo Licea Mata A01280892
+# Miguel Bazan Aviña A01281010
+#
+#Función del archivo:
+#
+# La funcion principal de la maquina virtual es manejar los cuadruplos como 
+# entreada y de aqui partir a generar las operaciones que se necesiten para ejectuar 
+# todo el codigo intermedio. Se lee de memoria y se asigna a memoria.
+#
+# Dependiendo de los parametros que se reciben son las acciones 
+# que se toman para cada uno de los cuadruplos.
+#############################################################
+
+
+
+
 # coding=utf-8
 from cuadruplos import *
 from TurtleGraf import *

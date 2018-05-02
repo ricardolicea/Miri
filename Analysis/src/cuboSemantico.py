@@ -1,3 +1,21 @@
+# coding=utf-8
+############################################################
+#Nombre del archivo: cuboSemantico.py
+#Autores: 
+# Ricardo Licea Mata A01280892
+# Miguel Bazan Aviña A01281010
+#
+#Función del archivo:
+#Este archivo, recibe en sus funciones 3 variables, los 
+# cuales corresponderan a los tipos de datos involucrados en 
+#alguna operación y al operador en si. Dependiento los tipos de datos, 
+# y el operador, regresa el valor de retorno que deberia de tener dicha operación
+#o en su caso, una Key de error especificando que la operación entre esos tipos de datos
+#no es posible.
+#
+#############################################################
+
+
 cuboSemantico = {
     "int": {
         "int": {

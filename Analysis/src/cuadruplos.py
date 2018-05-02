@@ -1,3 +1,19 @@
+# coding=utf-8
+############################################################
+#Nombre del archivo: cuadruplos.py
+#Autores: 
+# Ricardo Licea Mata A01280892
+# Miguel Bazan Aviña A01281010
+#
+#Función del archivo:
+#Este archivo contiene todas las funciones necesarias para las generaciones
+#de los cuadruplos. Va llenando conforme el análisis 
+#va avanzando las pilas de operadores, operandos y saltos,
+#para poder generar el codigo intermedio.
+#
+#
+#############################################################
+
 #from parser import *
 from structs import *
 from cuboSemantico import *
@@ -29,7 +45,7 @@ def pushCuad(cuadruplo):
 
     cuadruplos.append(cuadruplo)
     contSaltos += 1
-    print contSaltos
+    
    
     
     
@@ -71,8 +87,7 @@ def meteAssign(p1,p2):
     pOperadores.push(p1)
     pilaOperandos.push(p2)
     
-    print p1
-    print p2
+  
 
 def quadExp(p1, tipo):
     global pilaOperandos
@@ -116,26 +131,10 @@ def quadOper(p1):
     global pOperadores
 
 
-    # if not (pOperadores.isEmpty()):
-    #     if not(pOperadores.peek() == r'(' or p1 == r')'):
-    #         if(pOperadores.peek() == r'>' or pOperadores.peek() == r'<' or pOperadores.peek() == r'>=' or pOperadores.peek() == r'<=' or pOperadores.peek() == r'==' or pOperadores.peek() == r'!='):
-    #             generaCuadruplo()
-    #         elif(pOperadores.peek() == "and" or pOperadores.peek() == "or"):
-    #             generaCuadruplo()
-    #         elif (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
-    #             generaCuadruplo() 
-    #         elif (pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
-    #             generaCuadruplo()
+   
     
     pOperadores.push(p1)
-    # if(checkOper(p1)):
-    #     pOperadores.push(p1)
-    # else:
-    #     pilaOperandos.push(p1)
-    
-    # if (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
-    #     generaCuadruplo()
-    
+   
 
 def sacaPar():
     pOperadores.pop()
@@ -278,7 +277,7 @@ def cuadVer(p1, lSup, dire, m, dim2):
     s = pilaOperandos.pop()
     generaCuad = Cuadruplo("VER", s,0, lSup)
     pushCuad(generaCuad)
-    #AQUI CAMBIAR EL FORMATO DE DIRECCIONES
+    
     if dim2 == None:
         temp = set_dir_temp('int')
         pilaOperandos.push(temp)
@@ -301,7 +300,7 @@ def cuadVer(p1, lSup, dire, m, dim2):
         pilaOperandos.push(temp)
         generaCuad = Cuadruplo("*", s, m, temp)
         pushCuad(generaCuad)
-    print cuadruplos
+    
 
 def llenaGoto():
     global contSaltos
@@ -324,16 +323,7 @@ def llenaCuadF():
     cuad.temp = contSaltos
     cuadruplos[tempDir] = cuad
 
-# def cuadFor(p1, p2):
-#     global pOperadores
-#     global pilaOperandos
-#     global cuadruplos
-#     if p1 == r'=':
-#         pOperadores.push(p1)
-#         pilaOperandos.push(p2)
-#     else:
-#         pOperadores.push(p2)
-#         pilaOperandos.push(p2)
+
 
 def gotoVCuad():
     global contSaltos
@@ -367,7 +357,7 @@ def quadParam():
 
 def generaRet(p):
     global contSaltos
- #  contSaltos -= 1
+
     generaCuad = Cuadruplo("RETURN", p, None, None)
     pushCuad(generaCuad)
 
@@ -412,18 +402,13 @@ def generaCuadruplo():
                 pushCuad(generaCuad)
                 pilaOperandos.push(temp)
                 pTipos.push(tipoAnsw)
-                # if pOperadores.peek() == r'(':
-                #     pOperadores.pop()
-                print "------------------------------"
-                print "(" + str(operador) + "," + str(operIzq) + "," + str(operDer) + "," + str(temp) +")" 
-                print "------------------------------"
+                
+               
             else:
                 sys.exit("No se puede realizar la operacion")
         else:
             generaCuad = Cuadruplo(operador, operDer, None, operIzq)
             pushCuad(generaCuad)
-            print "------------------------------"
-            print "(" + str(operador) + "," + str(operDer) + ", Null" +  "," + str(operIzq) +")" 
-            print "------------------------------"
+          
     
         

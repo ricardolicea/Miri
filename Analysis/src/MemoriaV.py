@@ -1,4 +1,22 @@
 # coding=utf-8
+############################################################
+#Nombre del archivo: MemoriaV.py
+#Autores: 
+# Ricardo Licea Mata A01280892
+# Miguel Bazan Aviña A01281010
+#
+#Función del archivo:
+#Este archivo corresponde a la asingación de memoria en el compilador.
+#Cuando recibe una variable, arreglo o temporal, dependiento su tipo, 
+#les asigna una dirección numerica que posteriormente es guardada en la tabla de variables 
+#de cada función, asociandola con la variable en cuestion.
+#
+#
+#############################################################
+
+
+
+
 
 #Vectores de direcciones de memoria
 

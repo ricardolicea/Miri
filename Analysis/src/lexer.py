@@ -1,4 +1,21 @@
 # coding=utf-8
+############################################################
+#Nombre del archivo: lexer.py
+#Autores: 
+# Ricardo Licea Mata A01280892
+# Miguel Bazan Aviña A01281010
+#
+#Función del archivo:
+#Este archivo corresponde al analizador léxico del compilador.
+#Define primeramente los tokens y palabras reservadas por el lenguaje.
+#Asi mismo, estan definidas las gramaticas formales para aquellos tokens
+#que esten compuestos por mas de un elemento. Estos tokens, son importados
+#por el analizador sintáctico para su analisis.
+#
+#############################################################
+
+
+# coding=utf-8
 import ply.lex as lex
 import re
 import codecs
@@ -47,11 +64,6 @@ reservadas = {
 
 
 
-#tokens = tokens + list(reservadas.values())
-
-#Tokens definidos
-
-#t_SPACE = r'\D'
 
 t_ignore = ' \t'
 t_ASSGN = r'='
@@ -73,10 +85,6 @@ t_DIVIDE = r'/'
 t_GRTR = r'>'
 t_LESS = r'<'
 t_EQ = r'=='
-# t_ACTINCR = r'\++'
-# t_ACTDECR = r'--'
-# t_ACTINCRVALOR = r'\+='
-# t_ACTDECRVALOR = r'\-='
 t_NOTEQ = r'!='
 t_GRTREQ = r'>='
 t_LESSEQ = r'<='
@@ -115,40 +123,5 @@ def t_error(t):
     print " caracter ilegal '%s'" % t.value[0]
     t.lexer.skip(1)
 
-#Funcion para buscar los archivos de prueba. Su proposito es para debugging
-#def buscarFicheros(directorio):
-#    ficheros = []
-#    numArchivo = ''
-#    respuesta = False
-#    contador = 1
 
- #   for base, dirs, files in os.walk(directorio):
- #       ficheros.append(files)
- #   for file in files: 
- #       print str(contador) + ". " + file
- #       contador = contador + 1
-
- #  while respuesta == False:
-  #      numArchivo = raw_input('\nNumero de test: ')
-  #      for file in files:
-   #         if file == files[int(numArchivo)-1]:
-    #            respuesta = True
-     #           break
-    
-    #print "Has escogido \"%s\" \n" %files[int(numArchivo)-1]
-    #return files[int(numArchivo)-1]
-
-#directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
-#archivo  = buscarFicheros(directorio)
-#test = directorio + archivo
-#fp = codecs.open(test,"r","utf-8")
-#cadena  = fp.read()
-#fp.close()
 analizador = lex.lex()
-#analizador.input(cadena)
-
-
-#while True:
- #   tok = analizador.token()
-  #  if not tok : break
-   # print(tok)
