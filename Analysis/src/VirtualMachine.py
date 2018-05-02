@@ -378,7 +378,7 @@ def operacionAritemtica():
                 tipo = getTypeGlobal(dIzq)
             if not vIzq:
                 cuadActual = c.res - 1
-        elif c.op == 'WRITE'
+        elif c.op == 'WRITE':
             tipo = 0
             for x in Vec:
                 if sc == 0:
