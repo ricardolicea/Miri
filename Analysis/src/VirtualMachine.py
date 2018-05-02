@@ -16,7 +16,7 @@ nombre = 0
 dIzq = 0
 dDcho = 0
 
-# parametros = param(None,None)
+
 
 def MaquinaVirtual(dirProc):
     print "bl"
@@ -362,14 +362,41 @@ def operacionAritemtica():
             sc2 = 0
             dDcho = 0
             dIzq = 0
-        
+        elif c.op == 'GOTOF':
+            tipo = 0
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+                tipo = getTypeLocal(dIzq)
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+                tipo = getTypeGlobal(dIzq)
+            if not vIzq:
+                cuadActual = c.res - 1
+        elif c.op == 'WRITE'
+            tipo = 0
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+                tipo = getTypeLocal(dIzq)
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+                tipo = getTypeGlobal(dIzq)
+            print(vIzq)
 
-        cuadActual += 1
 
-# class param():
-#     def __init__(valor,tipo):
-#         self.valor = valor
-#         self.tipo = tipo            
+        cuadActual += 1    
+            
 
 def RemPar(valor):
     new = valor.replace("(","")

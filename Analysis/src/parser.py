@@ -821,7 +821,7 @@ result = yacc.parse(cadena)
 #traducir(result)
 
 
-MaquinaVirtual(dirProc)
+# MaquinaVirtual(dirProc)
 #print result
 print dirProc
 print pilaOperandos.getElements()
