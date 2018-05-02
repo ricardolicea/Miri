@@ -1,3 +1,20 @@
+# coding=utf-8
+############################################################
+#Nombre del archivo: structs.py
+#Autores: 
+# Ricardo Licea Mata A01280892
+# Miguel Bazan Aviña A01281010
+#
+#Función del archivo:
+#Este archivo corresponde a las estructuras de datos que utilizamos
+#dentro del desarrollo del proyecto. Tiene dos clases:Queue y Stack,
+#que son las estructuras usadas, por ejemplo, en las pilas de Operadores,
+#Operandos y Saltos para generación de codigo intermedio
+#
+#
+#############################################################
+
+
 Vec = []
 
 class Queue():
