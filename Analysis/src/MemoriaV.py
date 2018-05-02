@@ -236,10 +236,6 @@ def set_dir_global(tipo, cant):
     global memGlobalFloat
     global memGlobalBool
     global memGlobalString
-    global memGlobalInt
-    global memGlobalFloat
-    global memGlobalBool
-    global memGlobalString
 
     assignedDir = None
     if tipo == 'int':
