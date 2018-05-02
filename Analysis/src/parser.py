@@ -306,7 +306,19 @@ def p_altaModuloMain(p):
 
 def p_est(p):
     '''est : conditional est '''
-    
+
+def p_estCirculo(p):
+    '''est : circulo est '''
+
+def p_estCuadro(p):
+    '''est : cuadro est '''
+
+def p_estTriangulo(p):
+    '''est : triangulo est '''
+
+def p_estLinea(p):
+    '''est : linea est'''
+
 def p_estVars(p):
     '''est : declareLocal est'''
     
@@ -719,24 +731,44 @@ def p_empty(p):
     pass
 
 def p_circle(p):
-    '''circulo : CIRCLE LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER generaCirculoCuad RIGHTPAR SEMICOLON '''
+    '''circulo : CIRCLE LEFTPAR INTEGER COMMA ID COMMA BOOL COMMA INTEGER COMMA INTEGER generaCirculoCuad RIGHTPAR SEMICOLON '''
+
+def p_circleEmpty(p):
+    '''circulo : empty'''
 
 def p_generaCirculoCuad(p):
     '''generaCirculoCuad : '''
     generaCirculoCuad(p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_square(p):
-    '''cuadro : LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON'''
+    '''cuadro : SQUARE LEFTPAR INTEGER COMMA ID COMMA BOOL COMMA INTEGER COMMA INTEGER generaCuadradoCuad RIGHTPAR SEMICOLON'''
+
+def p_squareEmpty(p):
+    '''cuadro : empty'''
+
+def p_generaCuadradoCuad(p):
+    '''generaCuadradoCuad : '''
+    generaCuadradoCuad(p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_triangle(p):
-    '''triangulo : LEFTPAR INTEGER COMMA INTEGER COMMA INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON'''
+    '''triangulo : TRIANGLE LEFTPAR INTEGER COMMA INTEGER COMMA INTEGER COMMA ID COMMA BOOL COMMA INTEGER COMMA INTEGER COMMA INTEGER generaTrianguloCuad RIGHTPAR SEMICOLON'''
+
+def p_triangleEmpty(p):
+    '''triangulo : empty'''
+
+def p_generaTrianguloCuad(p):
+    '''generaTrianguloCuad : '''
+    generaTrianguloCuad(p[-15], p[-13], p[-11], p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_line(p):
-    '''linea : LEFTPAR INTEGER COMMA STRING COMMA INTEGER COMMA INTEGER COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON'''
+    '''linea : LINE LEFTPAR INTEGER COMMA ID COMMA INTEGER COMMA INTEGER COMMA INTEGER COMMA INTEGER generaCuadLinea RIGHTPAR SEMICOLON'''
 
-def p_rectangle(p):
-    '''rectangulo : LEFTPAR INTEGER COMMA INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON'''
+def p_lineEmpty(p):
+    '''linea : empty'''
 
+def p_generaCuadLinea(p):
+    '''generaCuadLinea : '''
+    generaCuadLinea(p[-11], p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_error(p):
     print("Error de sintxis", p)

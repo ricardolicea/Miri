@@ -9,7 +9,7 @@ import sys
 
 
 #Tokens 
-tokens = ('END','BOOL', 'RETURN','INTEGER', 'DECLARE','INT','FLOAT','STRING','BOOL','VOID','MAIN','IF','ELSE','DO','WHILE','FOR','WRITE','READ','FUNCTION', 'PROGRAM','ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
+tokens = ('END','CIRCLE','LINE','TRIANGLE','SQUARE','BOOL', 'RETURN','INTEGER', 'DECLARE','INT','FLOAT','STRING','BOOL','VOID','MAIN','IF','ELSE','DO','WHILE','FOR','WRITE','READ','FUNCTION', 'PROGRAM','ID','ASSGN',  'TYPE', 'COMMA', 'DOT', 'CYCLE', 
     'COLON', 'SEMICOLON','FLOATNUMB', 'LEFTBRACK', 'RIGHTBRACK', 'LEFTPAR', 'RIGHTPAR', 'LEFTKEY', 'RIGHTKEY', 'QUOTE',
     'SUM', 'OR','AND','ACTINCR', 'ACTINCRVALOR', 'ACTDECRVALOR', 'ACTDECR', 'LEFTBRACK','MINUS', 'MULTP', 'DIVIDE', 'GRTR', 'LESS', 'EQ', 'NOTEQ', 'GRTREQ', 'LESSEQ', 'NUMBER', 'newline', 'SPACE'
 )
@@ -84,7 +84,10 @@ t_INTEGER = r'[\+,-]?\d+'
 t_FLOAT = r'[+,-]?[0-9]+\.[0-9]+((E|e)[+,-]?[0-9]+)?'
 
 
-
+#Funcion para definir la expresion regular de un BOOL
+def t_BOOL(t):
+    r'false|true'
+    return t
 
 #Funcion para definir la expresion regular de un ID
 def t_ID(t):
@@ -98,27 +101,9 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
     
 
-#Funcion para definir la expresion regular de un numero INT
-# def t_INTEGER(t):
-#   r'(?:0[xX]?)?\d+'
-#   # Conversion a int de Python
-#   if t.value.startswith(('0x','0X')):
-#     t.value = int(t.value,16)              
-#   elif t.value.startswith('0'):
-#     t.value = int(t.value,8)
-#   else:
-#     t.value = int(t.value)
-#   return t
 
-# def t_FLOATNUMB(t):
-#   r'(?:(?:\d*\.\d+|\d+\.\d*)(?:[eE][-+]?\d+)?)|(?:\d+[eE][-+]?\d+)'
-#   t.value = float(t.value)               # Conversion a float de Python
-#   return t
 
-#Funcion para definir la expresion regular de un BOOL
-def t_BOOL(t):
-    r'false|true'
-    return t
+
 
 #Funcion para definir la expresion regular de un comentario
 def t_COMMENT(t):

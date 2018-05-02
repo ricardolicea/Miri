@@ -194,20 +194,83 @@ def generaReadCuad():
     generaCuad = Cuadruplo("READ", None, None, pilaOperandos.pop())
     pushCuad(generaCuad)
     
-def generaCirculo(num, caract, boleana, num2, num3):
+def generaCirculoCuad(num, caract, boleana, num2, num3):
     generaCuad = Cuadruplo("PARAM", num, None, None)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo("PARAM", caract, None, None)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo("PARAM", boleana, None, None)
     pushCuad(generaCuad)
-    generaCuad = Cuadruplo("PARAM", num2),  None, None
+    generaCuad = Cuadruplo("PARAM", num2,  None, None)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo("PARAM", num3,  None, None)
     pushCuad(generaCuad)
 
     generaCuad = Cuadruplo("CIRCULO", None, None, None)
     pushCuad(generaCuad)
+
+def generaCuadradoCuad(num, caract, boleana, num2, num3):
+    generaCuad = Cuadruplo("PARAM", num, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", caract, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", boleana, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num2,  None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num3,  None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("CUADRADO", None, None, None)
+    pushCuad(generaCuad)
+
+def generaCuadLinea(num1, caract, num2, num3, num4, num5):
+    generaCuad = Cuadruplo("PARAM", num1, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", caract, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num2, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num3,  None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num4,  None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num5,  None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("LINEA", None,  None, None)
+    pushCuad(generaCuad)
+
+
+
+def generaTrianguloCuad(num, num2, num3, caract, boleana, num4, num5, num6):
+    generaCuad = Cuadruplo("PARAM", num, None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("PARAM", num2, None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("PARAM", num3, None, None)
+    pushCuad(generaCuad)
+    
+    generaCuad = Cuadruplo("PARAM", caract, None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("PARAM", boleana, None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("PARAM", num4,  None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("PARAM", num5,  None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("PARAM", num6,  None, None)
+    pushCuad(generaCuad)
+
+    generaCuad = Cuadruplo("TRIANGULO", None, None, None)
+    pushCuad(generaCuad)
+
 
 def cuadVer(p1, lSup, dire, m, dim2):
     global pilaOperandos
