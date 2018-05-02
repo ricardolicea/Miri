@@ -13,6 +13,9 @@ vectReturn = []
 d = 0
 varGlobalRet = 0
 nombre = 0
+dIzq = 0
+dDcho = 0
+
 # parametros = param(None,None)
 
 def MaquinaVirtual(dirProc):
@@ -22,6 +25,7 @@ def MaquinaVirtual(dirProc):
 def operacionAritemtica():
     sc = 0
     sc2 = 0
+    global dIzq
     global cuadActual
     global cGoSubActual
     global cuadERA
@@ -30,6 +34,7 @@ def operacionAritemtica():
     global d
     global varGlobalRet
     global nombre
+    global dDcho
     cuadMain = cuadruplos[0].res
     
     for c in cuadruplos:
@@ -53,10 +58,11 @@ def operacionAritemtica():
             else:
                 vDcho = fixType(dDcho,getValueLocal(dDcho))
             resultado = vIzq + vDcho
-            setValueTemporal(newres,resultado)
+            setValueTemporal(c.res,resultado)
             sc = 0
             sc2 = 0
-            newres = None
+            dDcho = 0
+            dIzq = 0
         elif c.op == '-':
             newres = int(RemPar(c.res))            
             for x in Vec:
@@ -78,10 +84,11 @@ def operacionAritemtica():
             else:
                 vDcho = fixType(dDcho,getValueLocal(dDcho))
             resultado = vIzq - vDcho
-            setValueTemporal(newres,resultado)
+            setValueTemporal(c.res,resultado)
             sc = 0
             sc2 = 0
-            newres = None
+            dDcho = 0
+            dIzq = 0
         elif c.op == '*':
             for x in Vec:
                 if sc == 0:
@@ -102,10 +109,11 @@ def operacionAritemtica():
             else:
                 vDcho = fixType(dDcho,getValueLocal(dDcho))                
             resultado = vIzq * vDcho
-            setValueTemporal(newres,resultado)
+            setValueTemporal(c.res,resultado)
             sc = 0
             sc2 = 0
-            newres = None
+            dDcho = 0
+            dIzq = 0
         elif c.op == '/':
             for x in Vec:
                 if sc == 0:
@@ -126,10 +134,11 @@ def operacionAritemtica():
             else:
                 vDcho = fixType(dDcho,getValueLocal(dDcho))
             resultado = vIzq / vDcho
-            setValueTemporal(newres,resultado)
+            setValueTemporal(c.res,resultado)
             sc = 0
             sc2 = 0
-            newres = None
+            dDcho = 0
+            dIzq = 0
         elif c.op == '=':
             if '(' in c.opdoIzq:
                 newIzq = int(RemPar(c.opdoIzq))
@@ -193,13 +202,167 @@ def operacionAritemtica():
             else:
                 vIzq = fixType(dIzq,getValueGlobal(dIzq))
             setValueTemporal(dIzq,vIzq)
+            dIzq = 0
         elif c.op == 'ERA':
             vectReturn.append(c.opdoIzq)
             cuadERA = cuadActual
         elif c.op == '>':
-            
-
-
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                if sc2 == 0:
+                    if x.var == c.opdoDer:
+                        sc2 = getScope(x.direccion)
+                        dDcho = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+            if sc2 == 'global':
+                vDcho = fixType(dDcho,getValueGlobal(dDcho))
+            else:
+                vDcho = fixType(dDcho,getValueLocal(dDcho))
+            if vIzq > vDcho:
+                resultado = True
+                setValueTemporal(c.res,resultado)
+            sc = 0
+            sc2 = 0
+            dDcho = 0
+            dIzq = 0
+        elif c.op == '<':
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                if sc2 == 0:
+                    if x.var == c.opdoDer:
+                        sc2 = getScope(x.direccion)
+                        dDcho = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+            if sc2 == 'global':
+                vDcho = fixType(dDcho,getValueGlobal(dDcho))
+            else:
+                vDcho = fixType(dDcho,getValueLocal(dDcho))
+            if vIzq < vDcho:
+                resultado = True
+                setValueTemporal(c.res,resultado)
+            sc = 0
+            sc2 = 0
+            dDcho = 0
+            dIzq = 0
+        elif c.op == '==':
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                if sc2 == 0:
+                    if x.var == c.opdoDer:
+                        sc2 = getScope(x.direccion)
+                        dDcho = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+            if sc2 == 'global':
+                vDcho = fixType(dDcho,getValueGlobal(dDcho))
+            else:
+                vDcho = fixType(dDcho,getValueLocal(dDcho))
+            if vIzq == vDcho:
+                resultado = True
+                setValueTemporal(c.res,resultado)
+            sc = 0
+            sc2 = 0
+            dDcho = 0
+            dIzq = 0
+        elif c.op == '!=':
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                if sc2 == 0:
+                    if x.var == c.opdoDer:
+                        sc2 = getScope(x.direccion)
+                        dDcho = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+            if sc2 == 'global':
+                vDcho = fixType(dDcho,getValueGlobal(dDcho))
+            else:
+                vDcho = fixType(dDcho,getValueLocal(dDcho))
+            if vIzq != vDcho:
+                resultado = True
+                setValueTemporal(c.res,resultado)
+            sc = 0
+            sc2 = 0
+            dDcho = 0
+            dIzq = 0
+        elif c.op == '>=':
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                if sc2 == 0:
+                    if x.var == c.opdoDer:
+                        sc2 = getScope(x.direccion)
+                        dDcho = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+            if sc2 == 'global':
+                vDcho = fixType(dDcho,getValueGlobal(dDcho))
+            else:
+                vDcho = fixType(dDcho,getValueLocal(dDcho))
+            if vIzq >= vDcho:
+                resultado = True
+                setValueTemporal(c.res,resultado)
+            sc = 0
+            sc2 = 0
+            dDcho = 0
+            dIzq = 0
+        elif c.op == '<=':
+            for x in Vec:
+                if sc == 0:
+                    if x.var == c.opdoIzq:
+                        sc = getScope(x.direccion)
+                        dIzq = x.direccion
+                if sc2 == 0:
+                    if x.var == c.opdoDer:
+                        sc2 = getScope(x.direccion)
+                        dDcho = x.direccion
+                        break
+            if sc == 'local':
+                vIzq = fixType(dIzq,getValueLocal(dIzq))
+            else:
+                vIzq = fixType(dIzq,getValueGlobal(dIzq))
+            if sc2 == 'global':
+                vDcho = fixType(dDcho,getValueGlobal(dDcho))
+            else:
+                vDcho = fixType(dDcho,getValueLocal(dDcho))
+            if vIzq <= vDcho:
+                resultado = True
+                setValueTemporal(c.res,resultado)
+            sc = 0
+            sc2 = 0
+            dDcho = 0
+            dIzq = 0
+        
 
         cuadActual += 1
 
