@@ -1,0 +1,5 @@
+program salidas;
+
+main(){
+    circulo(10, hola, true, 5, 0);
+}

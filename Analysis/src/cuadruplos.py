@@ -42,10 +42,9 @@ def checkOper(p):
         return False
 
 def goToMainQuad():
-    global pSaltos
     generaCuad = Cuadruplo("GOTO", "", "", "")
     pushCuad(generaCuad)
-    pSaltos.push(0)
+    
     
 
 def quadAssign(p1, p2, tipo):
@@ -65,6 +64,15 @@ def quadAssign(p1, p2, tipo):
         pilaOperandos.push(p2)
         pTipos.push(tipo)
     
+def meteAssign(p1,p2):
+    global pOperadores
+    global pilaOperandos
+
+    pOperadores.push(p1)
+    pilaOperandos.push(p2)
+    
+    print p1
+    print p2
 
 def quadExp(p1, tipo):
     global pilaOperandos
@@ -88,8 +96,7 @@ def quadExp(p1, tipo):
                 pOperadores.peek() == r'<=' or pOperadores.peek() == r'>='
                 or pOperadores.peek() == r'==' or pOperadores.peek() == r'!='):
                 generaCuadruplo()
-            elif(pOperadores.peek() == 'and' or pOperadores.peek() == 'or'):
-                generaCuadruplo()
+            
     
     #
 def generaCuadFunct(p):
@@ -109,16 +116,16 @@ def quadOper(p1):
     global pOperadores
 
 
-    if not (pOperadores.isEmpty()):
-        if not(pOperadores.peek() == r'(' or p1 == r')'):
-            if(pOperadores.peek() == r'>' or pOperadores.peek() == r'<' or pOperadores.peek() == r'>=' or pOperadores.peek() == r'<=' or pOperadores.peek() == r'==' or pOperadores.peek() == r'!='):
-                generaCuadruplo()
-            elif(pOperadores.peek() == "and" or pOperadores.peek() == "or"):
-                generaCuadruplo()
-            elif (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
-                generaCuadruplo() 
-            elif (pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
-                generaCuadruplo()
+    # if not (pOperadores.isEmpty()):
+    #     if not(pOperadores.peek() == r'(' or p1 == r')'):
+    #         if(pOperadores.peek() == r'>' or pOperadores.peek() == r'<' or pOperadores.peek() == r'>=' or pOperadores.peek() == r'<=' or pOperadores.peek() == r'==' or pOperadores.peek() == r'!='):
+    #             generaCuadruplo()
+    #         elif(pOperadores.peek() == "and" or pOperadores.peek() == "or"):
+    #             generaCuadruplo()
+    #         elif (pOperadores.peek() == r'+' or pOperadores.peek() == r'-'):
+    #             generaCuadruplo() 
+    #         elif (pOperadores.peek() == r'/' or pOperadores.peek() == r'*'):
+    #             generaCuadruplo()
     
     pOperadores.push(p1)
     # if(checkOper(p1)):
@@ -138,15 +145,19 @@ def gotoF():
     global pSaltos
     global pilaOperandos
     global cuadruplos
+    global cuadruplos
     
+    print cuadruplos
     dirExp = pilaOperandos.pop()
     pSaltos.push(contSaltos)
     generaCuad = Cuadruplo("GOTOF",dirExp, None, None)
     pushCuad(generaCuad)
     
-    
+
+
 def endproc():
     generaCuad = Cuadruplo("ENDPROC",None, None, None)
+
     pushCuad(generaCuad)
     
 def gotoCuad():
@@ -156,14 +167,15 @@ def gotoCuad():
     global cuadruplos
     global tempSaltos
 
-    tempSaltos = pSaltos.pop()
+    
     generaCuad = Cuadruplo("GOTO",None, None, None)
-    pSaltos.push(contSaltos)
     pushCuad(generaCuad)
+    cuad = pSaltos.pop()
+    cuadruplos[cuad].res = contSaltos-1
+    pSaltos.push(contSaltos)
+    
 
-    cuad = cuadruplos[tempSaltos]
-    cuad.temp = contSaltos
-    cuadruplos[tempSaltos] = cuad
+   
 
 def cuadERA(p1):
     generaCuad = Cuadruplo('ERA', None, None, p1)
@@ -174,25 +186,58 @@ def generaWriteCuad():
     global cuadruplos
     generaCuad = Cuadruplo("WRITE", None, None, pilaOperandos.pop())
     pushCuad(generaCuad)
-    print cuadruplos
+   
 
 def generaReadCuad():
     global pilaOperandos
     global cuadruplos
     generaCuad = Cuadruplo("READ", None, None, pilaOperandos.pop())
     pushCuad(generaCuad)
-    print cuadruplos
+    
+def generaCirculo(num, caract, boleana, num2, num3):
+    generaCuad = Cuadruplo("PARAM", num, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", caract, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", boleana, None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num2),  None, None
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num3,  None, None)
+    pushCuad(generaCuad)
 
-def cuadVer(p1, lSup, dire):
+    generaCuad = Cuadruplo("CIRCULO", None, None, None)
+    pushCuad(generaCuad)
+
+def cuadVer(p1, lSup, dire, m, dim2):
     global pilaOperandos
     global cuadruplos
     s = pilaOperandos.pop()
     generaCuad = Cuadruplo("VER", s,0, lSup)
     pushCuad(generaCuad)
-    temp = set_dir_temp('int')
-    pilaOperandos.push(temp)
-    generaCuad = Cuadruplo('+', s, dire, temp)
-    pushCuad(generaCuad)
+    #AQUI CAMBIAR EL FORMATO DE DIRECCIONES
+    if dim2 == None:
+        temp = set_dir_temp('int')
+        pilaOperandos.push(temp)
+        generaCuad = Cuadruplo('+', s, dire, temp)
+        pushCuad(generaCuad)
+        
+    elif dim2 == 1:
+        temp = set_dir_temp('int')
+        
+        generaCuad = Cuadruplo("+", pilaOperandos.pop(), m, temp)
+        pilaOperandos.push(temp)
+        pushCuad(generaCuad)
+        temp = set_dir_temp('int')
+        generaCuad = Cuadruplo("+", pilaOperandos.pop(), dire, temp)
+        pushCuad(generaCuad)
+        pilaOperandos.push(temp)
+
+    else:
+        temp = set_dir_temp('int')
+        pilaOperandos.push(temp)
+        generaCuad = Cuadruplo("*", s, m, temp)
+        pushCuad(generaCuad)
     print cuadruplos
 
 def llenaGoto():
@@ -203,8 +248,8 @@ def llenaGoto():
     global tempSaltos
 
     tempSaltos = pSaltos.pop()
-    cuad = cuadruplos[tempSaltos]
-    cuad.temp = contSaltos
+    cuad = cuadruplos[tempSaltos-2]
+    cuad.res = contSaltos - 2
     cuadruplos[tempSaltos] = cuad
 
 def meteSalto():
@@ -216,16 +261,16 @@ def llenaCuadF():
     cuad.temp = contSaltos
     cuadruplos[tempDir] = cuad
 
-def cuadFor(p1, p2):
-    global pOperadores
-    global pilaOperandos
-    global cuadruplos
-    if p1 == r'=':
-        pOperadores.push(p1)
-        pilaOperandos.push(p2)
-    else:
-        pOperadores.push(p2)
-        pilaOperandos.push(p2)
+# def cuadFor(p1, p2):
+#     global pOperadores
+#     global pilaOperandos
+#     global cuadruplos
+#     if p1 == r'=':
+#         pOperadores.push(p1)
+#         pilaOperandos.push(p2)
+#     else:
+#         pOperadores.push(p2)
+#         pilaOperandos.push(p2)
 
 def gotoVCuad():
     global contSaltos
@@ -259,21 +304,23 @@ def quadParam():
 
 def generaRet(p):
     global contSaltos
-    contSaltos -= 1
+ #  contSaltos -= 1
     generaCuad = Cuadruplo("RETURN", p, None, None)
     pushCuad(generaCuad)
 
 def guardaSalto():
-    pSaltos.push(contSaltos)
+    global contSaltos
+    return contSaltos
 
-def gosubCuad(p):
+
+def gosubCuad(p, salto):
     global pOperadores
     global pilaOperandos
     global ultimoSalto
 
-    salto = pSaltos.pop()
+    
     generaCuad = Cuadruplo("GOSUB", None, None, salto)
-    pSaltos.push(salto)
+    
     pushCuad(generaCuad)
     generaCuad = Cuadruplo(pOperadores.pop(),p, None, pilaOperandos.pop())
     pushCuad(generaCuad)
@@ -297,7 +344,7 @@ def generaCuadruplo():
         
             if(tipoAnsw != "Error"):
                 temp = set_dir_temp(tipoAnsw)
-                temp = "(" + str(temp)
+                
                 generaCuad = Cuadruplo(operador, operIzq, operDer, temp)
                 pushCuad(generaCuad)
                 pilaOperandos.push(temp)
@@ -315,6 +362,5 @@ def generaCuadruplo():
             print "------------------------------"
             print "(" + str(operador) + "," + str(operDer) + ", Null" +  "," + str(operIzq) +")" 
             print "------------------------------"
-    else: 
-        print " "
+    
         

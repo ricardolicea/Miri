@@ -1,17 +1,34 @@
-program prueba;
+program tarea1;
+declare
+int iRespuesta;
 
+funct int iSuma(int iX, int iY){
+    declare 
+    int iResp;
+    iResp = iX + iY;
+    return iResp;
+}
 
+funct float fDiv(float fX, float fY){
+    declare
+    float fResp;
+    fResp = fX/fY;
+    return fResp;
+}
 
 main(){
-   declare
-   int bVar, iX, iY;
-
-   if(bVar > 0){
-      iX = iY - 0;
-   }else {
-       iY = iX + bVar;
-   }
-   
-
+    declare
+    int iA, iB, iOpc;
+    float fRes;
+    write(iA);
+    read(iOpc);
+    read(iA);
+    read(iB);
+    if(iOpc == 1){
+        iRespuesta = iSuma(iA, iB);
+    } else {
+        fRes = fDiv(iA,iB);
+    }
+    write(iB);
 }
 end;

@@ -296,6 +296,7 @@ def set_dir_temp(tipoTemp):
     elif tipoTemp == "string":
         assignedTemp = memStringTemp
         memStringTemp += 1
+    assignedTemp = "(" + str(assignedTemp)    
     return assignedTemp
 
 def get_Total_Temp_Int():

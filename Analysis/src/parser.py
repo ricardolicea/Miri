@@ -40,6 +40,7 @@ from VirtualMachine import *
 dirProc = {}
 nombrePrograma = ""
 nombreModulo = ""
+nombreModuloCuad = ""
 varsGlobalesDir = {}
 auxVarsDir = {}
 varsList = {}
@@ -49,6 +50,8 @@ Modulos = []
 nombreVar = ""
 r = 0
 iContMat = 0
+nombreArr = ""
+m1 = 0
 
 def p_program(p):
     '''program : goToMainQuad PROGRAM ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
@@ -113,6 +116,7 @@ def p_getTam(p):
     global r
     global iContMat
     global dirProc
+    global m1
 
     if iContMat == 1:
         tam = int(pilaOperandos.pop())
@@ -140,6 +144,7 @@ def p_getTam(p):
         actMemoria(r, tipoArre, scope)
         print memFloatTemp
         print dirProc
+        iContMat = 0
     else:
         tam = int(pilaOperandos.pop())
         r = 1 * (tam - 0 + 1)
@@ -168,15 +173,18 @@ def p_funct(p):
 
 def p_endProc(p):
     '''endProc : '''
-    endProc()
+    endproc()
 
 def p_guardaSalto(p):
     '''guardaSalto : '''
-    guardaSalto()
+    salto = guardaSalto()
+    dirProc[nombreModulo]['Cuad'] = salto
+    print dirProc
 
 def p_endproc(p):
     '''endproc : '''
     endproc()
+
 def p_functReturn(p):
     '''functReturn : RETURN NUMBER generaRet SEMICOLON'''
     #print "RETURN NUMBER"
@@ -200,7 +208,7 @@ def p_altaModulo(p):
     nombreModulo = p[-1]
     
     #print "-------" + str(nombreModulo)
-    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}}
+    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}, 'Cuad': None}
     Modulos.append(nombreModulo)
     #print "DIRECTORIO DE PROCEDIMIENTOS CON MODULOS"
     #print dirProc
@@ -277,12 +285,14 @@ def p_type2Void(p):
     #print "VOID"
 
 def p_cuerpo(p):
-    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY llenaMain altaModuloMain est RIGHTKEY'''
+    '''cuerpo : MAIN LEFTPAR RIGHTPAR LEFTKEY llenaMain altaModuloMain est endProc RIGHTKEY'''
     #print "MAIN()"
 
 def p_llenaMain(p):
     '''llenaMain : '''
     llenaMain()
+
+
 
 def p_altaModuloMain(p):
     '''altaModuloMain : '''
@@ -321,10 +331,14 @@ def p_estEmpty(p):
     
 def p_llamadaAFunct(p):
     '''llamadaAFunct :  ID cuadERA LEFTPAR llamadaAFunct2 gosubCuad  generaCuadFunct RIGHTPAR'''
-    #print "FUNCT()"
+    
+
 def p_cuadERA(p):
     '''cuadERA : '''
+    global nombreModuloCuad
     cuadERA(p[-1])
+    nombreModuloCuad = p[-1]
+    print nombreModuloCuad
 
 def p_cuadParam(p):
     '''cuadParam : '''
@@ -332,7 +346,10 @@ def p_cuadParam(p):
 
 def p_gosubCuad(p):
     '''gosubCuad : '''
-    gosubCuad(p[-5])
+    global dirProc
+    global NombreModuloCuad
+    salto = dirProc[nombreModuloCuad]['Cuad']
+    gosubCuad(p[-5], salto)
 
 def p_llamadaAFunctEmpty(p):
     '''llamadaAFunct : empty'''
@@ -356,12 +373,15 @@ def p_declareLocal(p):
     #print "declare" 
 
 def p_declareRecursivoLocal(p):
-    '''declareRecursivoLocal : type ID altaVarLocal assignmentDecl declare2Local declare3Local SEMICOLON declareRecursivoLocal'''
+    '''declareRecursivoLocal : type ID  altaVarLocal assignmentDecl declare2Local declare3Local SEMICOLON declareRecursivoLocal'''
     #print "declareRecursivo"
 
 def p_assignmentDeclare(p):
-    '''assignmentDecl : ASSGN exp '''
+    '''assignmentDecl : ASSGN meteAssign exp generaCuad'''
     #print "="
+def p_meteAssign(p):
+    '''meteAssign : '''
+    meteAssign(p[-1], p[-3])
 
 def p_number(p):
     '''number : INTEGER meteNum'''
@@ -413,8 +433,9 @@ def p_altaVarLocal(p):
     #print nombreModulo +  " " + str(dirProc)
 
 def p_assignment(p):
-    '''assignment : ID ASSGN meteVar exp generaCuad SEMICOLON'''
+    '''assignment : ID ASSGN  meteVar exp generaCuad SEMICOLON'''
     #print "ID = EXP" 
+
 
 def p_assignmentFUNCT(p):
     '''assignment : ID ASSGN meteVar llamadaAFunct SEMICOLON'''
@@ -451,12 +472,10 @@ def p_assignmentEmpty(p):
     '''assignment : empty'''
 
 def p_conditional(p):
-    '''conditional : IF LEFTPAR exp debug RIGHTPAR gotoFCuad LEFTKEY est RIGHTKEY gotoCuad conditionalElse '''
+    '''conditional : IF LEFTPAR exp generaCuad RIGHTPAR gotoFCuad LEFTKEY est RIGHTKEY  conditionalElse '''
     #print "IF(){ }"
 
-def p_debug(p):
-    '''debug : '''
-    print "DEBUG"
+
 def p_gotoFCuad(p):
     '''gotoFCuad : '''
     gotoF()
@@ -466,7 +485,7 @@ def p_goToCuad(p):
     gotoCuad()
 
 def p_conditionalElse(p):
-    '''conditionalElse : ELSE LEFTKEY est RIGHTKEY llenaGoto'''
+    '''conditionalElse : gotoCuad ELSE LEFTKEY est RIGHTKEY llenaGoto '''
     #print "ELSE { }"
 
 def p_llenaGoto(p):
@@ -506,14 +525,14 @@ def p_meteSalto(p):
     meteSalto()
 
 def p_whileClass(p):
-    '''while : WHILE LEFTPAR while2 RIGHTPAR gotoFCuad LEFTKEY est RIGHTKEY llenaCuadF '''
+    '''while :  WHILE LEFTPAR while2 RIGHTPAR  gotoFCuad LEFTKEY est RIGHTKEY llenaCuadF '''
     
 def p_llenaCuadF(p):
     '''llenaCuadF : '''
     llenaCuadF()
 
 def p_while2(p):
-    '''while2 : exp while2'''
+    '''while2 : exp '''
     
 def p_while2Empty(p):
     '''while2 : empty'''
@@ -570,13 +589,32 @@ def p_expBool(p):
     '''exp : BOOL exp2'''
 
 def p_arreglo(p):
-    '''arreglo : ID LEFTBRACK exp cuadVer RIGHTBRACK arreglo '''
+    '''arreglo : ID LEFTBRACK exp cuadVer RIGHTBRACK arreglo2 '''
+
+def p_arreglo2(p):
+    '''arreglo2 : LEFTBRACK exp cuadVer2 RIGHTBRACK'''
+
+def p_arreglo2Empty(p):
+    '''arreglo2 : empty'''
 
 def p_cuadVer(p):
     '''cuadVer : '''
+    global nombreArr
+    nombreArr = p[-3]
     lSup = dirProc[nombreModulo]['Vars'][p[-3]]['Dim']['lSup']
     dire = dirProc[nombreModulo]['Vars'][p[-3]]['Dir']
-    cuadVer(p[-3], lSup, dire)
+    m = dirProc[nombreModulo]['Vars'][p[-3]]['Dim']['m']
+    dim2 = dirProc[nombreModulo]['Vars'][p[-3]]['Dim']['dim']
+    cuadVer(p[-3], lSup, dire, m, dim2)
+
+def p_cuadVer2(p):
+    '''cuadVer2 : '''
+    global nombreArr
+    lSup = dirProc[nombreModulo]['Vars'][nombreArr]['Dim']['dim']['lSup']
+    dire = dirProc[nombreModulo]['Vars'][nombreArr]['Dir']
+    m = dirProc[nombreModulo]['Vars'][nombreArr]['Dim']['dim']['m']
+    dim2 = 1
+    cuadVer(nombreArr, lSup, dire, m, dim2)
 
 def p_arregloEmpty(p):
     '''arreglo : empty'''
@@ -641,7 +679,7 @@ def p_exp2DIVIDE(p):
 def p_exp2Empty(p):
     '''exp2 : empty'''
     
-    
+
    
 def p_output(p): 
     '''output : WRITE LEFTPAR output2  RIGHTPAR SEMICOLON'''
@@ -681,11 +719,11 @@ def p_empty(p):
     pass
 
 def p_circle(p):
-    '''circulo : LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON '''
+    '''circulo : CIRCLE LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER generaCirculoCuad RIGHTPAR SEMICOLON '''
 
-# def p_generaCirculoCuad(p):
-#     '''generaCirculoCuad : '''
-#     generaCirculoCuad
+def p_generaCirculoCuad(p):
+    '''generaCirculoCuad : '''
+    generaCirculoCuad(p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_square(p):
     '''cuadro : LEFTPAR INTEGER COMMA STRING COMMA BOOL COMMA INTEGER COMMA INTEGER RIGHTPAR SEMICOLON'''
@@ -743,7 +781,7 @@ test = directorio + archivo
 fp = codecs.open(test,"r","utf-8")
 cadena  = fp.read()
 fp.close()
-#ME LA PELAS
+
 yacc.yacc()
 result = yacc.parse(cadena)
 
