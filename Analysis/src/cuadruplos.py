@@ -177,7 +177,7 @@ def gotoCuad():
 
    
 
-def cuadERA(p1):
+def generaCuadERA(p1):
     generaCuad = Cuadruplo('ERA', None, None, p1)
     pushCuad(generaCuad)
 

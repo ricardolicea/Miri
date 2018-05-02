@@ -58,11 +58,13 @@ def operacionAritemtica():
             else:
                 vDcho = fixType(dDcho,getValueLocal(dDcho))
             resultado = vIzq + vDcho
-            setValueTemporal(c.res,resultado)
+            newres = RemPar(c.res)
+            setValueTemporal(newres,resultado)
             sc = 0
             sc2 = 0
             dDcho = 0
             dIzq = 0
+            vIzq = 0
         elif c.op == '-':
             newres = int(RemPar(c.res))            
             for x in Vec:
@@ -89,6 +91,7 @@ def operacionAritemtica():
             sc2 = 0
             dDcho = 0
             dIzq = 0
+            vIzq = 0
         elif c.op == '*':
             for x in Vec:
                 if sc == 0:
@@ -114,6 +117,7 @@ def operacionAritemtica():
             sc2 = 0
             dDcho = 0
             dIzq = 0
+            vIzq = 0
         elif c.op == '/':
             for x in Vec:
                 if sc == 0:
@@ -160,7 +164,7 @@ def operacionAritemtica():
                             d = x.direccion
                             break
                 if sc == 'local':
-                    setValueLocal(d,c.opdoIzq)
+                    setValueLocal(d,int(c.opdoIzq))
                 elif sc == 'global':
                     setValueGlobal(d,c.opdoIzq)
             elif isinstance(c.opdoIzq,basestring) and c.opdoDer == None and c.res == None: ## es porque es un return
@@ -382,14 +386,14 @@ def operacionAritemtica():
             tipo = 0
             for x in Vec:
                 if sc == 0:
-                    if x.var == c.opdoIzq:
+                    if x.var == c.res:
                         sc = getScope(x.direccion)
                         dIzq = x.direccion
                         break
             if sc == 'local':
                 vIzq = fixType(dIzq,getValueLocal(dIzq))
                 tipo = getTypeLocal(dIzq)
-            else:
+            elif sc == 'global':
                 vIzq = fixType(dIzq,getValueGlobal(dIzq))
                 tipo = getTypeGlobal(dIzq)
             print(vIzq)
@@ -400,5 +404,5 @@ def operacionAritemtica():
 
 def RemPar(valor):
     new = valor.replace("(","")
-    return new
+    return int(new)
 

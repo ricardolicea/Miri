@@ -348,9 +348,10 @@ def p_llamadaAFunct(p):
 def p_cuadERA(p):
     '''cuadERA : '''
     global nombreModuloCuad
-    cuadERA(p[-1])
+    
     nombreModuloCuad = p[-1]
     print nombreModuloCuad
+    generaCuadERA(nombreModuloCuad)
 
 def p_cuadParam(p):
     '''cuadParam : '''
@@ -821,12 +822,12 @@ result = yacc.parse(cadena)
 #traducir(result)
 
 
-# MaquinaVirtual(dirProc)
+MaquinaVirtual(dirProc)
 #print result
-print dirProc
-print pilaOperandos.getElements()
-print pOperadores.getElements()
-print cuadruplos
+# print dirProc
+# print pilaOperandos.getElements()
+# print pOperadores.getElements()
+# print cuadruplos
 # print "-----------------"
 #print VecIntTemp[0]
 # print VecFloatTemp[0]
