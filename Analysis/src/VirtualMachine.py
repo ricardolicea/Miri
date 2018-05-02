@@ -34,7 +34,6 @@ def operacionAritemtica():
     
     for c in cuadruplos:
         if c.op == '+':
-            newres = int(RemPar(c.res))
             for x in Vec:
                 if sc == 0:
                     if x.var == c.opdoIzq:
@@ -84,7 +83,6 @@ def operacionAritemtica():
             sc2 = 0
             newres = None
         elif c.op == '*':
-            newres = int(RemPar(c.res))            
             for x in Vec:
                 if sc == 0:
                     if x.var == c.opdoIzq:
@@ -109,7 +107,6 @@ def operacionAritemtica():
             sc2 = 0
             newres = None
         elif c.op == '/':
-            newres = int(RemPar(c.res))            
             for x in Vec:
                 if sc == 0:
                     if x.var == c.opdoIzq:
@@ -199,7 +196,11 @@ def operacionAritemtica():
         elif c.op == 'ERA':
             vectReturn.append(c.opdoIzq)
             cuadERA = cuadActual
-        elif c.op == 'GOTO':
+        elif c.op == '>':
+            
+
+
+
         cuadActual += 1
 
 # class param():
