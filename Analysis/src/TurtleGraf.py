@@ -1,5 +1,3 @@
-# coding=utf-8
-
 ############################################################
 #Nombre del archivo: TurtleGraf.py
 #Autores: 

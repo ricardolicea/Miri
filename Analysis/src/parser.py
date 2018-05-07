@@ -175,7 +175,11 @@ def p_getTam(p):
 
         actMemoria(r, tipoArre, scope)
         
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> master
 
 def p_declare3(p):
     '''declare3 : COMMA  ID altaVarGlobal declare3 '''
@@ -225,11 +229,16 @@ def p_altaModulo(p):
     nombreModulo = p[-1]
     
     
+<<<<<<< HEAD
     dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}, 'Cuad': None, 'Par': {}}
+=======
+    dirProc[nombreModulo] = {'Tipo': tipo, 'Vars': {}, 'Cuad': None}
+>>>>>>> master
     Modulos.append(nombreModulo)
     
 
 def p_funct2(p):
+<<<<<<< HEAD
     '''funct2 : type ID altaPar funct3'''
     
 
@@ -248,6 +257,14 @@ def p_altaPar(p):
     setValueLocal(direccion,None)
     Info = Direc(nombreVar,nombreModulo,direccion)
     pushInfo(Info)
+=======
+    '''funct2 : type ID altaVarLocal funct3'''
+    
+
+def p_funct3(p):
+    '''funct3 : COMMA type ID  altaVarLocal funct3'''
+   
+>>>>>>> master
 
 def p_funct2Empty(p):
     '''funct2 : empty'''
@@ -500,12 +517,17 @@ def p_meteVar(p):
    
         #Buscar variable en globales
         except KeyError as key:
+<<<<<<< HEAD
             try:
                 temp_dir = dirProc[nombrePrograma]['Vars'][var]['Dir']
                 temp_tipoVar = dirProc[nombrePrograma]['Vars'][var]['TipoVar']
             except KeyError as key:
                 print "Variable no %s esta declarada" %key
                 sys.exit()
+=======
+            print "Variable no %s esta declarada" %key
+            sys.exit()
+>>>>>>> master
     
     quadAssign(eq, var, temp_tipoVar)
 
@@ -612,12 +634,17 @@ def p_meteExp(p):
             temp_tipoVar = dirProc[nombreModulo]['Par'][var]['TipoVar']
         #Buscar variable en globales
         except KeyError as key:
+<<<<<<< HEAD
             try:
                 temp_dir = dirProc[nombrePrograma]['Vars'][var]['Dir']
                 temp_tipoVar = dirProc[nombrePrograma]['Vars'][var]['TipoVar']
             except KeyError as key:
                 print "Variable no %s esta declarada" % key
                 sys.exit()
+=======
+            print "Variable no %s esta declarada" % key
+            sys.exit()
+>>>>>>> master
     
     quadExp(var, temp_tipoVar)
 
@@ -682,6 +709,10 @@ def p_exp2(p):
 
 def p_expr2Grtr(p):
     '''exp2 : GRTR meteOper exp'''
+<<<<<<< HEAD
+=======
+    
+>>>>>>> master
 
 def p_expr2GrtrEq(p):
     '''exp2 : GRTREQ meteOper exp'''
@@ -840,12 +871,19 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
+<<<<<<< HEAD
 #directorio = '/Users/ricardolicea/Desktop/Miri copy/Analysis/test/'
+=======
+directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/MIRI/Analysis/test/'
+>>>>>>> master
 #directorio de la compu del trabajo
 #directorio = '/Users/rlicea/Desktop/Miri copy/Analysis/test/'
 #directorio de miguel
 #directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Final/Miri/Analysis/test/'
+<<<<<<< HEAD
 directorio = '/Users/miguelbazan/Downloads/Miri copy/Analysis/test/'
+=======
+>>>>>>> master
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
 archivo  = buscarFicheros(directorio)
 test = directorio + archivo
@@ -856,6 +894,10 @@ fp.close()
 yacc.yacc()
 result = yacc.parse(cadena)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 #print dirProc
 #MaquinaVirtual(dirProc)
