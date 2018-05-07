@@ -205,7 +205,7 @@ def generaReadCuad():
     generaCuad = Cuadruplo("READ", None, None, pilaOperandos.pop())
     pushCuad(generaCuad)
     
-def generaCirculoCuad(num, caract, boleana, num2, num3):
+def generaCirculoCuad(num, caract, boleana, num2, num3, num4):
     generaCuad = Cuadruplo("PARAM", num, None, None)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo("PARAM", caract, None, None)
@@ -215,12 +215,14 @@ def generaCirculoCuad(num, caract, boleana, num2, num3):
     generaCuad = Cuadruplo("PARAM", num2,  None, None)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo("PARAM", num3,  None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num4, None, None)
     pushCuad(generaCuad)
 
     generaCuad = Cuadruplo("CIRCULO", None, None, None)
     pushCuad(generaCuad)
 
-def generaCuadradoCuad(num, caract, boleana, num2, num3):
+def generaCuadradoCuad(num, caract, boleana, num2, num3, num4):
     generaCuad = Cuadruplo("PARAM", num, None, None)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo("PARAM", caract, None, None)
@@ -230,6 +232,8 @@ def generaCuadradoCuad(num, caract, boleana, num2, num3):
     generaCuad = Cuadruplo("PARAM", num2,  None, None)
     pushCuad(generaCuad)
     generaCuad = Cuadruplo("PARAM", num3,  None, None)
+    pushCuad(generaCuad)
+    generaCuad = Cuadruplo("PARAM", num4, None, None)
     pushCuad(generaCuad)
 
     generaCuad = Cuadruplo("CUADRADO", None, None, None)
@@ -409,6 +413,12 @@ def gosubCuad(p, salto):
     generaCuad = Cuadruplo(pOperadores.pop(),p, None, pilaOperandos.pop())
     pushCuad(generaCuad)
     
+def meteBool(p):
+    global pilaOperandos
+    pilaOperandos.push(p)
+
+def cuadParamFig(p):
+    generaCuad = Cuadruplo("PARAM", )
 
 def generaCuadruplo():
     global pilaOperandos

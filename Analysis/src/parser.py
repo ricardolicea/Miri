@@ -201,6 +201,9 @@ def p_endproc(p):
     '''endproc : '''
     endproc()
 
+def p_functReturnExp(p):
+    '''functReturn : RETURN exp generaRet SEMICOLON'''
+
 def p_functReturn(p):
     '''functReturn : RETURN NUMBER generaRet SEMICOLON'''
     
@@ -367,7 +370,7 @@ def p_estEmpty(p):
     '''est : empty'''
     
 def p_llamadaAFunct(p):
-    '''llamadaAFunct :  ID cuadERA LEFTPAR llamadaAFunct2 gosubCuad  generaCuadFunct RIGHTPAR'''
+    '''llamadaAFunct : ID cuadERA LEFTPAR llamadaAFunct2 gosubCuad  generaCuadFunct RIGHTPAR'''
     
 
 def p_cuadERA(p):
@@ -468,16 +471,16 @@ def p_altaVarLocal(p):
     
 
 
-
-def p_assignment(p):
-    '''assignment : ID ASSGN  meteVar exp generaCuad SEMICOLON'''
-     
-
-
 def p_assignmentFUNCT(p):
     '''assignment : ID ASSGN meteVar llamadaAFunct SEMICOLON'''
-    
-     
+
+def p_assignment(p):
+    '''assignment : ID ASSGN meteVar exp generaCuad SEMICOLON'''
+
+def p_debug(p):
+    '''debug : '''
+    print "debug"  
+  
 def p_generaCuadFunct(p):
     '''generaCuadFunct : '''
     generaCuadFunct(p[-5])
@@ -512,7 +515,7 @@ def p_assignmentEmpty(p):
     '''assignment : empty'''
 
 def p_conditional(p):
-    '''conditional : IF LEFTPAR exp generaCuad RIGHTPAR gotoFCuad LEFTKEY est RIGHTKEY  conditionalElse '''
+    '''conditional : IF LEFTPAR exp generaCuad RIGHTPAR gotoFCuad LEFTKEY debug est RIGHTKEY  conditionalElse '''
     
 
 
@@ -579,7 +582,14 @@ def p_while2(p):
     
 def p_while2Empty(p):
     '''while2 : empty'''
-    
+
+def p_expBool(p):
+    '''exp : BOOL meteBool exp2'''
+
+def p_meteBool(p):
+    '''meteBool : '''
+    meteBool(p[-1])
+
 def p_exp(p):
     '''exp : ID meteExp exp2'''
     
@@ -630,8 +640,7 @@ def p_expNUMERO(p):
 def p_expArreglo(p):
     '''exp : arreglo exp2'''
 
-def p_expBool(p):
-    '''exp : BOOL exp2'''
+
 
 def p_arreglo(p):
     '''arreglo : ID LEFTBRACK exp cuadVer RIGHTBRACK arreglo2 '''
@@ -768,27 +777,27 @@ def p_empty(p):
     pass
 
 def p_circle(p):
-    '''circulo : CIRCLE LEFTPAR INTEGER COMMA ID COMMA BOOL COMMA INTEGER COMMA INTEGER generaCirculoCuad RIGHTPAR SEMICOLON '''
+    '''circulo : CIRCLE cuadERA LEFTPAR ID COMMA ID COMMA ID COMMA ID COMMA ID COMMA ID generaCirculoCuad RIGHTPAR SEMICOLON '''
 
 def p_circleEmpty(p):
     '''circulo : empty'''
 
 def p_generaCirculoCuad(p):
     '''generaCirculoCuad : '''
-    generaCirculoCuad(p[-9], p[-7], p[-5], p[-3], p[-1])
+    generaCirculoCuad(p[-11], p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_square(p):
-    '''cuadro : SQUARE LEFTPAR INTEGER COMMA ID COMMA BOOL COMMA INTEGER COMMA INTEGER generaCuadradoCuad RIGHTPAR SEMICOLON'''
+    '''cuadro : SQUARE cuadERA LEFTPAR ID COMMA ID COMMA ID COMMA ID COMMA ID COMMA ID generaCuadradoCuad RIGHTPAR SEMICOLON'''
 
 def p_squareEmpty(p):
     '''cuadro : empty'''
 
 def p_generaCuadradoCuad(p):
     '''generaCuadradoCuad : '''
-    generaCuadradoCuad(p[-9], p[-7], p[-5], p[-3], p[-1])
+    generaCuadradoCuad(p[-11], p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_triangle(p):
-    '''triangulo : TRIANGLE LEFTPAR INTEGER COMMA INTEGER COMMA INTEGER COMMA ID COMMA BOOL COMMA INTEGER COMMA INTEGER COMMA INTEGER generaTrianguloCuad RIGHTPAR SEMICOLON'''
+    '''triangulo : TRIANGLE cuadERA LEFTPAR ID COMMA ID COMMA ID COMMA ID COMMA ID COMMA ID COMMA ID COMMA ID generaTrianguloCuad RIGHTPAR SEMICOLON'''
 
 def p_triangleEmpty(p):
     '''triangulo : empty'''
@@ -798,7 +807,7 @@ def p_generaTrianguloCuad(p):
     generaTrianguloCuad(p[-15], p[-13], p[-11], p[-9], p[-7], p[-5], p[-3], p[-1])
 
 def p_line(p):
-    '''linea : LINE LEFTPAR INTEGER COMMA ID COMMA INTEGER COMMA INTEGER COMMA INTEGER COMMA INTEGER generaCuadLinea RIGHTPAR SEMICOLON'''
+    '''linea : LINE cuadERA LEFTPAR ID COMMA ID COMMA ID COMMA ID COMMA ID COMMA ID generaCuadLinea RIGHTPAR SEMICOLON'''
 
 def p_lineEmpty(p):
     '''linea : empty'''
@@ -839,11 +848,11 @@ def traducir(result):
 	graphFile.close()
 	print "El programa traducido se guardo en \"graphviztrhee.vz\""
 #directorio de la mac
-#directorio = '/Users/ricardolicea/Desktop/Miri copy/Analysis/test/'
+directorio = '/Users/ricardolicea/OneDrive/Tecnológico de Monterrey/8vo Semestre/EM18 Diseño de Compiladores/Miri/Analysis/test/'
 #directorio de la compu del trabajo
 #directorio = '/Users/rlicea/Desktop/Miri copy/Analysis/test/'
 #directorio de miguel
-directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Final/Miri/Analysis/test/'
+#directorio = '/Users/miguelbazan/Documents/ITC 2014/Semestres/8 Octavo Semestre/Compiladores/Final/Miri/Analysis/test/'
 #directorio = '/Users/miguelbazan/Downloads/Miri copy/Analysis/test/'
 #directorio = '/Users/ricardolicea/Desktop/Analysis/test/'
 archivo  = buscarFicheros(directorio)

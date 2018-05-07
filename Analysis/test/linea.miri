@@ -1,0 +1,18 @@
+program graficas;
+
+main(){
+    declare
+    int iLent, iX, iY, iW, iDeg;
+    string sColor;
+
+    read(iLent);
+    read(sColor);
+    read(iX);
+    read(iY);
+    read(iW);
+    read(iDeg);
+
+    linea(iLent, sColor, iX, iY, iW, iDeg);
+
+}
+end;

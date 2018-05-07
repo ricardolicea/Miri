@@ -3,6 +3,7 @@
 from MemoriaV import *
 import sys
 from structs import *
+from TurtleGraf import *
 
 moduloActual = "main"
 dirProc = "None"
@@ -11,6 +12,18 @@ pFunciones = Stack()
 pRegresar = Stack()
 keys = None
 valorDeReturn = None
+iRadio = None
+sColor = None
+bFill = None
+iX = None
+iY = None
+iTam = None
+iW = None
+iLent = None
+iDeg = None
+iA = None
+iB = None
+iC = None
 
 def quitaPar(valor):
     new = valor.replace("(","")
@@ -35,6 +48,20 @@ def getDireccion(var):
     except KeyError as key:
         try:
             direccion = dirProc[moduloActual]['Par'][var]['Dir']
+        except KeyError as key:
+            try:
+                direccion = dirProc[nombrePrograma]['Vars'][var]['Dir']
+            except KeyError as key:
+                sys.exit()
+    return direccion
+
+def getDireccionMain(var):
+    global nombrePrograma
+    try:
+        direccion = dirProc['main']['Vars'][var]['Dir']
+    except KeyError as key:
+        try:
+            direccion = dirProc['main']['Par'][var]['Dir']
         except KeyError as key:
             try:
                 direccion = dirProc[nombrePrograma]['Vars'][var]['Dir']
@@ -377,6 +404,14 @@ def operacionAritmetica(cuadruplo):
                     setValueGlobal(direccion, valor)
                 elif scope == 'temp':
                     setValueTemporal(direccion, valor) 
+            elif(opdoIzq == 'true' or opdoIzq == 'false'):
+                valor = opdoIzq
+                if scope == 'local':
+                    setValueLocal(direccion, valor)
+                elif scope == 'global':
+                    setValueGlobal(direccion, valor)
+                elif scope == 'temp':
+                    setValueTemporal(direccion, valor) 
             else:
                 direccionIzq = getDireccion(opdoIzq)
                 scope1 = getScope(direccionIzq)
@@ -486,7 +521,23 @@ def resuelveGotoF(cuad, indice):
         return indice
 
 def asignaParametros(cuad):
-        global keys
+    global keys
+    global moduloActual
+    global iRadio
+    global sColor
+    global bFill
+    global iX
+    global iY
+    global iW
+    global iTam
+    global iDeg
+    global iLent
+    global iA
+    global iB 
+    global iC 
+
+
+    if moduloActual != 'circulo' and moduloActual != 'cuadro' and moduloActual != 'linea' and moduloActual != 'triangulo':
         valorAPasar = cuad.opdoIzq
         parAPasar = keys.pop()
         valorAPasar = getDireccion(valorAPasar)
@@ -505,6 +556,292 @@ def asignaParametros(cuad):
             setValueGlobal(dirParametro, valorAPasar)
         elif scopeParametro == 'temp':
             setValueTemporal(dirParametro, valorAPasar)
+    else:
+        if moduloActual == 'circulo':
+            parametro = cuad.opdoIzq
+            if parametro == "iRadio":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iRadio = int(valor)
+            elif parametro == "sColor":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                sColor = valor
+            elif parametro == "bFill":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                if valor == 'true':
+                    bFill = True
+                else: 
+                    bFill = False
+                
+            elif parametro == "iX":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iX = int(valor)
+            elif parametro == "iY":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iY = int(valor)
+            elif parametro == "iW":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iW = int(valor)
+                circulo(iRadio, sColor, bFill, iX, iY, iW)
+        elif moduloActual == 'cuadro':
+            parametro = cuad.opdoIzq
+            if parametro == "iTam":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iTam = int(valor)
+            elif parametro == "sColor":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                sColor = valor
+            elif parametro == "bFill":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                if valor == 'true':
+                    bFill = True
+                else: 
+                    bFill = False
+                
+            elif parametro == "iX":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iX = int(valor)
+            elif parametro == "iY":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iY = int(valor)
+            elif parametro == "iW":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iW = int(valor)
+                square(iTam, sColor, bFill, iX, iY, iW)
+        elif moduloActual == 'linea':
+            parametro = cuad.opdoIzq
+            if parametro == "iLent":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iLent = int(valor)
+            elif parametro == "sColor":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                sColor = valor
+            elif parametro == "iX":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iX = int(valor)
+            elif parametro == "iY":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iY = int(valor)
+            elif parametro == "iW":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iW = int(valor)
+            elif parametro == "iDeg":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iDeg = int(valor)
+                linea(iLent, sColor, iX, iY, iW, iDeg)
+        elif moduloActual == 'triangulo':
+            parametro = cuad.opdoIzq
+            if parametro == "iA":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iA = int(valor)
+            elif parametro == "iB":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iB = int(valor)
+            elif parametro == "iC":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iC = int(valor)
+            elif parametro == "sColor":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                sColor = valor
+            elif parametro == "bFill":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                if valor == "true":
+                    bFill = True
+                else:
+                    bFill = False
+            elif parametro == "iX":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iX = int(valor)
+            elif parametro == "iY":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iY = int(valor)
+            elif parametro == "iW":
+                direccion = getDireccionMain(cuad.opdoIzq)
+                scope = getScope(direccion)
+                if scope == 'local':
+                    valor = getValueLocal(direccion)
+                elif scope == 'global':
+                    valor = getValueGlobal(direccion)
+                elif scope == 'temp':
+                    valor = getValueTemp(direccion)
+                iW = int(valor)
+                triangulo(iA, iB, iC, sColor, bFill, iX, iY, iW)
+
+
         
         
         
@@ -554,7 +891,10 @@ def correMaquina(cuadruplos, direPro, nomProg):
             pFunciones.push(moduloActual)
             pFunciones.push(cuad.res)
             func = pFunciones.peek()
-            keys = dirProc[func]['Par'].keys()
+            if(func != 'circulo' and func != 'cuadro' and func != 'linea' and func != 'triangulo'):
+                keys = dirProc[func]['Par'].keys()
+            else:
+                moduloActual = func
         if cuad.op == 'PARAM':
             asignaParametros(cuad)
         if cuad.op == 'GOSUB':

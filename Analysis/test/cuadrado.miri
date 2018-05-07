@@ -1,0 +1,20 @@
+program graficas;
+
+main(){
+    declare
+    int iTam, iX, iY, iW;
+    string sColor;
+    bool bFill;
+
+    read(iTam);
+    read(sColor);
+    read(bFill);
+    read(iX);
+    read(iY);
+    read(iW);
+
+    cuadro(iTam, sColor, bFill, iX, iY, iW);
+    
+
+}
+end;
