@@ -1,0 +1,22 @@
+program graficas;
+
+main(){
+    declare
+    int iA,iB, iC, iX, iY, iW;
+    string sColor;
+    bool bFill = true;
+
+    read(iA);
+    read(iB);
+    read(iC);
+    read(sColor);
+
+    read(iX);
+    read(iY);
+    read(iW);
+    
+    triangulo(iA, iB, iC, sColor, bFill, iX, iY, iW);
+    
+
+}
+end;

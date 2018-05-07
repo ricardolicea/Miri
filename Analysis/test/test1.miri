@@ -1,34 +1,45 @@
-program tarea1;
-declare
-int iRespuesta;
+program salidas;
 
-funct int iSuma(int iX, int iY){
-    declare 
-    int iResp;
-    iResp = iX + iY;
-    return iResp;
+declare 
+float fRespuesta;
+
+funct float fSuma(float fX, float fY){
+    fRespuesta = fX + fY;
+    return fRespuesta;
 }
 
-funct float fDiv(float fX, float fY){
-    declare
-    float fResp;
-    fResp = fX/fY;
-    return fResp;
+funct float fResta(float fX, float fY){
+    fRespuesta = fX - fY;
+    return fRespuesta;
 }
 
+funct float fMult(float fX, float fY){
+    fRespuesta = fX * fY;
+    return fRespuesta;
+}
+
+funct float fDfv(float fX, float fY){
+    fRespuesta = fX/fY;
+    return fRespuesta;
+}
 main(){
     declare
-    int iA, iB, iOpc;
-    float fRes;
-    write(iA);
-    read(iOpc);
-    read(iA);
-    read(iB);
-    if(iOpc == 1){
-        iRespuesta = iSuma(iA, iB);
-    } else {
-        fRes = fDiv(iA,iB);
-    }
-    write(iB);
+    float fA, fB, fC;
+
+    read(fA);
+    read(fB);
+
+    fC = fSuma(fA,fB);
+    write(fC);
+
+    fC = fResta(fA,fB);
+    write(fC);
+
+    fC = fMult(fA,fB);
+    write(fC);
+
+    fC = fDfv(fA,fB);
+    write(fC);
+    
 }
 end;
