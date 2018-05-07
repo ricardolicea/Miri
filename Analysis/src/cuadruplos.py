@@ -355,10 +355,6 @@ def llenaCuadFWhile():
     pushCuad(generaCuad)
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 
 def gotoVCuad():
     global contSaltos

@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from MemoriaV import *
 import sys
 from structs import *
