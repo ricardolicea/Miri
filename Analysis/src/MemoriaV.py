@@ -200,7 +200,7 @@ def setValueTemporal(dir,value):
 			VecBoolTemp.append(value)
 	else:
 		if len(VecStringTemp) > dir - 12000:
-			VecStringTempp[dir-12000] = value
+			VecStringTemp[dir-12000] = value
 		else:
 			VecStringTemp.append(value)
 

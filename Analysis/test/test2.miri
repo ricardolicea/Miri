@@ -1,6 +1,49 @@
 program salidas;
 
+declare 
+int iRespuesta;
+
+funct int iSuma(int iX, int iY){
+    iRespuesta = iX + iY;
+    return iRespuesta;
+}
+
+funct int iResta(int iX, int iY){
+    iRespuesta = iX - iY;
+    return iRespuesta;
+}
+
+funct int iMult(int iX, int iY){
+    iRespuesta = iX * iY;
+    return iRespuesta;
+}
+
+funct int iDiv(int iX, int iY){
+    iRespuesta = iX/iY;
+    return iRespuesta;
+}
 main(){
-    linea(10, hola, 9, 8, 7, 6);
+    declare
+    int iA, iB, iC;
+
+    read(iA);
+    read(iB);
+
+    iC = iSuma(iA,iB);
+    write(iC);
+
+    iC = iResta(iA,iB);
+    write(iC);
+
+    iC = iMult(iA,iB);
+    write(iC);
+
+    iC = iDiv(iA,iB);
+    write(iC);
+    
 }
 end;
+
+
+
+

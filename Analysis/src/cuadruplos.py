@@ -18,6 +18,7 @@
 from structs import *
 from cuboSemantico import *
 from MemoriaV import *
+
 import sys
 
 pilaOperandos = Stack()
@@ -58,7 +59,7 @@ def checkOper(p):
         return False
 
 def goToMainQuad():
-    generaCuad = Cuadruplo("GOTO", "", "", "")
+    generaCuad = Cuadruplo("GOTOMAIN", "", "", "")
     pushCuad(generaCuad)
     
     
@@ -146,7 +147,7 @@ def gotoF():
     global cuadruplos
     global cuadruplos
     
-    print cuadruplos
+    
     dirExp = pilaOperandos.pop()
     pSaltos.push(contSaltos)
     generaCuad = Cuadruplo("GOTOF",dirExp, None, None)
@@ -158,7 +159,18 @@ def endproc():
     generaCuad = Cuadruplo("ENDPROC",None, None, None)
 
     pushCuad(generaCuad)
-    
+
+def gotoWhileCuad():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+    global cuadruplos
+    print pSaltos
+    cuad = pSaltos.pop()
+    generaCuad = Cuadruplo("GOTO", None, None, cuad)
+    pushCuad(generaCuad)
+
 def gotoCuad():
     global contSaltos
     global pSaltos
@@ -170,7 +182,7 @@ def gotoCuad():
     generaCuad = Cuadruplo("GOTO",None, None, None)
     pushCuad(generaCuad)
     cuad = pSaltos.pop()
-    cuadruplos[cuad].res = contSaltos-1
+    cuadruplos[cuad].res = contSaltos
     pSaltos.push(contSaltos)
     
 
@@ -310,20 +322,43 @@ def llenaGoto():
     global tempSaltos
 
     tempSaltos = pSaltos.pop()
-    cuad = cuadruplos[tempSaltos-2]
-    cuad.res = contSaltos - 2
-    cuadruplos[tempSaltos] = cuad
+    cuad = cuadruplos[tempSaltos-1]
+    cuad.res = contSaltos 
+    cuadruplos[tempSaltos-1] = cuad
+    
 
 def meteSalto():
     pSaltos.push(contSaltos)
 
 def llenaCuadF():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+    global tempSaltos
     tempDir = pSaltos.pop()
     cuad = cuadruplos[tempDir]
-    cuad.temp = contSaltos
+    cuad.res = contSaltos
     cuadruplos[tempDir] = cuad
 
+def llenaCuadFWhile():
+    global contSaltos
+    global pSaltos
+    global pilaOperandos
+    global cuadruplos
+    global tempSaltos
+    tempDir = pSaltos.pop()
+    cuad = cuadruplos[tempDir]
+    cuad.res = contSaltos + 1
+    cuadruplos[tempDir] = cuad
+    generaCuad = Cuadruplo("GOTO", None, None, tempDir-1)
+    pushCuad(generaCuad)
 
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 def gotoVCuad():
     global contSaltos
@@ -377,7 +412,7 @@ def gosubCuad(p, salto):
     pushCuad(generaCuad)
     generaCuad = Cuadruplo(pOperadores.pop(),p, None, pilaOperandos.pop())
     pushCuad(generaCuad)
-    print cuadruplos
+    
 
 def generaCuadruplo():
     global pilaOperandos

@@ -1,0 +1,24 @@
+program FactorialRecursivo;
+
+funct int Factorial(int a){
+
+if (a > 1){
+    return n * Factorial(a-1);
+} else {
+    return 1;
+}
+
+main(){
+
+    declare
+    int n, iRes;
+
+    read(n);
+
+    iRes = Factorial(n);
+
+    write(iRes);
+
+}
+}
+end;

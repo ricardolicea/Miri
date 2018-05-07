@@ -1,0 +1,25 @@
+program Fibonacci;
+
+main(){
+    declare
+    int a,b,c,n;
+    a = 0;
+    b = 1;
+    c = 0;
+    n = 0;
+
+    read(n);
+
+    write(a);
+    write(b);
+
+    c = a + b;
+
+    while(c <= n){
+        write(c);
+        a = b;
+        b = c;
+        c = a + b;
+    }
+}
+end;

@@ -1,0 +1,30 @@
+program FibonacciRecursivo;
+
+funct int fibo(int n){
+
+    if ((n == 1) or (n == 0)){
+
+        return (n);
+
+    } else {
+
+        return (fibo(n-1) + fibo(n-2));
+    }
+}
+
+main (){
+
+    declare
+    int n,i,iRes;
+    i = 0;
+    
+    read(n);
+
+    while(i < n){
+
+        iRes = fibo(i);
+        i = i + 1;
+        write(iRes);
+    }
+}
+end;
