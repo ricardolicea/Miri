@@ -1,0 +1,21 @@
+program Factorial;
+
+main(){
+    
+    declare
+    int n, facotrial, i;
+    i = 1;
+    n = 0;
+    facotrial = 1;
+
+    read(n);
+
+    while(i <= n){
+
+        facotrial = facotrial * i;
+        i = i + 1;
+    }
+
+    write(facotrial);
+}
+end;

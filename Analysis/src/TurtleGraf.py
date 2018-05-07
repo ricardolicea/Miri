@@ -1,3 +1,20 @@
+# coding=utf-8
+
+############################################################
+#Nombre del archivo: TurtleGraf.py
+#Autores: 
+# Ricardo Licea Mata A01280892
+# Miguel Bazan Aviña A01281010
+#
+#Función del archivo:
+#Este archivo corresponde a las llamadas a turtle, un modulo de python
+#que permite mandar a llamar a las funciones, dandoles los parametros necesarios,
+#para generar una salida gráfica. Este archivo, es utilizado por la máquina virtual para
+#generar las salidas gráficas.
+#
+#
+#############################################################
+
 from turtle import *
 
 def square(tam,col,fill,x,y,w):
