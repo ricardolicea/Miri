@@ -72,6 +72,7 @@ iContMat = 0
 nombreArr = ""
 m1 = 0
 
+
 def p_program(p):
     '''program : goToMainQuad PROGRAM ID altaPrograma SEMICOLON program2 cuerpo END SEMICOLON''' 
    
@@ -376,6 +377,7 @@ def p_llamadaAFunct(p):
 def p_cuadERA(p):
     '''cuadERA : '''
     global nombreModuloCuad
+    global vecMemoriaGuardar
     
     nombreModuloCuad = p[-1]
     generaCuadERA(nombreModuloCuad)
@@ -389,7 +391,7 @@ def p_gosubCuad(p):
     global dirProc
     global NombreModuloCuad
     salto = dirProc[nombreModuloCuad]['Cuad']
-    gosubCuad(p[-5], salto)
+    gosubCuad(p[-4], salto)
 
 def p_llamadaAFunctEmpty(p):
     '''llamadaAFunct : empty'''

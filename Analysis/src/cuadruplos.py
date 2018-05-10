@@ -326,8 +326,8 @@ def llenaGoto():
     global tempSaltos
 
     tempSaltos = pSaltos.pop()
-    cuad = cuadruplos[tempSaltos-1]
-    cuad.res = contSaltos 
+    cuad = cuadruplos[tempSaltos - 1]
+    cuad.res = contSaltos - 1
     cuadruplos[tempSaltos-1] = cuad
     
 
@@ -378,7 +378,7 @@ def llenaMain():
     global tempSaltos
 
     cuad = cuadruplos[0]
-    cuad.res = contSaltos
+    cuad.res = contSaltos - 1
     cuadruplos[0] = cuad
 
 def meteID(p1):

@@ -24,7 +24,8 @@ iDeg = None
 iA = None
 iB = None
 iC = None
-
+vecMemoriaGlobal = []
+vecMemoriaLocal = []
 def quitaPar(valor):
     new = valor.replace("(","")
     return int(new)
@@ -311,15 +312,23 @@ def operacionAritmetica(cuadruplo):
             scopeDer = getScope(direccionDer)
             if scopeIzq == 'global': 
                 if scopeDer == 'global':
-                    respuesta = fixType(direccionIzq, getValueGlobal(direccionIzq)) * fixType(direccionDer, getValueGlobal(direccionDer))
+                    vIzq = getValueGlobal(direccionIzq)
+                    vDer = getValueGlobal(direccionDer)
+                    respuesta = fixType(direccionIzq, vIzq) * fixType(direccionDer, vDer)
                 elif scopeDer =='local':
-                    respuesta = fixType(direccionIzq, getValueGlobal(direccionIzq)) * fixType(direccionDer, getValueLocal(direccionDer))
+                    vIzq = getValueGlobal(direccionIzq)
+                    vDer = getValueLocal(direccionDer)
+                    respuesta = fixType(direccionIzq, vIzq) * fixType(direccionDer, vDer)
                 elif scopeDer =='temp':
                     respuesta = fixType(direccionIzq, getValueGlobal(direccionIzq)) * fixType(direccionDer, getValueTemp(direccionDer))
             elif scopeIzq == 'local':
                 if scopeDer == 'global':
-                    respuesta = fixType(direccionIzq, getValueLocal(direccionIzq)) * fixType(direccionDer, getValueGlobal(direccionDer))
+                    vIzq = getValueLocal(direccionIzq)
+                    vDer = getValueGlobal(direccionDer)
+                    respuesta = fixType(direccionIzq, vIzq) * fixType(direccionDer, vDer)
                 elif scopeDer == 'local':
+                    vIzq = getValueLocal(direccionIzq)
+                    vDer = getValueLocalal(direccionDer)
                     respuesta = fixType(direccionIzq, getValueLocal(direccionIzq)) * fixType(direccionDer, getValueLocal(direccionDer))
                 elif scopeIzq == 'local' and scopeDer =='temp':
                     respuesta = fixType(direccionIzq, getValueLocal(direccionIzq)) * fixType(direccionDer, getValueTemp(direccionDer))
@@ -417,16 +426,32 @@ def operacionAritmetica(cuadruplo):
                 scope1 = getScope(direccionIzq)
                 if scope1 == 'local':
                     v = getValueLocal(direccionIzq)
-                    setValueLocal(direccion,v)
+                    if scope == 'global':
+                        setValueGlobal(direccion,v)
+                    elif scope == 'local':
+                        setValueLocal(direccion,v)
+                    else:
+                        setValueTemporal(direccion, v)
                 elif scope1 == 'temp':
                     v = getValueTemp(direccionIzq)
-                    setValueTemporal(direccion,v)
+                    if scope == 'global':
+                        setValueGlobal(direccion,v)
+                    elif scope == 'local':
+                        setValueLocal(direccion,v)
+                    else:
+                        setValueTemporal(direccion, v)
                 else:
                     v = getValueGlobal(direccionIzq)
-                    setValueGlobal(direccion,v)
+                    if scope == 'global':
+                        setValueGlobal(direccion,v)
+                    elif scope == 'local':
+                        setValueLocal(direccion,v)
+                    else:
+                        setValueTemporal(direccion, v)
         else:
             direccion = getDireccion(res)
             scope = getScope(direccion)
+            
             if scope == 'local':
                 setValueLocal(direccion, valorDeReturn)
             elif scope == 'global':
@@ -508,6 +533,11 @@ def resuleveCondicion(cuadruplo):
             setValueTemporal(res,True)
         else:
             setValueTemporal(res, False)
+    if operador == '==':
+        if valorIzq == valorDer:
+            setValueTemporal(res, True)
+        else:
+            setValueTemporal(res, False)
             
 
 
@@ -538,9 +568,13 @@ def asignaParametros(cuad):
 
 
     if moduloActual != 'circulo' and moduloActual != 'cuadro' and moduloActual != 'linea' and moduloActual != 'triangulo':
-        valorAPasar = cuad.opdoIzq
+        if cuad.opdoIzq[0] == '(':
+            valorAPasar = quitaPar(cuad.opdoIzq)
+        else:
+            valorAPasar = cuad.opdoIzq
+            valorAPasar = getDireccion(valorAPasar)
+
         parAPasar = keys.pop()
-        valorAPasar = getDireccion(valorAPasar)
         scopeAPasar = getScope(valorAPasar)
         if scopeAPasar == 'local':
             valorAPasar = getValueLocal(valorAPasar)
@@ -847,6 +881,9 @@ def asignaParametros(cuad):
         
 def resuelveReturn(cuad):
     global valorDeReturn
+    global vecMemoriaGlobal
+    global vecMemoriaLocal
+
     opdoIzq = cuad.opdoIzq
     direccion = getDireccion(opdoIzq)
     scope = getScope(direccion)
@@ -856,6 +893,8 @@ def resuelveReturn(cuad):
         valorDeReturn = getValueGlobal(direccion)
     elif scope == 'temp':
         valorDeReturn = getValueTemp(direccion)
+    VecIntGlobal = vecMemoriaGlobal
+    VecIntLocal = vecMemoriaLocal
     
         
 def correMaquina(cuadruplos, direPro, nomProg):
@@ -864,6 +903,8 @@ def correMaquina(cuadruplos, direPro, nomProg):
     global pFunciones
     global moduloActual
     global keys
+    global vecMemoriaGlobal
+    global vecMemoriaLocal
 
     dirProc = direPro
     nombrePrograma = nomProg
@@ -874,9 +915,9 @@ def correMaquina(cuadruplos, direPro, nomProg):
     while i < cuadLength:
         cuad = cuadruplos[i]
         if cuad.op == 'GOTOMAIN':    
-            i = cuad.res - 1
+            i = int(cuad.res) - 1
         if cuad.op == 'GOTO':
-            i = cuad.res -1
+            i = int(cuad.res) -1
         if cuad.op == '+' or cuad.op == '-' or cuad.op == '/' or cuad.op =='*' or cuad.op == '=':
              operacionAritmetica(cuad)
         if cuad.op == 'WRITE':
@@ -891,6 +932,8 @@ def correMaquina(cuadruplos, direPro, nomProg):
             pFunciones.push(moduloActual)
             pFunciones.push(cuad.res)
             func = pFunciones.peek()
+            vecMemoriaGlobal.append(VecIntGlobal)
+            vecMemoriaLocal.append(VecIntLocal)
             if(func != 'circulo' and func != 'cuadro' and func != 'linea' and func != 'triangulo'):
                 keys = dirProc[func]['Par'].keys()
             else:
@@ -898,14 +941,15 @@ def correMaquina(cuadruplos, direPro, nomProg):
         if cuad.op == 'PARAM':
             asignaParametros(cuad)
         if cuad.op == 'GOSUB':
-            pRegresar.push(i)
-            i = cuad.res - 1
+            pRegresar.push(int(i)+1)
+            i = int(cuad.res) - 1
             moduloActual = pFunciones.pop()
         if cuad.op == 'RETURN':
             resuelveReturn(cuad)
-            i = pRegresar.pop()
+            i = pRegresar.pop() - 1
             moduloActual = pFunciones.pop()
-        i = i + 1    
+        i = i + 1 
+         
         
             
         
