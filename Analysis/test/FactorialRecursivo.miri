@@ -1,13 +1,19 @@
 program FactorialRecursivo;
-
+declare
+    int iAux, iAux2, iResp;
 funct int Factorial(int a){
-
-    if(a>0){
-        Factorial(a - 1);
+    
+    if(a <= 1){
+        iResp = 1;
     } else {
-        a = 0;
+        
+        iResp = a;
+        iAux2 = Factorial(a - 1);
+        iResp = iResp * iAux2;
+       
     }
-    return a
+    return iResp;
+
 }
 
 main(){
